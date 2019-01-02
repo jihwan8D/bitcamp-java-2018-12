@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse' // 이클립스 설정 파일을 생성할 수 있다.
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:26.0-jre'
+    testImplementation 'junit:junit:4.12'
+}
+
+mainClassName = 'ch01.Test02'
