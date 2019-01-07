@@ -33,13 +33,6 @@ public class App2 {
     System.out.printf("암호? %s\n", pass);
     System.out.printf("사진? %s\n", phot);
     System.out.printf("전화? %s\n", pN);
-    /*
-   번호? 1
-    이름? 홍길동
-    이메일? hong@test.com
-    암호? 1111
-    사진? hong.png
-    전화? 1111-2222
-     */
+
   }
 }

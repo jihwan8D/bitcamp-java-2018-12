@@ -22,7 +22,7 @@ public class App {
     System.out.print("총수업시간? ");
     int time = keyboard.nextInt();
     
-    System.out.print("총수업시간? ");
+    System.out.print("일수업시간? ");
     int time2 = keyboard.nextInt();
     keyboard.close();
     /////////////////////////////////////////////////////////
