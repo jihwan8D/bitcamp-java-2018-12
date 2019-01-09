@@ -8,18 +8,34 @@ public class Test05 {
     result = plus(result, 4); // result 변수가 넘어가는 것이 아니라 result 변수의 값이 넘어 간다.
     result = plus(result, 5);
     System.out.println(result);
-
-    result = plus(plus(plus(2 ,3), 4), 5); // 위 코드와 같지만 이 형태를 선호 한다.
+    
+    result = plus(plus(plus(2, 3), 4), 5);
     // 실행 과정
-    // result = plus(plus(5, 4), 5);
+    // result = plus(plus(5, 4),5);
     // result = plus(9, 5);
     // result = 14;
+    //
     System.out.println(result);
-
+    
     System.out.printf("100 + 200 = %d\n", plus(100, 200));
   }
-
+  
   static int plus(int a, int b) {
     return a + b;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
