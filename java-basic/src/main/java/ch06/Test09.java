@@ -6,6 +6,14 @@ public class Test09 {
     int value = 100;
     m1(value);
     System.out.println(value);
+    System.out.println();
+    
+    m1(100 + 15);
+    System.out.println(value);
+    System.out.println();
+    
+    m1(value + 15);
+    System.out.println(value);
   }
 
   static void m1(int value) {
@@ -16,3 +24,4 @@ public class Test09 {
 
 // 위 코드를 보고 로컬 변수를 모두 찾아 그 이름을 나열하라!
 // 답: main() - value, args, m1() - value
+  
