@@ -1,3 +1,4 @@
+// 배열변수 메인변수 통일시키기 와일문 조건 수정하기 y Y 입력수정하기 7
 package bitcamp.lms;
 
 import java.util.Scanner;
@@ -41,25 +42,12 @@ public class App {
       i++;
 
       System.out.println();
-      System.out.println("계속 입력하시겠습니다? (Y/n)");
-
+      System.out.print("계속 입력하시겠습니다? (Y/n) ");
       String yn = kbd.next();
-      System.out.println();
 
-      if(!yn.equals("y") && !yn.equals("Y")) {
-        for(int j = 0; j<i; j++) {
-          System.out.println("번호? " + arr1[j]);
-          System.out.println("수업명? " + arr2[j]);
-          System.out.println("수업내용? " + arr3[j]);
-          System.out.println("시작? " + arr4[j]);
-          System.out.println("종료? " + arr5[j]);
-          System.out.println("총수업시간? " + arr6[j]);
-          System.out.println("일수업시간? " + arr7[j]);
-          System.out.println();
-        }
-        for(int j = 0; j<i; j++) {
-          System.out.printf("%d, %s, %s ~ %s, %d\n", arr1[j], arr2[j], arr4[j], arr5[j], arr6[j]);
-        }
+      System.out.println();
+                                  
+      if(!yn.equals("y") && !yn.equals("Y") && !yn.equals("")) { //if(yn.equalsIgnoreCase("y")); 대소문자 구분안함
         break;
       } else //if (yn.equals("y")||yn.equals("Y")) 
           {
@@ -67,5 +55,10 @@ public class App {
           } 
     }
     kbd.close();
+    int count = 0;
+    while(count < i) {
+      System.out.printf("%d, %-20s, %s ~ %s, %4d\n", arr1[count], arr2[count], arr4[count], arr5[count], arr6[count]);
+      count++;
+    }
   }
 }
