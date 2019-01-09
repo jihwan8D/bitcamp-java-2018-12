@@ -31,10 +31,6 @@ public class App {
       System.out.print("일수업시간? ");
       int dayT = kbd.nextInt();
 
-      System.out.println();
-      System.out.println("계속 입력하시겠습니다? (Y/n)");
-      System.out.println();
-      
       arr1[i] = num;
       arr2[i] = className;
       arr3[i] = classContent;
@@ -44,7 +40,11 @@ public class App {
       arr7[i] = dayT;
       i++;
 
+      System.out.println();
+      System.out.println("계속 입력하시겠습니다? (Y/n)");
+
       String yn = kbd.next();
+      System.out.println();
 
       if(!yn.equals("y") && !yn.equals("Y")) {
         for(int j = 0; j<i; j++) {
@@ -61,9 +61,11 @@ public class App {
           System.out.printf("%d, %s, %s ~ %s, %d\n", arr1[j], arr2[j], arr4[j], arr5[j], arr6[j]);
         }
         break;
-      } else if (yn.equals("y")||yn.equals("Y")) {
-        continue;
-      } 
+      } else //if (yn.equals("y")||yn.equals("Y")) 
+          {
+            continue;
+          } 
     }
+    kbd.close();
   }
 }

@@ -18,14 +18,13 @@ public class App3 {
       System.out.print("수업명? ");
       String className = kbd.next();
 
+      arr1[i] = num;
+      arr2[i] = className;
+      i++;
+
       System.out.println();
       System.out.println("계속 입력하시겠습니다? (Y/n)");
       System.out.println();
-
-      arr1[i] = num;
-      arr2[i] = className;
-
-      i++;
 
       String yn = kbd.next();
 
@@ -43,5 +42,6 @@ public class App3 {
         continue;
       } 
     }
+    kbd.close();
   }
 }

@@ -29,10 +29,6 @@ public class App2 {
       System.out.print("전화? ");
       int totalT = kbd.nextInt();
 
-      System.out.println();
-      System.out.println("계속 입력하시겠습니다? (Y/n)");
-      System.out.println();
-      
       arr1[i] = num;
       arr2[i] = className;
       arr3[i] = classContent;
@@ -41,7 +37,11 @@ public class App2 {
       arr6[i] = totalT;
       i++;
 
+      System.out.println();
+      System.out.println("계속 입력하시겠습니다? (Y/n)");
+      
       String yn = kbd.next();
+      System.out.println();
 
       if(!yn.equals("y") && !yn.equals("Y")) {
         for(int j = 0; j<i; j++) {
@@ -61,5 +61,6 @@ public class App2 {
         continue;
       } 
     }
+    kbd.close();
   }
 }
