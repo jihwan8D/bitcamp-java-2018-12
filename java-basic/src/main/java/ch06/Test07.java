@@ -35,18 +35,3 @@ public class Test07 {
     return sum;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

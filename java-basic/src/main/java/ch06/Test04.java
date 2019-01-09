@@ -18,18 +18,3 @@ public class Test04 {
     return a + b;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,18 +24,3 @@ public class Test05 {
     return a + b;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

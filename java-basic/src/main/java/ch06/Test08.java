@@ -1,7 +1,7 @@
 // 메서드 - 가변 파라미터의 단점
 package ch06;
-
 public class Test08 {
+  
   public static void main(String[] args) {
     compute("홍길동", 100, 100, 90);
     compute("임꺽정");

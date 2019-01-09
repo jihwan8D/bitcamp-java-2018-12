@@ -26,7 +26,7 @@ public class Test10 {
           break; // 현재 소속된 반복문을 나간다.
       }
       System.out.println();
-      a++;
+      a++;  
     }
     System.out.println("-------------------------");
     
@@ -61,16 +61,3 @@ public class Test10 {
     문장3;
   }
  */
-
-
-
-
-
-
-
-
-
-
-
-
-

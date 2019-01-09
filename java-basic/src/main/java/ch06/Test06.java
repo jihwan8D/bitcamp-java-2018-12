@@ -67,18 +67,3 @@ public class Test06 {
     return sum;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

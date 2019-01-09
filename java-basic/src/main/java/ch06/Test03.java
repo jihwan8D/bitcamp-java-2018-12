@@ -30,18 +30,3 @@ public class Test03 {
     return 100;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
