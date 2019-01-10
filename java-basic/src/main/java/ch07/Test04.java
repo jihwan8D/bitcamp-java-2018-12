@@ -14,7 +14,7 @@ public class Test04 {
     float aver;
   }
   
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     
     // 레퍼런스(reference)
     // => 클래스 설계도에 따라 준비된 "메모리의 주소를 담는 변수"

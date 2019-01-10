@@ -12,7 +12,7 @@ public class Test05 {
     float aver;
   }
   
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     
     Score s1 = new Score(); 
 
