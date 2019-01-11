@@ -1,11 +1,12 @@
 package bitcamp.lms;
+import java.sql.Date;
 
 public class Member {
-  
-  int num;
+  int no;
   String name;
   String email;
-  String pw;
-  String pho;
-  String phone;
+  String password;
+  String photo;
+  String tel;
+  Date registeredDate;
 }

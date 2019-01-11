@@ -3,48 +3,60 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App2 {
+
   public static void main(String[] args) {
-    final int LENGTH = 1000;
-    Date registeredDate = new Date(System.currentTimeMillis());
-    Member myMem[] = new Member[LENGTH];
-    Scanner kbd = new Scanner(System.in);
+    
+    Scanner keyboard = new Scanner(System.in);
+
+    final int LENGTH = 10;
+    
+    Member[] members = new Member[LENGTH];
     
     int i = 0;
-
-    for(int j = 0; j < LENGTH; j++) {
-      myMem[j] = new Member();
-    }
-    while(i < LENGTH) {
+    while (i < LENGTH) {
+      Member member = new Member();
+      
       System.out.print("번호? ");
-      myMem[i].num = kbd.nextInt();
+      member.no = Integer.parseInt(keyboard.nextLine());
+      
       System.out.print("이름? ");
-      myMem[i].name = kbd.next();
+      member.name = keyboard.nextLine();
+      
       System.out.print("이메일? ");
-      myMem[i].email = kbd.next();
+      member.email = keyboard.nextLine();
+      
       System.out.print("암호? ");
-      myMem[i].pw = kbd.next();
+      member.password = keyboard.nextLine();
+  
       System.out.print("사진? ");
-      myMem[i].pho = kbd.next();
+      member.photo = keyboard.nextLine();
+  
       System.out.print("전화? ");
-      myMem[i].phone = kbd.next();
-
+      member.tel = keyboard.nextLine();
+  
+      member.registeredDate = new Date(System.currentTimeMillis()); 
+      
+      members[i] = member;
       i++;
-
-      System.out.println();
-      System.out.println("계속 입력하시겠습니다? (Y/n)");
-      String yn = kbd.next();
-      System.out.println();
-
-      if(!yn.equals("y") && !yn.equals("Y")) {
+      
+      System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
+      String answer = keyboard.nextLine().toLowerCase();
+      
+      if (!answer.equals("y") && answer.length() > 0) {
         break;
-      } else{
-        continue;
-      } 
+      }
+
+      System.out.println();
     }
-    kbd.close();
-    for(int j = 0; j<i; j++) {
-      System.out.printf("%d, %s, %s  %s, %s\n", 
-          myMem[j].num, myMem[j].name, myMem[j].email, myMem[j].phone, registeredDate);
+    
+    keyboard.close();
+    
+    System.out.println();
+    
+    for (int j = 0; j < i; j++) {
+      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+          members[j].no, members[j].name, members[j].email, 
+          members[j].tel, members[j].registeredDate);
     }
   }
 }

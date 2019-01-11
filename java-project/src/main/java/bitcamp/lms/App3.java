@@ -3,44 +3,49 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App3 {
+
   public static void main(String[] args) {
-    final int LENGTH = 1000;
-    Scanner kbd = new Scanner(System.in);
-    Date registeredDate = new Date(System.currentTimeMillis());
-    Board[] myBoa = new Board[LENGTH];
-    int viewCount = 0;
+    Scanner keyboard = new Scanner(System.in);
+
+    final int LENGTH = 10;
     
-    for(int j = 0; j < LENGTH; j++) {
-      myBoa[j] = new Board();
-    }
+    Board[] boards = new Board[LENGTH];
     
     int i = 0;
-
-    while(i < LENGTH) {
+    while (i < LENGTH) {
+      Board board = new Board();
+      
       System.out.print("번호? ");
-      myBoa[i].num = kbd.nextInt();
-      System.out.print("수업명? ");
-      myBoa[i].className = kbd.next();
-
-   
+      board.no = Integer.parseInt(keyboard.nextLine());
+      
+      System.out.print("내용? ");
+      board.contents = keyboard.nextLine();
+      
+      board.createdDate = new Date(System.currentTimeMillis()); 
+      
+      board.viewCount = 0;
+      
+      boards[i] = board;
       i++;
-
-      System.out.println();
-      System.out.println("계속 입력하시겠습니다? (Y/n)");
-      System.out.println();
-
-      String yn = kbd.next();
-
-      if(!yn.equals("y") && !yn.equals("Y")) {
-     
-        for(int j = 0; j<i; j++) {
-          System.out.printf("%d, %s, %s %d\n", myBoa[j].num, myBoa[j].className, registeredDate, viewCount);
-        }
+      
+      System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
+      String answer = keyboard.nextLine().toLowerCase();
+      
+      if (!answer.equals("y") && answer.length() > 0) {
         break;
-      } else if (yn.equals("y")||yn.equals("Y")) {
-        continue;
-      } 
+      }
+
+      System.out.println();
     }
-    kbd.close();
+    
+    keyboard.close();
+    
+    System.out.println();
+    
+    // 배열에 입력한 개수만큼 출력한다.
+    for (int j = 0; j < i; j++) {
+      System.out.printf("%3d, %-20s, %s, %d\n", 
+          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
+    }
   }
 }

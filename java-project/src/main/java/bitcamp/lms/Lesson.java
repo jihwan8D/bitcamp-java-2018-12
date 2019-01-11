@@ -1,12 +1,12 @@
 package bitcamp.lms;
+import java.sql.Date;
 
 public class Lesson {
-  
-  int num;
-  String className;
-  String classContent;
-  String start;
-  String end;
-  int totalT;
-  int dayT;
+  int no;
+  String title;
+  String contents;
+  Date startDate;
+  Date endDate;
+  int totalHours;
+  int dayHours;
 }

@@ -1,55 +1,80 @@
 package bitcamp.lms;
+import java.sql.Date;
 import java.util.Scanner;
 
-
 public class App {
+
   public static void main(String[] args) {
-    final int LENGTH = 1000;
-    Lesson[] myLesson = new Lesson[LENGTH];
-    Scanner kbd = new Scanner(System.in);
+
+    Scanner keyboard = new Scanner(System.in);
+
+    final int LENGTH = 10;
+
+    int i = 0;
+    Lesson[] lessons = new Lesson[LENGTH];
     
-    int i =0;
+    System.out.println("명령> ");
+    System.out.println();
     
-    for(int j=0; j<LENGTH; j++) {
-      myLesson[j] = new Lesson();
-    }
-   
-    while(i < LENGTH) {
-      System.out.print("번호? ");
-      myLesson[i].num = kbd.nextInt();
-      System.out.print("수업명? ");
-      myLesson[i].className = kbd.next();
-      System.out.print("수업내용? ");
-      myLesson[i].classContent = kbd.next();
-      System.out.print("시작일? ");
-      myLesson[i].start = kbd.next();
-      System.out.print("종료일? ");
-      myLesson[i].end = kbd.next();
-      System.out.print("총수업시간? ");
-      myLesson[i].totalT = kbd.nextInt();
-      System.out.print("일수업시간? ");
-      myLesson[i].dayT = kbd.nextInt();
+    System.out.print("명령> ");
+    String order = keyboard.nextLine();
+    if (order.equals("/lesson/add")){
+      while (i < LENGTH) {
+        // 클래스로 정의한 새 데이터 타입의 메모리(인스턴스) 만들기
+        Lesson lesson = new Lesson();
 
-      i++;
+        // 사용자가 입력한 값을 메모리에 담는다.
+        System.out.print("번호? ");
+        lesson.no = Integer.parseInt(keyboard.nextLine());
 
-      System.out.println();
-      System.out.print("계속 입력하시겠습니다? (Y/n) ");
-      String yn = kbd.next();
-      System.out.println();
+        System.out.print("수업명? ");
+        lesson.title = keyboard.nextLine();
 
-      if(!yn.equals("y") && !yn.equals("Y") && !yn.equals("")) { //if(yn.equalsIgnoreCase("y")); 대소문자 구분안함
-        break;
-      } else //if (yn.equals("y")||yn.equals("Y")) 
-      {
-        continue;
-      } 
+        System.out.print("설명? ");
+        lesson.contents = keyboard.nextLine();
+
+        System.out.print("시작일? ");
+        lesson.startDate = Date.valueOf(keyboard.nextLine());
+
+        System.out.print("종료일? ");
+        lesson.endDate = Date.valueOf(keyboard.nextLine());
+
+        System.out.print("총수업시간? ");
+        lesson.totalHours = Integer.parseInt(keyboard.nextLine());
+
+        System.out.print("일수업시간? ");
+        lesson.dayHours = Integer.parseInt(keyboard.nextLine());
+
+        // i 번째 배열에 수업 정보를 담고 있는 Lesson 객체(의 주소)를 보관한다.
+        lessons[i] = lesson;
+        i++;
+        System.out.println("저장하였습니다.");
+        System.out.println();
+       
+        System.out.print("명령> ");
+        String inOrder = keyboard.nextLine();
+        if (inOrder.equals("/lesson/add")) {
+          continue;
+        } else if (inOrder.equals("/lesson/list")) {
+          for (int j = 0; j < i; j++) {
+            System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+                lessons[j].no, lessons[j].title, lessons[j].startDate, 
+                lessons[j].endDate, lessons[j].totalHours);
+          }
+          break;
+        } else if (inOrder.equals("quit")) {
+          System.out.println("안녕!");
+          break;
+        } else {
+          System.out.println("실행할 수 없는 명령입니다.");
+          continue;
+        }
+      }
+    } else if (!order.equals("/lesson/list") && !order.equals("quit")){
+      System.out.println("실행할 수 없는 명령입니다.");
     }
-    kbd.close();
-    int count = 0;
-   
-    for(count=0; count<i; count++) {
-      System.out.printf("%d, %-20s, %s ~ %s, %4d\n",  
-          myLesson[count].num,  myLesson[count].className,  myLesson[count].start,  myLesson[count].end,  myLesson[count].totalT);
-    }
+    System.out.println();
+    keyboard.close();
+    System.out.println(); // 빈 줄 출력
   }
 }
