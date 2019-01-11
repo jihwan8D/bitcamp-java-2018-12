@@ -1,5 +1,4 @@
 package bitcamp.lms;
-
 import java.sql.Date;
 
 public class Lesson {
