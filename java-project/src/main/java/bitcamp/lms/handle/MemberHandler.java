@@ -1,7 +1,9 @@
-package bitcamp.lms;
+package bitcamp.lms.handle;
 
 import java.sql.Date;
 import java.util.Scanner;
+import bitcamp.lms.App;
+import bitcamp.lms.domain.Member;
 
 public class MemberHandler {
 
@@ -10,7 +12,7 @@ public class MemberHandler {
 
   static int memberIdx = 0;
 
-  static void listMember() {
+  public static void listMember() {
     for (int j = 0; j < memberIdx; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
           members[j].no, members[j].name, members[j].email, 
@@ -18,7 +20,7 @@ public class MemberHandler {
     }
   }
 
-  static void addmember() {
+  public static void addmember() {
 
     Member member = new Member();
 

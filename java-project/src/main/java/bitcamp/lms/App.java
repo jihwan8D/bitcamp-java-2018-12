@@ -1,13 +1,15 @@
 package bitcamp.lms;
 
-import java.sql.Date;
 import java.util.Scanner;
+import bitcamp.lms.handle.BoardHandler;
+import bitcamp.lms.handle.LessonHandler;
+import bitcamp.lms.handle.MemberHandler;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
-  final static int LENGTH = 10;
+  final public static int LENGTH = 10;
 
   public static void main(String[] args) {
     while (true) {

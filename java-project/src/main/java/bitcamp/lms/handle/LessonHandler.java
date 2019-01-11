@@ -1,7 +1,9 @@
-package bitcamp.lms;
+package bitcamp.lms.handle;
 
 import java.sql.Date;
 import java.util.Scanner;
+import bitcamp.lms.App;
+import bitcamp.lms.domain.Lesson;
 
 public class LessonHandler {
 
@@ -12,7 +14,7 @@ public class LessonHandler {
   static int lessonIdx = 0;
 
   //함수
-  static void addLesson() {
+  public static void addLesson() {
     System.out.print("번호? ");
     lesson.no = Integer.parseInt(keyboard.nextLine());
 
@@ -41,7 +43,7 @@ public class LessonHandler {
     System.out.println("저장하였습니다.");
   }
 
-  static void listLesson() {
+  public static void listLesson() {
     for (int j = 0; j < LessonHandler.lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lessons[j].no, lessons[j].title, lessons[j].startDate, 
