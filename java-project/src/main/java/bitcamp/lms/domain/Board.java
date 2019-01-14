@@ -1,4 +1,4 @@
-package com.eomcs.lms.domain;
+package bitcamp.lms.domain;
 
 import java.sql.Date;
 

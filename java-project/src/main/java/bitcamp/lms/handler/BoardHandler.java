@@ -1,25 +1,19 @@
-package com.eomcs.lms.handler;
+package bitcamp.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.App;
-import com.eomcs.lms.domain.Board;
+import bitcamp.lms.App;
+import bitcamp.lms.domain.Board;
 
 public class BoardHandler {
 
-  public static Scanner keyboard;
+  static final int LENGTH = 10;
 
-  static Board[] boards = new Board[App.LENGTH];
-  static int boardIdx = 0;
+  public Scanner keyboard;
+  Board[] boards = new Board[LENGTH];
+  int boardIdx = 0;
 
-  public static void listBoard() {
-    for (int j = 0; j < boardIdx; j++) {
-      System.out.printf("%3d, %-20s, %s, %d\n", 
-          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
-    }
-  }
-
-  public static void addBard() {
+  public void addBoard() {
     Board board = new Board();
 
     System.out.print("번호? ");
@@ -37,4 +31,12 @@ public class BoardHandler {
 
     System.out.println("저장하였습니다.");
   }
+  
+  public void listBoard() {
+    for (int j = 0; j < boardIdx; j++) {
+      System.out.printf("%3d, %-20s, %s, %d\n", 
+          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
+    }
+  }
+  
 }
