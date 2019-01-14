@@ -1,18 +1,19 @@
-package bitcamp.lms.handle;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
-import bitcamp.lms.App;
-import bitcamp.lms.domain.Member;
+import com.eomcs.lms.App;
+import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-
-  static Scanner keyboard = new Scanner(System.in);
   static Member[] members = new Member[App.LENGTH];
 
-  static int memberIdx = 0;
+  public static Scanner keyboard;
 
+  static int memberIdx = 0;
+  
   public static void listMember() {
+
     for (int j = 0; j < memberIdx; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
           members[j].no, members[j].name, members[j].email, 
@@ -20,8 +21,7 @@ public class MemberHandler {
     }
   }
 
-  public static void addmember() {
-
+  public static void addMember() {
     Member member = new Member();
 
     System.out.print("번호? ");

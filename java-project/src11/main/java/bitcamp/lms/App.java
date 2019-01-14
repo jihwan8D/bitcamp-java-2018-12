@@ -12,8 +12,12 @@ public class App {
   final public static int LENGTH = 10;
 
   public static void main(String[] args) {
+  
     while (true) {
-
+      LessonHandler.keyboard = keyboard;//LessonHandler에 있는 키보드에 App클레스에 있는 키보드값을 넣음
+      MemberHandler.keyboard = keyboard;
+      BoardHandler.keyboard = keyboard;
+      
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
