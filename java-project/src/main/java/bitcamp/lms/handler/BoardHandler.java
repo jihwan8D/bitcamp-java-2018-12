@@ -2,12 +2,11 @@ package bitcamp.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
-import bitcamp.lms.App;
 import bitcamp.lms.domain.Board;
 
 public class BoardHandler {
 
-  static final int LENGTH = 10;
+  final int LENGTH = 10;
 
   public Scanner keyboard;
   Board[] boards = new Board[LENGTH];
@@ -15,7 +14,7 @@ public class BoardHandler {
 
   public void addBoard() {
     Board board = new Board();
-
+    
     System.out.print("번호? ");
     board.no = Integer.parseInt(keyboard.nextLine());
 
