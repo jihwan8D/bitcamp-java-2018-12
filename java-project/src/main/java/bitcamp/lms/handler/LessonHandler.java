@@ -7,22 +7,28 @@ import bitcamp.lms.domain.Lesson;
 public class LessonHandler {
 
   Scanner keyboard;
-
-  final int LENGTH = 10;
-
-  Lesson[] lessons = new Lesson[LENGTH];
-  Lesson lesson = new Lesson();
-
-  int lessonIdx = 0;
+  LessonList list;
   
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
+    list = new LessonList();
   }
   
+  public void listLesson() {
+    Lesson[] lessons = list.toArray();
+    for (Lesson lesson : lessons) {
+      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+          lesson.getNo(), lesson.getTitle(), 
+          lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
+    }
+  }
+
   public void addLesson() {
+    Lesson lesson = new Lesson();
+
     System.out.print("번호? ");
     lesson.setNo(Integer.parseInt(keyboard.nextLine()));
-    
+
     System.out.print("수업명? ");
     lesson.setTitle(keyboard.nextLine());
 
@@ -41,19 +47,8 @@ public class LessonHandler {
     System.out.print("일수업시간? ");
     lesson.setDayHours(Integer.parseInt(keyboard.nextLine()));
 
-    // i 번째 배열에 수업 정보를 담고 있는 Lesson 객체(의 주소)를 보관한다.
-    lessons[lessonIdx] = lesson;
-    lessonIdx++;
+    list.add(lesson);
 
     System.out.println("저장하였습니다.");
   }
-
-  public void listLesson() {
-    for (int j = 0; j < lessonIdx; j++) {
-      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lessons[j].getNo(), lessons[j].getTitle(), lessons[j].getStartDate(), 
-          lessons[j].getEndDate(), lessons[j].getTotalHours());
-    }
-  }
-
 }
