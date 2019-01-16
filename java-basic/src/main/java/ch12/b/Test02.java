@@ -1,4 +1,4 @@
-// 캐슐화(encapsulation)를 적용한 두 번째 예 
+// 캡슐화(encapsulation)를 적용한 두 번째 예 
 package ch12.b;
 
 public class Test02 {
