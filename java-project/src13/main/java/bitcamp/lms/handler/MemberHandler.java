@@ -7,7 +7,7 @@ import bitcamp.lms.domain.Member;
 public class MemberHandler {
 
   //static Scanner keyboard = new Scanner(System.in); // 쓰기는 편한데 메모리 낭비됨. 
-  Scanner keyboard;
+  public static Scanner keyboard;
 
   final int LENGTH = 10;
 
@@ -15,10 +15,6 @@ public class MemberHandler {
 
   int memberIdx = 0;
 
- public MemberHandler(Scanner keyboard){
-    this.keyboard = keyboard;
-  }
- 
   public void addmember() {
 
     Member member = new Member();

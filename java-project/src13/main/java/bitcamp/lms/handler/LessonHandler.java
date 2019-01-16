@@ -6,7 +6,8 @@ import bitcamp.lms.domain.Lesson;
 
 public class LessonHandler {
 
-  Scanner keyboard;
+  //static Scanner keyboard = new Scanner(System.in); // 쓰기는 편한데 메모리 낭비됨. 
+  public static Scanner keyboard;
 
   final int LENGTH = 10;
 
@@ -14,11 +15,8 @@ public class LessonHandler {
   Lesson lesson = new Lesson();
 
   int lessonIdx = 0;
-  
-  public LessonHandler(Scanner keyboard) {
-    this.keyboard = keyboard;
-  }
-  
+
+  //함수
   public void addLesson() {
     System.out.print("번호? ");
     lesson.no = Integer.parseInt(keyboard.nextLine());

@@ -8,13 +8,9 @@ public class BoardHandler {
 
   final int LENGTH = 10;
 
-  Scanner keyboard;
+  public Scanner keyboard;
   Board[] boards = new Board[LENGTH];
   int boardIdx = 0;
-  
-  public BoardHandler(Scanner keyboard){
-    this.keyboard=keyboard;
-  }
 
   public void addBoard() {
     Board board = new Board();

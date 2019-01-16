@@ -10,15 +10,18 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
-    LessonHandler myLesson = new LessonHandler(keyboard);
+    LessonHandler myLesson = new LessonHandler();
+    myLesson.keyboard = keyboard;//LessonHandler에 있는 키보드에 App클레스에 있는 키보드값을 넣음
 
-    MemberHandler myMember = new MemberHandler(keyboard);
+    MemberHandler myMember = new MemberHandler();
+    myMember.keyboard = keyboard;
 
-    BoardHandler myBoard1 = new BoardHandler(keyboard);
-
-    BoardHandler myBoard2 = new BoardHandler(keyboard);
-    
-    BoardHandler myBoard3 = new BoardHandler(keyboard);
+    BoardHandler myBoard1 = new BoardHandler();
+    myBoard1.keyboard = keyboard;
+    BoardHandler myBoard2 = new BoardHandler();
+    myBoard2.keyboard = keyboard;
+    BoardHandler myBoard3 = new BoardHandler();
+    myBoard3.keyboard = keyboard;
 
     while (true) {
 
