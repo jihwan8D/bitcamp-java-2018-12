@@ -6,15 +6,14 @@ import bitcamp.lms.domain.Board;
 public class BoardHandler {
   
   Scanner keyboard;
-  BoardList list;
-  
+  BoardList boardList = new BoardList();
+
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new BoardList(20);
   }
   
   public void listBoard() {
-    Board[] boards = list.toArray();
+    Board[] boards = boardList.toArray();
     
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
@@ -36,7 +35,7 @@ public class BoardHandler {
     
     board.setViewCount(0);
     
-    list.add(board);
+    boardList.add(board);
     
     System.out.println("저장하였습니다.");
   }
