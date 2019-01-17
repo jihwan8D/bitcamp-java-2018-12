@@ -43,20 +43,7 @@ public class App {
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();
         
-      }else if (command.equals("/board3/add")) {
-        boardHandler2.addBoard();
-        
-      } else if (command.equals("/board3/list")) {
-        boardHandler2.listBoard();
-        
-      } 
-      else if (command.equals("/board4/add")) {
-        boardHandler2.addBoard();
-        
-      } else if (command.equals("/board4/list")) {
-        boardHandler2.listBoard();
-        
-      } else if (command.equals("quit")) {
+      }else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
         
