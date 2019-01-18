@@ -5,7 +5,6 @@ import bitcamp.lms.handler.BoardHandler;
 import bitcamp.lms.handler.LessonHandler;
 import bitcamp.lms.handler.MemberHandler;
 
-
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);

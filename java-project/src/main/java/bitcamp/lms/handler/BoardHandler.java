@@ -42,4 +42,15 @@ public class BoardHandler {
     System.out.println("저장하였습니다.");
   }
 
+  public void detailBoard() {
+    
+  }
+  
+  public void updateBoard() {
+    
+  }
+  
+  public void deleteBoard() {
+    
+  }
 }
