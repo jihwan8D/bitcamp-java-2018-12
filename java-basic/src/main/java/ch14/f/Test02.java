@@ -4,7 +4,7 @@ package ch14.f;
 public class Test02 {
 
   public static void main(String[] args) {
-    
+  
     A obj = new B(); // OK
     obj.m1(); // => B.m1()
     //obj.m2(); // 컴파일 오류!
