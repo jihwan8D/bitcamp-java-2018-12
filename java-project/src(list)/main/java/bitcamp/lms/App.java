@@ -5,7 +5,6 @@ import bitcamp.lms.handler.BoardHandler;
 import bitcamp.lms.handler.LessonHandler;
 import bitcamp.lms.handler.MemberHandler;
 
-
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
@@ -44,7 +43,7 @@ public class App {
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();
         
-      } else if (command.equals("quit")) {
+      }else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
         

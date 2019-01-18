@@ -1,5 +1,4 @@
 package bitcamp.lms.handler;
-
 import java.sql.Date;
 import java.util.Scanner;
 import bitcamp.lms.domain.Board;
@@ -7,15 +6,14 @@ import bitcamp.lms.domain.Board;
 public class BoardHandler {
   
   Scanner keyboard;
-  ArrayList<Board> list;
-  
+  BoardList boardList = new BoardList();
+
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new ArrayList<>();
   }
   
   public void listBoard() {
-    Board[] boards = list.toArray(new Board[0]);
+    Board[] boards = boardList.toArray();
     
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
@@ -37,7 +35,7 @@ public class BoardHandler {
     
     board.setViewCount(0);
     
-    list.add(board);
+    boardList.add(board);
     
     System.out.println("저장하였습니다.");
   }

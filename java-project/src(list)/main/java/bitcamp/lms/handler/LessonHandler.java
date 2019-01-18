@@ -7,15 +7,15 @@ import bitcamp.lms.domain.Lesson;
 public class LessonHandler {
 
   Scanner keyboard;
-  ArrayList<Lesson> list;
+  LessonList list;
   
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    list = new ArrayList<>();
+    list = new LessonList();
   }
   
   public void listLesson() {
-    Lesson[] lessons = list.toArray(new Lesson[0]);
+    Lesson[] lessons = list.toArray();
     for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lesson.getNo(), lesson.getTitle(), 
