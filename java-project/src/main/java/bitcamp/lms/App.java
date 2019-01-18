@@ -1,64 +1,64 @@
 package bitcamp.lms;
 
 import java.util.Scanner;
-import bitcamp.lms.handler.BoardHandler;
-import bitcamp.lms.handler.LessonHandler;
-import bitcamp.lms.handler.MemberHandler;
+import java.sql.Date;
 
 public class App {
 
-  static Scanner keyboard = new Scanner(System.in);
-
   public static void main(String[] args) {
-    
-    LessonHandler lessonHandler = new LessonHandler(keyboard);
-    MemberHandler memberHandler = new MemberHandler(keyboard);
-    BoardHandler boardHandler1 = new BoardHandler(keyboard);
-    BoardHandler boardHandler2 = new BoardHandler(keyboard);
-    
-    while (true) {
-      String command = prompt();
+    Scanner keyboard = new Scanner(System.in);
+    int index = 10;
+    int[] no = new int[index];
+    String[] title = new String[index];
+    String[] contents = new String[index];
+    Date[] startDate = new Date[index];
+    Date[] endDate = new Date[index];
+    int[] totalHours = new int[index];
+    int[] dayHours = new int[index];
 
-      if (command.equals("/lesson/add")) {
-        lessonHandler.addLesson();
-        
-      } else if (command.equals("/lesson/list")) {
-        lessonHandler.listLesson();
-      
-      } else if (command.equals("/member/add")) {
-        memberHandler.addMember();
-        
-      } else if (command.equals("/member/list")) {
-        memberHandler.listMember();
-        
-      } else if (command.equals("/board/add")) {
-        boardHandler1.addBoard();
-        
-      } else if (command.equals("/board/list")) {
-        boardHandler1.listBoard();
-        
-      } else if (command.equals("/board2/add")) {
-        boardHandler2.addBoard();
-        
-      } else if (command.equals("/board2/list")) {
-        boardHandler2.listBoard();
-        
-      } else if (command.equals("quit")) {
-        System.out.println("안녕!");
+    String input;
+    int i = 0;
+    
+    int[] arr = new int[index];
+
+    while(true) {
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("수업명? ");
+      title[i] = keyboard.nextLine();
+
+      System.out.print("설명? ");
+      contents[i] = keyboard.nextLine();
+
+      System.out.print("시작일? ");
+      startDate[i] = Date.valueOf(keyboard.nextLine());
+
+      System.out.print("종료일? ");
+      endDate[i] = Date.valueOf(keyboard.nextLine());
+
+      System.out.print("총수업시간? ");
+      totalHours[i] = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("일수업시간? ");
+      dayHours[i] = Integer.parseInt(keyboard.nextLine());
+
+      System.out.println("계속 입력 하시겠니까?");
+      input = keyboard.nextLine();
+
+      i++;
+   
+      if(input.equals("n")) {
+
         break;
-        
-      } else {
-        System.out.println("실행할 수 없는 명령입니다.");
+      } else if(input.equals("y")) {
+
+        continue;  
       }
-      
-      System.out.println(); // 결과 출력 후 빈 줄 출력
     }
-
     keyboard.close();
-  }
-
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
+    for(int j = 0; j<i; j++) {
+      System.out.printf("%d, %s, %s~%s,%d\n", no[j], title[j], startDate[j], endDate[j], totalHours[j]); 
+     }
   }
 }
