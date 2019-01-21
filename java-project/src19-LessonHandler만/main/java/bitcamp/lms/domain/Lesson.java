@@ -1,5 +1,4 @@
 package bitcamp.lms.domain;
-
 import java.sql.Date;
 
 public class Lesson {
@@ -53,4 +52,6 @@ public class Lesson {
   public void setDayHours(int dayHours) {
     this.dayHours = dayHours;
   }
+  
+  
 }

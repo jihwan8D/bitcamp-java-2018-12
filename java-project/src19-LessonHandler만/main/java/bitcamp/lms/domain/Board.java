@@ -1,5 +1,4 @@
 package bitcamp.lms.domain;
-
 import java.sql.Date;
 
 public class Board {
