@@ -9,7 +9,7 @@ public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
-  final public static int LENGTH = 10;
+   public static int LENGTH = 10;
 
  
   
