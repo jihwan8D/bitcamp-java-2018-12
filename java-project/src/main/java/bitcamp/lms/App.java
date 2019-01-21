@@ -1,48 +1,73 @@
 package bitcamp.lms;
 
 import java.util.Scanner;
+import bitcamp.lms.handler.BoardHandler;
+import bitcamp.lms.handler.LessonHandler;
+import bitcamp.lms.handler.MemberHandler;
 
 public class App {
 
-
   static Scanner keyboard = new Scanner(System.in);
 
-  //static int i = 0;
-
   public static void main(String[] args) {
+    
+    LessonHandler lessonHandler = new LessonHandler(keyboard);
+    MemberHandler memberHandler = new MemberHandler(keyboard);
+    BoardHandler boardHandler1 = new BoardHandler(keyboard);
+    BoardHandler boardHandler2 = new BoardHandler(keyboard);
+    
+    while (true) {
+      String command = prompt();
 
-    String qna;
-
-    while(true) {
-      qna = prompt();
-      if(qna.equals("/lesson/add")) {
-        LessonHandler.addLesson();
-        continue;
-      } else if(qna.equals("/lesson/list")) {
-        LessonHandler.listLesson();
-      } else if(qna.equals("/member/add")) {
-        MemberHandler.addMember();
-        continue;
-      } else if(qna.equals("/member/list")) {
-        MemberHandler.listMember();
-      } else if(qna.equals("/board/add")) {
-        BoardHandler.addBoard();
-        continue;
-      } else if(qna.equals("/board/list")) {
-        BoardHandler.listBoard();
-      } else if(qna.equals("quit")) {
+      if (command.equals("/lesson/add")) {
+        lessonHandler.addLesson();
+        
+      } else if (command.equals("/lesson/list")) {
+        lessonHandler.listLesson();
+      
+      }else if (command.equals("/lesson/detail")) {
+        lessonHandler.detailLesson();
+      
+      } else if (command.equals("/lesson/delete")) {
+        lessonHandler.deleteLesson();
+      
+      } else if (command.equals("/lesson/update")) {
+        lessonHandler.updateLesson();
+      
+      } else if (command.equals("/member/add")) {
+        memberHandler.addMember();
+        
+      } else if (command.equals("/member/list")) {
+        memberHandler.listMember();
+        
+      } else if (command.equals("/board/add")) {
+        boardHandler1.addBoard();
+        
+      } else if (command.equals("/board/list")) {
+        boardHandler1.listBoard();
+        
+      } else if (command.equals("/board2/add")) {
+        boardHandler2.addBoard();
+        
+      } else if (command.equals("/board2/list")) {
+        boardHandler2.listBoard();
+        
+      } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
+        
       } else {
-        System.out.println("실행할 수 없는 명령어입니다.");
+        System.out.println("실행할 수 없는 명령입니다.");
       }
+      
+      System.out.println(); // 결과 출력 후 빈 줄 출력
     }
+
+    keyboard.close();
   }
-  ///////////////////////////////////////
-  public static String prompt() {
-    String qna;
+
+  private static String prompt() {
     System.out.print("명령> ");
-    qna = keyboard.nextLine();
-    return qna;
+    return keyboard.nextLine().toLowerCase();
   }
 }
