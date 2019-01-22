@@ -7,7 +7,7 @@ public class My3 implements B {
   public void m1() {
      System.out.println("My3.m1()");
   }
-  
+     
   // 나중에 디폴트로 추가한 메서드
   @Override
   public void m2() {

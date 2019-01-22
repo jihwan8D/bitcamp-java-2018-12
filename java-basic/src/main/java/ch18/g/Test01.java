@@ -11,5 +11,4 @@ public class Test01 {
     // final이다
     // A.V2 = 300; // 컴파일 오류!
   }
-
 }
