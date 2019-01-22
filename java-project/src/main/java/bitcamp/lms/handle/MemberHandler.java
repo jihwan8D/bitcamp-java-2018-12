@@ -6,23 +6,21 @@ import bitcamp.lms.App;
 import bitcamp.lms.domain.Member;
 
 public class MemberHandler {
-
+  ArrayList list = new ArrayList();
   public Scanner keyboard;
 
   public MemberHandler (Scanner keyboard){
     this.keyboard = keyboard;
   }
 
-  Member[] members = new Member[App.LENGTH];
-
-  int memberIdx = 0;
-
   public void listMember() {
-    for (int j = 0; j < memberIdx; j++) {
-      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-          members[j].getNo(), members[j].getName(), members[j].getEmail(), 
-          members[j].getTel(), members[j].getRegisteredDate());
-    }
+    Object[] objs = list.toArray();
+      for(Object obj : objs) {
+        Member member = (Member) obj; 
+        System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+            member.getNo(), member.getName(), member.getEmail(), 
+            member.getTel(), member.getRegisteredDate());
+      }
   }
 
   public void addmember() {
@@ -49,8 +47,7 @@ public class MemberHandler {
 
     member.setRegisteredDate(new Date(System.currentTimeMillis())); 
 
-    members[memberIdx] = member;
-    memberIdx++;
+    list.add(member);
 
     System.out.println("저장하였습니다.");
   }

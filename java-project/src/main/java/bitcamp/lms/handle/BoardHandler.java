@@ -3,17 +3,16 @@ package bitcamp.lms.handle;
 import java.sql.Date;
 import java.util.Scanner;
 import bitcamp.lms.domain.Board;
-import bitcamp.lms.handle.BoardList;
 
 public class BoardHandler {
 
   public Scanner keyboard;
+  ArrayList list = new ArrayList();
 
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
   }
   
-  BoardList boardList = new BoardList();
 
   public void addBoard() {
     Board board = new Board();
@@ -28,13 +27,19 @@ public class BoardHandler {
 
     board.setViewCount(0);
 
-    boardList.add(board);
+    list.add(board);
 
     System.out.println("저장하였습니다.");
   }
 
   public void listBoard() {
-    boardList.toArray();
+    Object[] objs = list.toArray();
+    for(Object obj : objs) {
+      Board board = (Board) obj;
+      System.out.printf("%3d, %-20s, %s, %d\n", 
+          board.getNo(), board.getContents(), 
+          board.getCreatedDate(), board.getViewCount());
+    }
   }
 
 }//////////////////////////
