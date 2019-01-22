@@ -1,4 +1,4 @@
-// 추상 메서드 상
+// 추상 메서드 상속
 package ch17.a;
 
 abstract class My1 extends A{
