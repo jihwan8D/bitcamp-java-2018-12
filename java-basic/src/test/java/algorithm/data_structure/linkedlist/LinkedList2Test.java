@@ -3,7 +3,7 @@ package algorithm.data_structure.linkedlist;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class LinkedListTest {
+public class LinkedList2Test {
 
   @Test
   public void testAdd() {
@@ -61,7 +61,7 @@ public class LinkedListTest {
     list.add(500);
     list.add(600);
     
-    assertEquals(300, list.set(2, 55)); // 리턴받은 변경전 값이랑 300이랑 같냐 / 2번방 값을 55로바꿔라
+    assertEquals(300, list.set(2, 55)); // 값이 같냐 / 2번방 값을 55로바꿔라
     assertEquals(55, list.get(2)); // 새값이랑 맞는지확인
 
     assertEquals(100, list.set(0, 55)); // 값이 같냐 / 2번방 값을 55로바꿔라
