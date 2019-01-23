@@ -1,9 +1,9 @@
 package algorithm.data_structure.linkedlist;
 
 public class LinkedList {
-  Node head;
-  Node tail;
-  int size;
+ protected Node head;
+ protected Node tail;
+ protected int size;
 
   public LinkedList() {
     head = new Node(); // 맨 첫번째 노드의 주소를 head에 넣고 
