@@ -18,7 +18,7 @@ public class ArrayList {
       arr = new Object[DEFAULT_SIZE];
   }
   
-  public Object[] toArray() {
+  public Object[] toArray() { // 데이터 개수 만큼 배열을 만들고 값을 복사하여 리턴
     Object[] list = new Object[this.size];
     for (int i = 0; i < this.size; i++) {
       list[i] = this.arr[i];

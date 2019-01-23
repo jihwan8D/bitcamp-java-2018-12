@@ -6,11 +6,10 @@ public class ArrayList {
   int size = 0;
 
   public Object[] toArray() {
-    Object[] a = new Object[size];
-     for(int i = 0; i < size; i++) {
-       a[i] = arr[i];
-     }
-    return a;
+    /*
+     * Object[] a = new Object[size]; for(int i = 0; i < size; i++) { a[i] = arr[i]; }
+     */
+    return arr;
   }
 
   public void add(Object object) {
