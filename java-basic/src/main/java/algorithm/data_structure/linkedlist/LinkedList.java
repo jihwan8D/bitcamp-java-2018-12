@@ -11,6 +11,7 @@ public class LinkedList {
     size = 0;
   }
 
+  
   // LinkedList는 add() 할 때마다 노드를 만들어 값을 저장하기 때문에 
   // ArrayList 처럼 한 번에 메모리를 준비할 필요가 없다.
   // => 그러나 값 이외에 다음 노드와 이전 노드의 주소를 담기 위해 추가로 메모리를 사용한다.
@@ -140,7 +141,7 @@ public class LinkedList {
 
     if (cursor.prev != null) {
       // 찾은 노드의 이전 노드가 다음 노드를 가리키게 한다.
-      cursor.prev.next = cursor.next;
+      cursor.prev.next  = cursor.next;
     } else {
       // 맨 처음 노드를 삭제할 때
       head = cursor.next;

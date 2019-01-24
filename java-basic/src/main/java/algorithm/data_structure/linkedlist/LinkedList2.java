@@ -61,14 +61,43 @@ public class LinkedList2 {
     return old;
   }
 
+  
+  
+  //////////////////////
   public int insert(int index, Object value) {
 
     return 0;
   }
-
+/////////////////////////////
+  
+  
+  
   public Object remove(int index) {
-
-    return null;
+    if (index < 0 || index >= size)
+      return null;
+    Node cursor = new Node();
+    cursor = head;
+    
+    for(int i = 1; i <= index; i++) {
+      cursor = cursor.next;
+    }
+    
+    
+    if(cursor.prev == null) {
+       head = cursor.next;
+    } else {
+      cursor.prev.next = cursor.next;
+    }
+      
+    cursor.next.prev = cursor.prev;
+    
+    Object old = cursor.value;
+    old = cursor;
+    cursor.value = null;
+    cursor.prev = null;
+    cursor.next = null;
+    size --;
+    return old;
   }
 
 }
