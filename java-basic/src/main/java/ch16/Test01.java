@@ -13,6 +13,11 @@ public class Test01 {
     //String obj = echo(new String("Hello")); // 컴파일 오류!
     String obj = (String) echo(new String("Hello"));
     
+   /* String st = new String();
+    st = (String) echo("Hello"); 
+    위랑 같은 의미
+    */
+    
     // 잘못된 형변환은 컴파일러는 속일 수 있을 지라도, runtime 에서는 오류를 발생시킨다.
     //Integer obj2 = (Integer) echo(new String("Hello")); // 실행 오류!
     

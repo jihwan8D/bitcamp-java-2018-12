@@ -1,5 +1,5 @@
 // 데이터 관리 객체(ArrayList, LinkedList 등)를 사용 규칙을 정의하기
-package bitcamp.lms.util;
+package bitcamp.util;
 
 public interface List<E> {
   Object[] toArray();

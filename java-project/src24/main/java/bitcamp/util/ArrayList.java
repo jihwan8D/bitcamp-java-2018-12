@@ -1,6 +1,7 @@
-package bitcamp.lms.util;
+package bitcamp.util;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayList<E> implements List<E> {
   private static final int DEFAULT_CAPACITY = 10;
@@ -79,26 +80,22 @@ public class ArrayList<E> implements List<E> {
   public int size() {
     return size;
   }
+  /////////////////////////////////////
+  public Iterator<E> iterator() {
 
-  public static void main(String[] args) {
-    ArrayList<String> list = new ArrayList<>();
+    return new Iterator<E>() {
 
-    list.add("aaa");
-    list.add("bbb");
-    list.add("ccc");
-    list.add("ddd");
-    list.add("eee");
-    list.add("fff");
-    list.add("ggg");
+      int index = 0;
 
-    System.out.println(list.size());
-
-    System.out.println(list.remove(3));
-
-    System.out.println(list.size());
-
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println(list.get(i));
-    }
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+      @Override
+      public E next() {
+        return (E) get(index++);
+      }
+    };
   }
+  
 }

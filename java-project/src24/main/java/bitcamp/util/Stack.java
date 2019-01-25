@@ -1,4 +1,4 @@
-package bitcamp.lms.util;
+package bitcamp.util;
 
 //스택에 복제 기능 활성화시키기
 public class Stack<E> implements Cloneable {
@@ -60,5 +60,26 @@ public class Stack<E> implements Cloneable {
       temp.push((E)list[i]);
     }
     return temp;
+  }
+ public Iterator<E> iterator() {
+    
+    return new Iterator<E>() {
+      // 이 클래스는 Stack의 값을 꺼내는 일을 전문적으로 한다.
+      // => 이런 일을 하는 객체를 "Iterator"라 부른다.
+      //
+      int index = 0;
+      
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+      
+      @SuppressWarnings("unchecked")
+      @Override
+      public E next() {
+        int lastIndex = size - 1;
+        return (E) list[lastIndex - (index++)];
+      }
+    };
   }
 }

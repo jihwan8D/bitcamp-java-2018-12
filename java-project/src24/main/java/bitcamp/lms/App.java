@@ -1,16 +1,14 @@
-package bitcamp.lms.lms;
+package bitcamp.lms;
 
 import java.util.Scanner;
-import bitcamp.lms.lms.domain.Board;
-import bitcamp.lms.lms.domain.Lesson;
-import bitcamp.lms.lms.domain.Member;
-import bitcamp.lms.lms.handler.BoardHandler;
-import bitcamp.lms.lms.handler.LessonHandler;
-import bitcamp.lms.lms.handler.MemberHandler;
-import bitcamp.lms.util.ArrayList;
-import bitcamp.lms.util.LinkedList;
-import bitcamp.lms.util.Queue;
-import bitcamp.lms.util.Stack;
+import bitcamp.lms.handler.BoardHandler;
+import bitcamp.lms.handler.LessonHandler;
+import bitcamp.lms.handler.MemberHandler;
+import bitcamp.util.ArrayList;
+import bitcamp.util.Iterator;
+import bitcamp.util.LinkedList;
+import bitcamp.util.Queue;
+import bitcamp.util.Stack;
 
 public class App {
 
@@ -104,10 +102,10 @@ public class App {
         break;
         
       } else if (command.equals("history")) {
-        printCommandHistory();
+        printCommandHistory(commandHistory.iterator());
         
       } else if (command.equals("history2")) {
-        printCommandHistory2();
+        printCommandHistory(commandHistory2.iterator());
         
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
@@ -119,13 +117,11 @@ public class App {
     keyboard.close();
   }
 
-  private static void printCommandHistory() {
+  private static void printCommandHistory(Iterator<String> iterator) {
     try {
-      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
-      Stack<String> temp = commandHistory.clone();
       int count = 0;
-      while (!temp.empty()) {
-        System.out.println(temp.pop());
+      while (iterator.hasNext()) {
+        System.out.println(iterator.next());
         if (++count % 5 == 0) {
           System.out.print(":");
           String input = keyboard.nextLine();
@@ -138,25 +134,6 @@ public class App {
     }
   }
   
-  private static void printCommandHistory2() {
-    try {
-      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
-      Queue<String> temp = commandHistory2.clone();
-      int count = 0;
-      while (!temp.empty()) {
-        System.out.println(temp.poll());
-        if (++count % 5 == 0) {
-          System.out.print(":");
-          String input = keyboard.nextLine();
-          if (input.equalsIgnoreCase("q"))
-            break;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();

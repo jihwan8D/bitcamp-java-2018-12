@@ -1,4 +1,4 @@
-package bitcamp.lms.lms.domain;
+package bitcamp.lms.domain;
 import java.sql.Date;
 
 public class Board implements Cloneable {
