@@ -1,4 +1,4 @@
-package design_pattern.iterator;
+package design_pattern.iterator2;
 
 public class StackIterator<E> implements Iterator<E> {
   // 이 클래스는 Stack의 값을 꺼내는 일을 전문적으로 한다.

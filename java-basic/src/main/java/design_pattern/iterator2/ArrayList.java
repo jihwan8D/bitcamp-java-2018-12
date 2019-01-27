@@ -1,4 +1,4 @@
-package design_pattern.iterator;
+package design_pattern.iterator2;
 
 public class ArrayList<E> {
   

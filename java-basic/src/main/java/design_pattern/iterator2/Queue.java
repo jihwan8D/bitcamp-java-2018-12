@@ -1,5 +1,5 @@
 // 제네릭 적용
-package design_pattern.iterator;
+package design_pattern.iterator2;
 
 import algorithm.data_structure.linkedlist3.LinkedList;
 

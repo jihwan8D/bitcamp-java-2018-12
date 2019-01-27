@@ -1,4 +1,4 @@
-package design_pattern.iterator;
+package design_pattern.iterator2;
 
 public class ArrayListIterator<E> implements Iterator<E> {
   // 이 클래스는 ArrayList에서 값을 꺼내주는 일을 전문적으로 한다.
