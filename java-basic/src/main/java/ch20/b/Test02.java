@@ -13,7 +13,7 @@ public class Test02 {
     stack.push("bbb");
     stack.push("ccc");
    
-    while(!stack.empty()) {
+    while(!stack.empty()) { // empty => stack이 0인지 확인 한다.
       System.out.println(stack.pop());  
     }
   }
