@@ -12,8 +12,10 @@ public class Test01 {
     // => 일관된 사용을 위해 인터페이스로 호출 규칙을 정의한다.
     // => 나중에 명령어가 추가되면 그 명령어를 처리할 클래스를 추가하면 된다.
     //
+    BoardAddCommand myBoard = new BoardAddCommand();
+    
     HashMap<String, Command> commandMap = new HashMap<>();
-    commandMap.put("/board/add", new BoardAddCommand());
+    commandMap.put("/board/add", myBoard);
     commandMap.put("/board/delete", new BoardDeleteCommand());
     commandMap.put("/board/detail", new BoardDetailCommand());
     commandMap.put("/board/list", new BoardListCommand());

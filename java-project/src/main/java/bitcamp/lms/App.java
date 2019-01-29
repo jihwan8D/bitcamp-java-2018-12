@@ -93,8 +93,6 @@ public class App {
             System.out.printf("작업 중 오류 발생: %s\n",e.toString());
           }
         }
-        else 
-          commandHandler.execute(); // 이 규칙을 따른 클래스에 대한 execute가옴
       }
 
       System.out.println(); // 결과 출력 후 빈 줄 출력
