@@ -24,13 +24,13 @@ public class App {
     ArrayList<Board> boardList = new ArrayList<>(); // App에서 생성한 객체의 주소를 각 클래스에 보내줌 보내줌 그래야 공유가능
     ArrayList<Member> memberList = new ArrayList<>();
     ArrayList<Lesson> lessonList = new ArrayList<>();
-
+    
     HashMap<String,Command> commandMap = new HashMap<>();
-    //Command 자리에객체가 와야댐
+                //Command 자리에객체가 와야댐
     // LessonAddCommand myLesson = new LessonAddCommand(keyboard, lessonList);
     // commandMap.put("/lesson/add", myLesson);
     // 이렇게 해도 될듯.
-
+    
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList)); // App에서 생성한 객체의 주소를 각 클래스에 보내줌 보내줌 그래야 공유가능
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonList));
@@ -48,25 +48,25 @@ public class App {
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardList));
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardList));
-
+    
     while (true) {
       String command = prompt();
 
       // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
-
+      
       // 사용자가 입력한 명령을 큐에 보관한다.
       commandHistory2.offer(command);
-
-
+      
+      
       if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-
+        
       } else if (command.equals("history")) {
         printCommandHistory(new Iterator<String>() {
           int index = commandHistory.size() - 1;
-
+          
           @Override
           public boolean hasNext() {
             return index >= 0; 
@@ -77,26 +77,19 @@ public class App {
             return commandHistory.get(index--);
           }
         });
-
+        
       } else if (command.equals("history2")) {
         printCommandHistory(commandHistory2.iterator());
-
+        
       } else {
         Command commandHandler = commandMap.get(command);
-
-        if (commandHandler == null) {
+        
+        if (commandHandler == null)
           System.out.println("실행할 수 없는 명령입니다.");
-        } else if (commandHandler != null) {
-          try {
-            commandHandler.execute();
-          } catch (Exception e) {
-            System.out.printf("작업 중 오류 발생: %s\n",e.toString());
-          }
-        }
         else 
           commandHandler.execute(); // 이 규칙을 따른 클래스에 대한 execute가옴
       }
-
+      
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
 
@@ -119,7 +112,7 @@ public class App {
       e.printStackTrace();
     }
   }
-
+  
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
