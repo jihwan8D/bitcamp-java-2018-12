@@ -62,7 +62,7 @@ public class App {
       if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-
+/*************************************************************/
       } else if (command.equals("history")) {
         printCommandHistory(new Iterator<String>() {
           int index = commandHistory.size() - 1;
@@ -77,10 +77,10 @@ public class App {
             return commandHistory.get(index--);
           }
         });
-
+/*************************************************************/
       } else if (command.equals("history2")) {
         printCommandHistory(commandHistory2.iterator());
-
+/*************************************************************/
       } else {
         Command commandHandler = commandMap.get(command);
 
@@ -94,7 +94,7 @@ public class App {
           }
         }
       }
-
+/*************************************************************/
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
 

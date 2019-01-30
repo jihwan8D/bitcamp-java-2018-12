@@ -15,6 +15,7 @@ public class Test01 {
     BoardAddCommand myBoard = new BoardAddCommand();
     
     HashMap<String, Command> commandMap = new HashMap<>();
+    
     commandMap.put("/board/add", myBoard);
     commandMap.put("/board/delete", new BoardDeleteCommand());
     commandMap.put("/board/detail", new BoardDetailCommand());
