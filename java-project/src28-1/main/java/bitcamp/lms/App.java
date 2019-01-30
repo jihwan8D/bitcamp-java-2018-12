@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +40,16 @@ public class App {
   static Stack<String> commandHistory = new Stack<>();
   static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
   static ArrayList<Lesson> lessonList = new ArrayList<>();
-  static ArrayList<Board> boardList = new ArrayList<>();
-  static ArrayList<Member> memberList = new ArrayList<>();
+
+
   public static void main(String[] args) {
 
     // 데이터 로딩
-    loading();
+    loadLessonData();
     
+    ArrayList<Board> boardList = new ArrayList<>(); // App에서 생성한 객체의 주소를 각 클래스에 보내줌 보내줌 그래야 공유가능
+    ArrayList<Member> memberList = new ArrayList<>();
+
     HashMap<String,Command> commandMap = new HashMap<>();
     //Command 자리에객체가 와야댐
     // LessonAddCommand myLesson = new LessonAddCommand(keyboard, lessonList);
@@ -102,11 +106,7 @@ public class App {
       } else if (command.equals("history2")) {
         printCommandHistory(commandHistory2.iterator());
         /*************************************************************/
-      } 
-//      else if (command.equals("loading")) {
-//        loading();
-//      }
-      else {
+      } else {
         Command commandHandler = commandMap.get(command);
 
         if (commandHandler == null) {
@@ -122,14 +122,8 @@ public class App {
       /*************************************************************/
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
-    
-    keyboard.close();
-  }
 
-  public static void loading() {
-    loadLessonData();
-    loadMemberData();
-    loadBoardData();
+    keyboard.close();
   }
 
   private static void printCommandHistory(Iterator<String> iterator) {
@@ -154,9 +148,7 @@ public class App {
     return keyboard.nextLine().toLowerCase();
   }
   private static  void quit() {
-    saveLessonData();  // 입력한 값 저장
-    saveMemberData();
-    saveBoardData();
+    saveLessonData();
     System.out.println("안녕!");
   }
   private static void loadLessonData() { // 저장한걸 불러오는 메서드
@@ -168,50 +160,6 @@ public class App {
   //      lessonList.add(Lesson.valueOf(line));
   //              ┗ 위 두 줄 아래 코드로 대체 
         lessonList.add(Lesson.valueOf(in2.nextLine()));
-      }
-
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("수업 데이터 로딩 완료");
-    }
-  }
-  
-  private static void loadMemberData() { // 저장한걸 불러오는 메서드
-
-    try (FileReader in = new FileReader("member.csv");
-        Scanner in2 = new Scanner(in)) {
-      while(true) {
-  //      String line = in2.nextLine(); // 번호, 제목, 내용, 시작일, 종료일, 총강의시간, 일강의시간
-  //      lessonList.add(Lesson.valueOf(line));
-  //              ┗ 위 두 줄 아래 코드로 대체 
-        memberList.add(Member.valueOf(in2.nextLine()));
-      }
-
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("수업 데이터 로딩 완료");
-    }
-  }
-  
-  private static void loadBoardData() { // 저장한걸 불러오는 메서드
-
-    try (FileReader in = new FileReader("board.csv");
-        Scanner in2 = new Scanner(in)) {
-      while(true) {
-  //      String line = in2.nextLine(); // 번호, 제목, 내용, 시작일, 종료일, 총강의시간, 일강의시간
-  //      lessonList.add(Lesson.valueOf(line));
-  //              ┗ 위 두 줄 아래 코드로 대체 
-        boardList.add(Board.valueOf(in2.nextLine()));
       }
 
     } catch (FileNotFoundException e) {
@@ -236,37 +184,6 @@ public class App {
             lesson.getEndDate(),
             lesson.getTotalHours(),
             lesson.getDayHours()));
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  private static void saveMemberData() { // 입력한 내용을 저장하는 메서드
-    try (FileWriter out = new FileWriter("member.csv");) {
-      for (Member member : memberList) {
-        out.write(String.format("%s,%s,%s,%s,%s,%s,%s\n", 
-            member.getNo(),
-            member.getName(),
-            member.getEmail(),
-            member.getPassword(),
-            member.getPhoto(),
-            member.getTel(),
-            member.getRegisteredDate()));
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  private static void saveBoardData() { // 입력한 내용을 저장하는 메서드
-    try (FileWriter out = new FileWriter("board.csv");) {
-      for (Board board : boardList) {
-        out.write(String.format("%s,%s,%s,%d\n", 
-            board.getNo(),
-            board.getContents(),
-            board.getCreatedDate(),
-            board.getViewCount()));
       }
     } catch (IOException e) {
       e.printStackTrace();
