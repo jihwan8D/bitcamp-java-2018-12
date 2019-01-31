@@ -12,6 +12,7 @@ public class Test01 {
   public static void main(String[] args) {
     // 익명 클래스로 인터페이스 구현하기
     Player p1 = new Player() {
+      @Override
       public void play() {
         System.out.println("테스트1");
       }
