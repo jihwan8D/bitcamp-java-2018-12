@@ -16,7 +16,7 @@ public class Test09 {
     for (File f : files) {
       System.out.printf("%s %12d %s\n,",
           f.isDirectory() ? "d" : "-",
-              f.length(),
+              f.length(),   // 파일의 용량
               f.getName());
     }
 

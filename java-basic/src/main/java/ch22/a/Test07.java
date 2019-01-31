@@ -12,7 +12,9 @@ public class Test07 {
     
     // 파일의 디렉토리 경로를 가지고 File 객체 생성
     //File dir = new File(file.getParent());
-    File dir = file.getParentFile();
+    File dir = file.getParentFile(); // "temp2/a/b/c/test.txt" 이 경로의 부모 파일 지정. (c 폴더)
+                                          //   지정 후 dir에 넣음
+    System.out.println(file.getParentFile());
     
     // 먼저 디렉토리를 생성한다.
     if (dir.mkdirs()) {
