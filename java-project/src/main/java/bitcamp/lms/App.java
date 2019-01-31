@@ -44,7 +44,15 @@ public class App {
   public static void main(String[] args) {
 
     // 데이터 로딩
-    loading();
+    try {
+      loadLessonData();
+      loadMemberData();
+      loadBoardData();
+      
+    } catch(Exception e) {
+      System.out.println("저장된 데이터가 없습니다.");
+    }
+    
     
     HashMap<String,Command> commandMap = new HashMap<>();
     //Command 자리에객체가 와야댐
@@ -124,12 +132,6 @@ public class App {
     }
     
     keyboard.close();
-  }
-
-  public static void loading() {
-    loadLessonData();
-    loadMemberData();
-    loadBoardData();
   }
 
   private static void printCommandHistory(Iterator<String> iterator) {
