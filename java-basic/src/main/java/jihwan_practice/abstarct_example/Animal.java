@@ -2,7 +2,7 @@ package jihwan_practice.abstarct_example;
 
 public abstract class Animal {
   
-  public String kind;
+  String kind;
   
   public abstract void sound();
   
