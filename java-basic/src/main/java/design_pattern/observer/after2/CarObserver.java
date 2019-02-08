@@ -1,4 +1,4 @@
-package design_pattern.observer.after;
+package design_pattern.observer.after2;
 
 // 자동차의 상태가 바뀌었을 때 호출할 메서드 규칙을 정의한다.
 public interface CarObserver {
