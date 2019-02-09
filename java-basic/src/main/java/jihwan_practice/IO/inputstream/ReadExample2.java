@@ -6,11 +6,10 @@ import java.io.InputStream;
 public class ReadExample2 {
 
   public static void main(String[] args) throws Exception{
-    InputStream is = new FileInputStream("C:/Users/dlsgh/test.txt");
-    
+    InputStream is = new FileInputStream("C:/Users/dlsgh/test2.txt");
     int readByte;
     
-    byte[] readBytes = new byte[3];
+    byte[] readBytes = new byte[1024];
     
     String data;
     

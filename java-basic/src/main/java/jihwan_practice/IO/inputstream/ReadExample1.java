@@ -6,7 +6,7 @@ import java.io.InputStream;
 public class ReadExample1 {
 
   public static void main(String[] args) throws Exception{
-    InputStream is = new FileInputStream("C:/Users/dlsgh/test.txt");
+    InputStream is = new FileInputStream("C:\\Users\\dlsgh\\Desktop\\★\\z.txt");
 
     int readByte;
     
