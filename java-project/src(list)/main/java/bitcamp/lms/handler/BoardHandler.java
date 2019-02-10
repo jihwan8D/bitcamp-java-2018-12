@@ -20,7 +20,7 @@ public class BoardHandler {
           board.getNo(), board.getContents(), 
           board.getCreatedDate(), board.getViewCount());
     }
-  }z
+  }
 
   public void addBoard() {
     Board board = new Board();

@@ -1,9 +1,9 @@
 package jihwan_practice.IO;
 
 import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.FileInputStream;
-import ch22.e.Score;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class Dustmq2 {
 
@@ -12,23 +12,23 @@ public class Dustmq2 {
     // => java.io.BufferedInputStream 클래스를 사용하라.
     // => java.io.DataInputStream 클래스를 사용하라.
     //
+    ArrayList<Score> students = new ArrayList<>();
 
-    try(DataInputStream in = new DataInputStream(
+    try(ObjectInputStream in = new ObjectInputStream(
         new BufferedInputStream(
             new FileInputStream("score.data")))) {
-      int len = in.readInt();
-      Score[] student = new Score[len];
+      
 
-      for(int i = 0; i < student.length; i++  ) {
-        Score s = new Score();
-        s.setName(in.readUTF());
-        s.setKor(in.readInt());
-        s.setEng(in.readInt());
-        s.setMath(in.readInt());
-        student[i] = s;
+      int len = in.readInt();
+      
+      for(int i = 0; i < len; i++) {
+        Score s = (Score) in.readObject();
+        students.add(s);
       }
-      for (Score s : student)
-        System.out.printf("%s, %d, %d, %d \n", s.getName(), s.getKor(), s.getEng(), s.getMath());
+      for(Score s : students) {
+        System.out.printf("%s, %d, %d, %d, %d, %.1f\n", 
+            s.getName(), s.getKor(), s.getEng(), s.getMath(), s.getSum(), s.getAver());
+      }
 
     } catch(Exception e) {
       e.printStackTrace();
