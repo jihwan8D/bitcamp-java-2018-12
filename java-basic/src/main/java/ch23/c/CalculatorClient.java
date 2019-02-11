@@ -33,25 +33,33 @@ public class CalculatorClient {
 
         DataOutputStream out = new DataOutputStream(new BufferedOutputStream((socket.getOutputStream())));
         // 소켓에 연결되있는 네트워크 데이터를 읽어오는 함수
+        DataInputStream in2 = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+
         Scanner in = new Scanner(socket.getInputStream())) {
+      System.out.println("서버랑연결");
+      System.out.println(in2.readUTF());
+      System.out.println(in2.readUTF());
+      System.out.println(in2.readUTF());
+      //      System.out.println(in.nextLine());
+      //      System.out.println(in.nextLine());
+      //      System.out.println(in.nextLine());
+      while(true) {
+        if (keyboard.nextLine().equals("q"))
+            break;
+        System.out.print("> ");
+        int num1 = keyboard.nextInt();
+        String aa = keyboard.next();
+        int num2 = keyboard.nextInt();
+        out.writeInt(num1);
+        out.writeUTF(aa);
+        out.writeInt(num2);
+        out.flush();
 
-      System.out.println(in.nextLine());
-      System.out.println(in.nextLine());
-      System.out.println(in.nextLine());
-      
-      System.out.print("> ");
-      int num1 = keyboard.nextInt();
-      String aa = keyboard.next();
-      int num2 = keyboard.nextInt();
-      out.write(num1);
-      out.writeChars(aa);
-      out.write(num2);
-      out.flush();
-      int response = in.nextInt(); //서버로부터 읽어온거
-      System.out.println(response);
-
+        // int response = ; //서버로부터 읽어온거
+        System.out.println(in2.read());
+      }
     } catch (Exception e) {
-      ;
+
       System.out.println(e);
     }
   }
