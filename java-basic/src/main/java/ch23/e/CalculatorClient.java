@@ -1,4 +1,4 @@
-// Stateless 클라이언트 만들기
+// Stateless 응용 - 계산 결과 유지하기
 package ch23.e;
 
 import java.io.BufferedReader;
@@ -8,34 +8,28 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /*
-Stateless 통신 방법
-=> 서버에 연결한 후, 한 번 요청하고 응답 받은 후 연결을 끊는다.
-=> 단점   
-   - 서버에 요청할 때마다 연결해야 한다.
-   - 지속적으로 서버에 연결하는데 실행 시간이 소요된다.
-=> 장점
-   - 서버에 계속 연결된 상태가 아니기 때문에 서버쪽에서 메모리를 많이 사용하지 않는다.
-   - stateful 보다 더 많은 클라이언트 요청을 처리할 수 있다.
-=> 예
-   - HTTP 프로토콜, 메신저 등 
+Stateless는 응답을 받은 후에 연결을 끊는다.
+다시 요청할 때는 서버와 연결을 다시 한다.
+서버쪽에서는 어떻게 클라이언트를 구분하여 작업 결과를 유지할 것인가? 
  */
 public class CalculatorClient {
   public static void main(String[] args) {
     
     Scanner keyboard = new Scanner(System.in);
+
+    // 서버에서 클라이언트를 구분할 때 사용할 값
+    long sessionId = 0;
     
     while (true) {
+      // 계산 요청을 할 때 연산자와 값만 넘긴다.
+      // 예) + 2
+      // 예) / 3
+      //
       System.out.print("> ");
       String input = keyboard.nextLine();
       if (input.equalsIgnoreCase("quit"))
         break;
 
-      // 서버에 요청할 때 연결을 하고
-      // 서버로부터 응답을 받으면 연결을 끊는다.
-      // => 매번 요청할 때마다 서버와 연결해야 하기 때문에 실행 시간 중에 연결에 소요되는 시간이 
-      //    일정하게 걸린다.
-      // => 대신 서버로부터 응답을 받은 후에 즉시 연결을 끊기 때문에 
-      //    서버쪽에는 메모리가 낭비되지 않는다.
       try (Socket socket = new Socket("localhost", 8888);
           PrintStream out = new PrintStream(socket.getOutputStream());
           BufferedReader in = new BufferedReader(
@@ -43,9 +37,16 @@ public class CalculatorClient {
         
         System.out.println("서버와 연결됨! 서버에게 계산 작업을 요청함!");
         
-        out.println(input);
+        out.println(sessionId); // 서버에 먼저 세션 ID를 보낸다.
+        out.println(input); // 사용자가 입력한 값을 보낸다.
         out.flush();
 
+        if (sessionId == 0) {
+          // 서버에 보낸 세션 ID가 0이면 서버는 새로 세션 ID를 발급하여 보내줄 것이다.
+          // 받아야 한다.
+          sessionId = Long.parseLong(in.readLine());
+          System.out.printf("발급받은 세션 ID: %d\n", sessionId);
+        }
         String response = in.readLine();
         System.out.println(response);
 
