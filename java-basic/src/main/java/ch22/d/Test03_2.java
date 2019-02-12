@@ -24,5 +24,4 @@ public class Test03_2 {
     
     System.out.println("읽기 완료!");
   }
-
 }
