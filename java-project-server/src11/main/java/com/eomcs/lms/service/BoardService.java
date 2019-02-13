@@ -82,6 +82,7 @@ public class BoardService extends AbstractService<Board> {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
+
     int index = 0;
     for(Board b : list) {
       if(b.getNo() == no) {
