@@ -1,3 +1,4 @@
+// 2단계: 클라이언트의 연결을 승인한다.
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -5,16 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 
 public class ServerApp {
 
   static ArrayList<Member> members = new ArrayList<>();
-  static ArrayList<Lesson> lessons = new ArrayList<>();
-  static ArrayList<Board> boards = new ArrayList<>();
-
   static ObjectInputStream in;
   static ObjectOutputStream out;
 
@@ -34,37 +30,21 @@ public class ServerApp {
 
           System.out.println("클라이언트와 연결되었음.");
           members.clear();
-          lessons.clear();
-          boards.clear();
-
-          MemberCommand.in = in;
-          MemberCommand.out = out;
-         
-          LessonCommand.in = in;
-          LessonCommand.out = out;
-         
-          BoardCommand.in = in;
-          BoardCommand.out = out;
-        
           loop: while (true) {
             String request =  in.readUTF();
             System.out.println(request);
-
-            if(request.startsWith("/member/")) {
-              MemberCommand.service(request);
-
-            } else if(request.startsWith("/lesson/")) {
-              LessonCommand.service(request);
-
-            } else if(request.startsWith("/board/")) {
-              BoardCommand.service(request);
-              
-            } else if (request.equals("quit")) {
-              quit();
-              break loop;
-              
-            } else {
-              out.writeUTF("FAIL");
+            switch(request) {
+              case "quit":
+                quit();
+                break loop;
+              case "add":
+                add();
+                break;
+              case "list":
+                list();
+                break;
+              default:
+                out.writeUTF("이 명령을 처리할 수 없음!");
             }
             out.flush();
           }
@@ -78,8 +58,19 @@ public class ServerApp {
     }
   }
 
+
+
   static void quit() throws Exception {
     out.writeUTF("종료함!");
     out.flush();
+  }
+
+  static void add() throws Exception {
+    members.add((Member)in.readObject());
+    out.writeUTF("OK");
+  }
+
+  static void list() throws Exception {
+    out.writeObject(members);
   }
 }
