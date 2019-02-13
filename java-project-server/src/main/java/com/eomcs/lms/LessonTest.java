@@ -19,13 +19,13 @@ public class LessonTest {
     add(new Lesson(1, "자바 프로그래밍"));
     add(new Lesson(2, "노드 프로그래밍"));
 
-    detail(1);
-
-    update(new Lesson(1, "자바 프로그래밍2222"));
-
-    detail(1);
-
-    delete(2);
+//    detail(1);
+//
+//    update(new Lesson(1, "자바 프로그래밍2222"));
+//
+//    detail(1);
+//
+//    delete(2);
 
     list();
   }

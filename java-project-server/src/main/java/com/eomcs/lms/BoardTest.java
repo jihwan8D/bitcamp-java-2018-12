@@ -19,13 +19,13 @@ public class BoardTest {
     add(new Board(1, "내용내용"));
     add(new Board(2, "내용입니다."));
 
-    detail(1);
-
-    update(new Board(1, "내용내용222"));
-
-    detail(1);
-
-    delete(2);
+//    detail(1);
+//
+//    update(new Board(1, "내용내용222"));
+//
+//    detail(1);
+//
+//    delete(2);
 
     list();
   }
