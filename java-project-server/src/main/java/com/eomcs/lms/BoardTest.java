@@ -55,7 +55,7 @@ public class BoardTest {
     String status = in.readUTF();
 
     if(!status.equals("OK")) {
-      System.out.println("데이터 추가 실패!");
+      System.out.println("데이터 목록 가져오기 실패!");
       return;
     } 
 
@@ -77,7 +77,7 @@ public class BoardTest {
     String status = in.readUTF();
 
     if(!status.equals("OK")) {
-      System.out.println("데이터 추가 실패!");
+      System.out.println("데이터 가져오기 실패!");
       return;
     }
 
@@ -96,9 +96,9 @@ public class BoardTest {
     String status = in.readUTF();
 
     if(status.equals("OK")) {
-      System.out.println("데이터 추가 성공!");
+      System.out.println("데이터 변경 성공!");
     } else {
-      System.out.println("데이터 추가 실패!");
+      System.out.println("데이터 변경 실패!");
     }
     in.readObject();
   }

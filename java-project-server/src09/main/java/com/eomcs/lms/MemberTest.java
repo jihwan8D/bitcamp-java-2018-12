@@ -3,25 +3,25 @@ package com.eomcs.lms;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Member;
 
-public class LessonTest {
+public class MemberTest {
 
   ObjectOutputStream out;
   ObjectInputStream in;
 
-  public LessonTest(ObjectOutputStream out, ObjectInputStream in) {
+  public MemberTest(ObjectOutputStream out, ObjectInputStream in) {
     this.out = out;
     this.in = in;
   }
-  
+
   public void test() throws Exception {
-    add(new Lesson(1, "자바 프로그래밍"));
-    add(new Lesson(2, "노드 프로그래밍"));
+    add(new Member(1, "홍길동"));
+    add(new Member(2, "임꺽정"));
 
     detail(1);
 
-    update(new Lesson(1, "자바 프로그래밍2222"));
+    update(new Member(1, "홍길동x"));
 
     detail(1);
 
@@ -30,13 +30,13 @@ public class LessonTest {
     list();
   }
 
-  private void add(Lesson lesson) throws Exception {
-    out.writeUTF("/lesson/add"); 
+  private void add(Member member) throws Exception {
+    out.writeUTF("/member/add"); 
     out.flush();
     if(!in.readUTF().equals("OK"))
       return;
-    
-    out.writeObject(lesson);
+
+    out.writeObject(member);
     out.flush();
     String status = in.readUTF();
 
@@ -48,27 +48,27 @@ public class LessonTest {
   }
 
   private void list() throws Exception {
-    out.writeUTF("/lesson/list"); 
+    out.writeUTF("/member/list"); 
     out.flush();
     if(!in.readUTF().equals("OK"))
       return;
-    
+
     String status = in.readUTF();
 
     if(!status.equals("OK")) {
-      System.out.println("데이터 목록 가져오기 실패!");
+      System.out.println("데이터 조회!");
       return;
     } 
 
     @SuppressWarnings("unchecked")
-    List<Lesson> lesson = (List<Lesson>) in.readObject();
-    for(Lesson l : lesson) {
-      System.out.println(l);
+    List<Member> members = (List<Member>) in.readObject();
+    for(Member m : members) {
+      System.out.println(m);
     }
   }
 
   private void detail(int no) throws Exception {
-    out.writeUTF("/lesson/detail");
+    out.writeUTF("/member/detail");
     out.flush();
     if(!in.readUTF().equals("OK"))
       return;
@@ -78,21 +78,20 @@ public class LessonTest {
     String status = in.readUTF();
 
     if(!status.equals("OK")) {
-      System.out.println("데이터 가져오기 실패!");
+      System.out.println("데이터 추가 실패!");
       return;
     }
 
-    Lesson lesson = (Lesson) in.readObject();
-    System.out.println(lesson);
+    Member member = (Member) in.readObject();
+    System.out.println(member);
   }
 
-  private void update(Lesson lesson) throws Exception {
-    out.writeUTF("/lesson/update");
+  private void update(Member member) throws Exception {
+    out.writeUTF("/member/update");
     out.flush();
     if(!in.readUTF().equals("OK"))
       return;
-    
-    out.writeObject(lesson);
+    out.writeObject(member);
     out.flush();
 
     String status = in.readUTF();
@@ -106,11 +105,10 @@ public class LessonTest {
   }
 
   private void delete(int no) throws Exception {
-    out.writeUTF("/lesson/delete");
+    out.writeUTF("/member/delete");
     out.flush();
     if(!in.readUTF().equals("OK"))
       return;
-    
     out.writeInt(no);
     out.flush();
     String status = in.readUTF();

@@ -1,4 +1,3 @@
-// 9단계: 클라이언트 요청을 처리하는 서비스 클래스를 별도의 패키지로 분류하기
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -9,9 +8,6 @@ import java.util.ArrayList;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.BoardService;
-import com.eomcs.lms.service.LessonService;
-import com.eomcs.lms.service.MemberService;
 
 public class ServerApp {
 
@@ -41,24 +37,27 @@ public class ServerApp {
           lessons.clear();
           boards.clear();
 
-          
-          MemberService memberService = new MemberService(out, in);
-          LessonService lessonService = new LessonService(out, in);
-          BoardService boardService = new BoardService(out, in);
+          MemberCommand.in = in;
+          MemberCommand.out = out;
          
+          LessonCommand.in = in;
+          LessonCommand.out = out;
+         
+          BoardCommand.in = in;
+          BoardCommand.out = out;
         
           loop: while (true) {
             String request =  in.readUTF();
             System.out.println(request);
 
             if(request.startsWith("/member/")) {
-              memberService.execute(request);
+              MemberCommand.service(request);
 
             } else if(request.startsWith("/lesson/")) {
-              lessonService.execute(request);
+              LessonCommand.service(request);
 
             } else if(request.startsWith("/board/")) {
-              boardService.execute(request);
+              BoardCommand.service(request);
               
             } else if (request.equals("quit")) {
               quit();
