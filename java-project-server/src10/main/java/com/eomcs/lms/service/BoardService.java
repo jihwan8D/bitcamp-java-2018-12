@@ -1,11 +1,24 @@
-// 11단계: AbstractService 상속 받기
+// 8단계: 클라이언트에서 요청을 처리하는 클래스에 대해 리팩토링 수행
 package com.eomcs.lms.service;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import com.eomcs.lms.domain.Board;
 
 // 클라이언트의 요청을 처리하는 클래스라는 의미로
 // 클래스명을 *Service로 변경한다.
-public class BoardService extends AbstractService<Board> {
+public class BoardService {
+
+  ArrayList<Board> boards = new ArrayList<>();
+
+  ObjectInputStream in;
+  ObjectOutputStream out;
+
+  public BoardService(ObjectOutputStream out, ObjectInputStream in) {
+    this.out = out;
+    this.in = in;
+  }
 
   public void execute(String request) throws Exception {
 
@@ -34,7 +47,7 @@ public class BoardService extends AbstractService<Board> {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    list.add((Board)in.readObject());
+    boards.add((Board)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -42,7 +55,7 @@ public class BoardService extends AbstractService<Board> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(list);
+    out.writeObject(boards);
   }
 
   private void detail() throws Exception {
@@ -50,7 +63,7 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
     int no = in.readInt();
 
-    for(Board b : list) {
+    for(Board b : boards) {
       if(b.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(b);
@@ -66,9 +79,9 @@ public class BoardService extends AbstractService<Board> {
     Board board = (Board) in.readObject();
 
     int index = 0;
-    for(Board b : list) {
+    for(Board b : boards) {
       if(b.getNo() == board.getNo()) {
-        list.set(index, board);
+        boards.set(index, board);
         out.writeUTF("OK");
         out.writeObject(b);
         return;
@@ -84,9 +97,9 @@ public class BoardService extends AbstractService<Board> {
     int no = in.readInt();
 
     int index = 0;
-    for(Board b : list) {
+    for(Board b : boards) {
       if(b.getNo() == no) {
-        list.remove(index);
+        boards.remove(index);
         out.writeUTF("OK");
         return;
       }

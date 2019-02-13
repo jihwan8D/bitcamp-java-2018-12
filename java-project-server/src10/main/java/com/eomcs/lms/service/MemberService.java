@@ -1,28 +1,41 @@
-// 11단계: AbstractService 상속 받기
+// 8단계: 클라이언트에서 요청을 처리하는 클래스에 대해 리팩토링 수행
 package com.eomcs.lms.service;
 
-import com.eomcs.lms.domain.Board;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import com.eomcs.lms.domain.Member;
 
-// 클라이언트의 요청을 처리하는 클래스라는 의미로
-// 클래스명을 *Service로 변경한다.
-public class BoardService extends AbstractService<Board> {
+//클라이언트의 요청을 처리하는 클래스라는 의미로
+//클래스명을 *Service로 변경한다.
+public class MemberService {
+
+  private ArrayList<Member> members = new ArrayList<>();
+
+  private ObjectInputStream in;
+  private ObjectOutputStream out;
+
+  public MemberService(ObjectOutputStream out, ObjectInputStream in) {
+    this.out = out;
+    this.in = in;
+  }
 
   public void execute(String request) throws Exception {
 
     switch(request) {
-      case "/board/add":
+      case "/member/add":
         add();
         break;
-      case "/board/list":
+      case "/member/list":
         list();
         break;
-      case "/board/detail":
+      case "/member/detail":
         detail();
         break;
-      case "/board/update":
+      case "/member/update":
         update();
         break;
-      case "/board/delete":
+      case "/member/delete":
         delete();
         break;
       default:
@@ -34,7 +47,7 @@ public class BoardService extends AbstractService<Board> {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    list.add((Board)in.readObject());
+    members.add((Member)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -42,7 +55,7 @@ public class BoardService extends AbstractService<Board> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(list);
+    out.writeObject(members);
   }
 
   private void detail() throws Exception {
@@ -50,10 +63,10 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
     int no = in.readInt();
 
-    for(Board b : list) {
-      if(b.getNo() == no) {
+    for(Member m : members) {
+      if(m.getNo() == no) {
         out.writeUTF("OK");
-        out.writeObject(b);
+        out.writeObject(m);
         return;
       }
     }
@@ -63,14 +76,14 @@ public class BoardService extends AbstractService<Board> {
   private void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Board board = (Board) in.readObject();
+    Member memeber = (Member) in.readObject();
 
     int index = 0;
-    for(Board b : list) {
-      if(b.getNo() == board.getNo()) {
-        list.set(index, board);
+    for(Member m : members) {
+      if(m.getNo() == memeber.getNo()) {
+        members.set(index, memeber);
         out.writeUTF("OK");
-        out.writeObject(b);
+        out.writeObject(m);
         return;
       }
       index++;
@@ -84,9 +97,9 @@ public class BoardService extends AbstractService<Board> {
     int no = in.readInt();
 
     int index = 0;
-    for(Board b : list) {
-      if(b.getNo() == no) {
-        list.remove(index);
+    for(Member m : members) {
+      if(m.getNo() == no) {
+        members.remove(index);
         out.writeUTF("OK");
         return;
       }
