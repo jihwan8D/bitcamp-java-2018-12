@@ -24,7 +24,7 @@ public class MemberAgent {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
-      out.writeUTF(rootPath + "list"); 
+      out.writeUTF(rootPath + "/list"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -43,7 +43,7 @@ public class MemberAgent {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
-      out.writeUTF("/member/add"); 
+      out.writeUTF(rootPath + "/add"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -63,7 +63,7 @@ public class MemberAgent {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
-      out.writeUTF("/member/detail");
+      out.writeUTF(rootPath + "/detail");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -85,7 +85,7 @@ public class MemberAgent {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
-      out.writeUTF("/member/update");
+      out.writeUTF(rootPath + "/update");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -104,7 +104,7 @@ public class MemberAgent {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
-      out.writeUTF("/member/delete");
+      out.writeUTF(rootPath + "/delete");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");

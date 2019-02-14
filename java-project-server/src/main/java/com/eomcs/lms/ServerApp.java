@@ -92,7 +92,7 @@ public class ServerApp {
           e.printStackTrace();
         }
         System.out.println("클라이언트와의 연결을 끊었음.");
-      }
+      } // while
 
     } catch (Exception e) {
       e.printStackTrace();

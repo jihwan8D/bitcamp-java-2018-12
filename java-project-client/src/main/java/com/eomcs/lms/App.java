@@ -35,14 +35,14 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonAgent lessonAgent = new LessonAgent("localhost", 8888, "/board");
+    LessonAgent lessonAgent = new LessonAgent("localhost", 8888, "/lesson");
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
 
-    MemberAgent memberAgent = new MemberAgent("localhost", 8888, "/board");
+    MemberAgent memberAgent = new MemberAgent("localhost", 8888, "/member");
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
