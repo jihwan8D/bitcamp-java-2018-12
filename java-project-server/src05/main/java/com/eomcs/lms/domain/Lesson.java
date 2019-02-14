@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Lesson implements Cloneable, Serializable {
-
   private static final long serialVersionUID = 1L;
   
   private int no;
@@ -25,7 +24,7 @@ public class Lesson implements Cloneable, Serializable {
         + startDate + ", endDate=" + endDate + ", totalHours=" + totalHours + ", dayHours="
         + dayHours + "]";
   }
-  
+
   public int getNo() {
     return no;
   }

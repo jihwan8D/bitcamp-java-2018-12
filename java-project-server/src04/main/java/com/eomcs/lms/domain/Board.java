@@ -14,13 +14,13 @@ public class Board implements Cloneable, Serializable {
   public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
   }
-
+  
   @Override
   public String toString() {
     return "Board [no=" + no + ", contents=" + contents + ", createdDate=" + createdDate
         + ", viewCount=" + viewCount + "]";
   }
-  
+
   public int getNo() {
     return no;
   }

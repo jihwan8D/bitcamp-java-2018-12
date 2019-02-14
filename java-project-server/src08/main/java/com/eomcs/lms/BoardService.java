@@ -1,4 +1,4 @@
-// 8단계: 클라이언트에서 요청을 처리하는 클래스에 대해 리팩토링 수행
+// 8단계: 클라이언트 요청을 처리하는 클래스에 대해 리팩토링 수행
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import com.eomcs.lms.domain.Board;
 
-// 클라이언트의 요청을 처리하는 클래스라는 의미로
+// 클라이언트의 요청을 처리하는 클래스라는 의미로 
 // 클래스명을 *Service로 변경한다.
 public class BoardService {
 
@@ -15,14 +15,14 @@ public class BoardService {
   ObjectInputStream in;
   ObjectOutputStream out;
 
-  public BoardService(ObjectOutputStream out, ObjectInputStream in) {
-    this.out = out;
+  public BoardService(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
+    this.out = out;
   }
-
+  
   public void execute(String request) throws Exception {
 
-    switch(request) {
+    switch (request) {
       case "/board/add":
         add();
         break;
@@ -37,7 +37,7 @@ public class BoardService {
         break;
       case "/board/delete":
         delete();
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
@@ -63,13 +63,14 @@ public class BoardService {
     out.flush();
     int no = in.readInt();
 
-    for(Board b : boards) {
-      if(b.getNo() == no) {
+    for (Board b : boards) {
+      if (b.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(b);
         return;
       }
     }
+
     out.writeUTF("FAIL");
   }
 
@@ -79,15 +80,15 @@ public class BoardService {
     Board board = (Board) in.readObject();
 
     int index = 0;
-    for(Board b : boards) {
-      if(b.getNo() == board.getNo()) {
+    for (Board b : boards) {
+      if (b.getNo() == board.getNo()) {
         boards.set(index, board);
         out.writeUTF("OK");
-        out.writeObject(b);
         return;
       }
       index++;
     }
+
     out.writeUTF("FAIL");
   }
 
@@ -97,14 +98,23 @@ public class BoardService {
     int no = in.readInt();
 
     int index = 0;
-    for(Board b : boards) {
-      if(b.getNo() == no) {
+    for (Board b : boards) {
+      if (b.getNo() == no) {
         boards.remove(index);
         out.writeUTF("OK");
         return;
       }
       index++;
     }
-    out.writeUTF("FAIL");
+
+    out.writeUTF("FAIL");    
   }
+
 }
+
+
+
+
+
+
+

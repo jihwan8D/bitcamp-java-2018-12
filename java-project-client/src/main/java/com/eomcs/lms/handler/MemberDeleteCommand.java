@@ -1,40 +1,28 @@
 package com.eomcs.lms.handler;
-import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.agent.MemberAgent;
 
 public class MemberDeleteCommand implements Command {
   
   Scanner keyboard;
-  List<Member> list;
+  MemberAgent memberAgent;
   
-  public MemberDeleteCommand(Scanner keyboard, List<Member> list) {
+  public MemberDeleteCommand(Scanner keyboard, MemberAgent memberAgent) {
     this.keyboard = keyboard;
-    this.list = list;
+    this.memberAgent = memberAgent;
   }
   
   @Override
   public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
-
-    int index = indexOfMember(no);
-    if (index == -1) {
-      System.out.println("해당 회원을 찾을 수 없습니다.");
-      return;
-    }
     
-    list.remove(index);
-    
-    System.out.println("회원을 삭제했습니다.");
-  }
-  
-  private int indexOfMember(int no) {
-    for (int i = 0; i < list.size(); i++) {
-      Member m = list.get(i);
-      if (m.getNo() == no)
-        return i;
+    try {
+      memberAgent.delete(no);
+      System.out.println("삭제했습니다.");
+      
+    } catch (Exception e) {
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
-    return -1;
   }
 }

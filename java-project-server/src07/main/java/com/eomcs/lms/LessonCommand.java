@@ -15,7 +15,7 @@ public class LessonCommand {
 
   public static void service(String request) throws Exception {
 
-    switch(request) {
+    switch (request) {
       case "/lesson/add":
         add();
         break;
@@ -30,74 +30,84 @@ public class LessonCommand {
         break;
       case "/lesson/delete":
         delete();
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
     out.flush();
   }
 
-static void add() throws Exception {
-  out.writeUTF("OK");
-  out.flush();
-  lessons.add((Lesson)in.readObject());
-  out.writeUTF("OK");
-}
-
-static void list() throws Exception {
-  out.writeUTF("OK");
-  out.flush();
-  out.writeUTF("OK");
-  out.writeObject(lessons);
-}
-
-static void detail() throws Exception {
-  out.writeUTF("OK");
-  out.flush();
-  int no = in.readInt();
-
-  for(Lesson l : lessons) {
-    if(l.getNo() == no) {
-      out.writeUTF("OK");
-      out.writeObject(l);
-      return;
-    }
+  static void add() throws Exception {
+    out.writeUTF("OK");
+    out.flush();
+    lessons.add((Lesson)in.readObject());
+    out.writeUTF("OK");
   }
-  out.writeUTF("FAIL");
-}
 
-static void update() throws Exception {
-  out.writeUTF("OK");
-  out.flush();
-  Lesson memeber = (Lesson) in.readObject();
-
-  int index = 0;
-  for(Lesson l : lessons) {
-    if(l.getNo() == memeber.getNo()) {
-      lessons.set(index, memeber);
-      out.writeUTF("OK");
-      out.writeObject(l);
-      return;
-    }
-    index++;
+  static void list() throws Exception {
+    out.writeUTF("OK");
+    out.flush();
+    out.writeUTF("OK");
+    out.writeObject(lessons);
   }
-  out.writeUTF("FAIL");
-}
 
-static void delete() throws Exception {
-  out.writeUTF("OK");
-  out.flush();
-  int no = in.readInt();
+  static void detail() throws Exception {
+    out.writeUTF("OK");
+    out.flush();
+    int no = in.readInt();
 
-  int index = 0;
-  for(Lesson l : lessons) {
-    if(l.getNo() == no) {
-      lessons.remove(index);
-      out.writeUTF("OK");
-      return;
+    for (Lesson l : lessons) {
+      if (l.getNo() == no) {
+        out.writeUTF("OK");
+        out.writeObject(l);
+        return;
+      }
     }
-    index++;
+
+    out.writeUTF("FAIL");
   }
-  out.writeUTF("FAIL");
+
+  static void update() throws Exception {
+    out.writeUTF("OK");
+    out.flush();
+    Lesson lesson = (Lesson) in.readObject();
+
+    int index = 0;
+    for (Lesson l : lessons) {
+      if (l.getNo() == lesson.getNo()) {
+        lessons.set(index, lesson);
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+
+    out.writeUTF("FAIL");
+  }
+
+  static void delete() throws Exception {
+    out.writeUTF("OK");
+    out.flush();
+    int no = in.readInt();
+
+    int index = 0;
+    for (Lesson l : lessons) {
+      if (l.getNo() == no) {
+        lessons.remove(index);
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+
+    out.writeUTF("FAIL");    
+  }
+
 }
-}
+
+
+
+
+
+
+

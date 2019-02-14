@@ -1,4 +1,4 @@
-// 2단계: 클라이언트의 연결을 승인한다.
+// 3단계: 클라이언트와 서버 간에 간단한 문자열 데이터를 주고 받는다.
 package com.eomcs.lms;
 
 import java.io.PrintWriter;
@@ -9,11 +9,11 @@ import java.util.Scanner;
 public class ServerApp {
 
   public static void main(String[] args) {
-
-    try(ServerSocket serverSocket = new ServerSocket(8888);) {
+    
+    try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
-
-      while(true) {
+      
+      while (true) {
         try (Socket socket = serverSocket.accept();
             Scanner in = new Scanner(socket.getInputStream());
             PrintWriter out = new PrintWriter(socket.getOutputStream())) {
@@ -24,13 +24,16 @@ public class ServerApp {
           out.println(request);
           out.flush();
           
+          
         } catch (Exception e) {
           e.printStackTrace();
         }
-        System.out.println("클라이언트와 연결을 끊었음.");
+        System.out.println("클라이언트와의 연결을 끊었음.");
       }
+      
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 }

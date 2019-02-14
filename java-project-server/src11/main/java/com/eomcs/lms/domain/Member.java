@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Member implements Cloneable, Serializable {
-
   private static final long serialVersionUID = 1L;
   
   private int no;
@@ -14,10 +13,10 @@ public class Member implements Cloneable, Serializable {
   private String tel;
   private Date registeredDate;
   
+  public Member() {
+  }
   
-  public Member() { }
-  
-  public Member(int no, String name ) {
+  public Member(int no, String name) {
     this.no = no;
     this.name = name;
   }
@@ -32,7 +31,7 @@ public class Member implements Cloneable, Serializable {
     return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
         + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
   }
-  
+
   public int getNo() {
     return no;
   }

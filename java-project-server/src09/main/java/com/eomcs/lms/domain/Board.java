@@ -9,19 +9,20 @@ public class Board implements Cloneable, Serializable {
   private String contents;
   private Date createdDate;
   private int viewCount;
-
-  public Board() { }
-
+  
+  public Board() {
+  }
+  
   public Board(int no, String contents) {
     this.no = no;
     this.contents = contents;
   }
-
+  
   @Override
   public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
   }
-
+  
   @Override
   public String toString() {
     return "Board [no=" + no + ", contents=" + contents + ", createdDate=" + createdDate
@@ -52,6 +53,6 @@ public class Board implements Cloneable, Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
-
+  
+  
 }

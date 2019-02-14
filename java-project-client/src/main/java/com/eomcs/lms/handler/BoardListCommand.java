@@ -1,43 +1,33 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Scanner;
+import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.domain.Board;
 
 public class BoardListCommand implements Command {
 
   Scanner keyboard;
-
-  public BoardListCommand(Scanner keyboard) {
+  BoardAgent boardAgent;
+  
+  public BoardListCommand(Scanner keyboard, BoardAgent boardAgent) {
     this.keyboard = keyboard;
+    this.boardAgent = boardAgent;
   }
 
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     try {
-      out.writeUTF("/board/list"); 
-      out.flush();
-      if(!in.readUTF().equals("OK"))
-        return;
-
-      String status = in.readUTF();
-
-      if(!status.equals("OK")) {
-        throw new Exception("서버에서 게시글 목록 가져오기 실패.");
-      } 
-
-      @SuppressWarnings("unchecked")
-      List<Board> boards = (List<Board>) in.readObject();
-
+      List<Board> boards = boardAgent.list();
+      
       for (Board board : boards) {
         System.out.printf("%3d, %-20s, %s, %d\n", 
             board.getNo(), board.getContents(), 
             board.getCreatedDate(), board.getViewCount());
       }
-
-    } catch(Exception e) {
-      System.out.printf("게시글 목록 출력 오류! : %s\n", e.getMessage());
+      
+    } catch (Exception e) {
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
+
 }

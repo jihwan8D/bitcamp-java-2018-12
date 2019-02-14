@@ -3,13 +3,11 @@ package com.eomcs.lms.service;
 
 import com.eomcs.lms.domain.Lesson;
 
-//클라이언트의 요청을 처리하는 클래스라는 의미로
-//클래스명을 *Service로 변경한다.
 public class LessonService extends AbstractService<Lesson> {
 
   public void execute(String request) throws Exception {
 
-    switch(request) {
+    switch (request) {
       case "/lesson/add":
         add();
         break;
@@ -24,7 +22,7 @@ public class LessonService extends AbstractService<Lesson> {
         break;
       case "/lesson/delete":
         delete();
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
@@ -42,7 +40,8 @@ public class LessonService extends AbstractService<Lesson> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(list);
+    //out.writeObject(list);
+    out.writeUnshared(list);
   }
 
   private void detail() throws Exception {
@@ -50,31 +49,32 @@ public class LessonService extends AbstractService<Lesson> {
     out.flush();
     int no = in.readInt();
 
-    for(Lesson l : list) {
-      if(l.getNo() == no) {
+    for (Lesson l : list) {
+      if (l.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(l);
         return;
       }
     }
+
     out.writeUTF("FAIL");
   }
 
   private void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Lesson memeber = (Lesson) in.readObject();
+    Lesson lesson = (Lesson) in.readObject();
 
     int index = 0;
-    for(Lesson l : list) {
-      if(l.getNo() == memeber.getNo()) {
-        list.set(index, memeber);
+    for (Lesson l : list) {
+      if (l.getNo() == lesson.getNo()) {
+        list.set(index, lesson);
         out.writeUTF("OK");
-        out.writeObject(l);
         return;
       }
       index++;
     }
+
     out.writeUTF("FAIL");
   }
 
@@ -84,14 +84,23 @@ public class LessonService extends AbstractService<Lesson> {
     int no = in.readInt();
 
     int index = 0;
-    for(Lesson l : list) {
-      if(l.getNo() == no) {
+    for (Lesson l : list) {
+      if (l.getNo() == no) {
         list.remove(index);
         out.writeUTF("OK");
         return;
       }
       index++;
     }
-    out.writeUTF("FAIL");
+
+    out.writeUTF("FAIL");    
   }
+
 }
+
+
+
+
+
+
+

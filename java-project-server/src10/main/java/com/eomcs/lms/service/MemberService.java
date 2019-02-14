@@ -1,28 +1,62 @@
-// 8단계: 클라이언트에서 요청을 처리하는 클래스에 대해 리팩토링 수행
+// 10단계: 데이터를 파일로 관리한다.
 package com.eomcs.lms.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import com.eomcs.lms.domain.Member;
 
-//클라이언트의 요청을 처리하는 클래스라는 의미로
+//클라이언트의 요청을 처리하는 클래스라는 의미로 
 //클래스명을 *Service로 변경한다.
 public class MemberService {
 
-  private ArrayList<Member> members = new ArrayList<>();
+  List<Member> members;
 
-  private ObjectInputStream in;
-  private ObjectOutputStream out;
+  ObjectInputStream in;
+  ObjectOutputStream out;
+  String filepath;
 
-  public MemberService(ObjectOutputStream out, ObjectInputStream in) {
-    this.out = out;
+  public void init(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
+    this.out = out;
   }
-
+  
+  @SuppressWarnings("unchecked")
+  public void loadData(String filepath) {
+    this.filepath = filepath;
+    
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream(this.filepath)))) {
+      
+      members = (List<Member>) in.readObject();
+      
+    } catch (Exception e) {
+      members = new ArrayList<Member>();
+      throw new RuntimeException("회원 데이터 파일 로딩 오류!", e);
+    }
+  }
+  
+  public void saveData() throws Exception {
+    try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream(this.filepath)))) {
+    
+      out.writeObject(members);
+      
+    } catch (Exception e) {
+      throw new Exception("회원 데이터의 파일 저장 오류!", e);
+    }
+  }  
+  
   public void execute(String request) throws Exception {
 
-    switch(request) {
+    switch (request) {
       case "/member/add":
         add();
         break;
@@ -37,7 +71,7 @@ public class MemberService {
         break;
       case "/member/delete":
         delete();
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
@@ -63,31 +97,32 @@ public class MemberService {
     out.flush();
     int no = in.readInt();
 
-    for(Member m : members) {
-      if(m.getNo() == no) {
+    for (Member m : members) {
+      if (m.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(m);
         return;
       }
     }
+
     out.writeUTF("FAIL");
   }
 
   private void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Member memeber = (Member) in.readObject();
+    Member member = (Member) in.readObject();
 
     int index = 0;
-    for(Member m : members) {
-      if(m.getNo() == memeber.getNo()) {
-        members.set(index, memeber);
+    for (Member m : members) {
+      if (m.getNo() == member.getNo()) {
+        members.set(index, member);
         out.writeUTF("OK");
-        out.writeObject(m);
         return;
       }
       index++;
     }
+
     out.writeUTF("FAIL");
   }
 
@@ -97,14 +132,23 @@ public class MemberService {
     int no = in.readInt();
 
     int index = 0;
-    for(Member m : members) {
-      if(m.getNo() == no) {
+    for (Member m : members) {
+      if (m.getNo() == no) {
         members.remove(index);
         out.writeUTF("OK");
         return;
       }
       index++;
     }
-    out.writeUTF("FAIL");
+
+    out.writeUTF("FAIL");    
   }
+
 }
+
+
+
+
+
+
+
