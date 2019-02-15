@@ -17,8 +17,10 @@ public class App {
     while(true) {
       System.out.print("계산식>(예: 100 + 200) ");
       String input = k.nextLine();
+      
       if (input.equalsIgnoreCase("quit"))
         break;
+      
         String[] values = input.split(" ");
         try {
           System.out.println(calcStub.compute(
