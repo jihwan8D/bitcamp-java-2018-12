@@ -62,6 +62,7 @@ public class App {
       commandHistory.push(command);
       commandHistory2.offer(command);
       if (command.equals("quit")) {
+        
         System.out.println("종료합니다.");
         break;
 
