@@ -1,4 +1,3 @@
-// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
@@ -57,14 +56,14 @@ public class LessonService implements Service {
     out.flush();
     int no = in.readInt();
 
-    Lesson l = lessonDao.findByNo(no);
-    if (l == null) { 
+    Lesson obj = lessonDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(l);
+    out.writeObject(obj);
   }
 
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
@@ -76,7 +75,7 @@ public class LessonService implements Service {
       out.writeUTF("FAIL");
       return;
     }
-
+    
     out.writeUTF("OK");
   }
 
@@ -89,8 +88,8 @@ public class LessonService implements Service {
       out.writeUTF("FAIL");    
       return;
     }
-
-    out.writeUTF("OK");    
+    
+    out.writeUTF("OK");
   }
 
 }

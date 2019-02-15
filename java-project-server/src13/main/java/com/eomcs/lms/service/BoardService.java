@@ -15,7 +15,7 @@ public class BoardService implements Service {
   }
   
   public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
-
+    
     switch (request) {
       case "/board/add":
         add(in, out);
@@ -57,14 +57,14 @@ public class BoardService implements Service {
     out.flush();
     int no = in.readInt();
 
-    Board b = boardDao.findByNo(no);
-    if (b == null) { 
+    Board obj = boardDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(b);
+    out.writeObject(obj);
   }
 
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {

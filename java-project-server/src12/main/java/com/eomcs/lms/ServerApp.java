@@ -1,4 +1,4 @@
-// 11단계: 서비스 클래스의 일반화(상속)를 수행한다.
+// 12단계: Service 클래스에서 데이터 처리 코드를 별도의 클래스(DAO)로 분리
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -17,8 +17,7 @@ public class ServerApp {
   static ObjectInputStream in;
   static ObjectOutputStream out;
   
-
-  static BoardDao boardDao = null;
+  static BoardDao boardDao = null; 
   static MemberDao memberDao = null;
   static LessonDao lessonDao = null;
 
@@ -35,14 +34,14 @@ public class ServerApp {
       memberDao = new MemberDao("member.bin");
       memberDao.loadData();
     } catch (Exception e) {
-      System.out.println("게시물 데이터 로딩 중 오류 발생!");
+      System.out.println("회원 데이터 로딩 중 오류 발생!");
     }
     
     try {
       lessonDao = new LessonDao("lesson.bin");
       lessonDao.loadData();
     } catch (Exception e) {
-      System.out.println("게시물 데이터 로딩 중 오류 발생!");
+      System.out.println("수업 데이터 로딩 중 오류 발생!");
     }
     
     BoardService boardService = new BoardService(boardDao); 

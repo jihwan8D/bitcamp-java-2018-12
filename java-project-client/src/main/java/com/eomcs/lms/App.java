@@ -55,9 +55,8 @@ public class App {
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardAgent));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardAgent));
-    //commandMap.put("quit", new BoardDeleteCommand(keyboard, boardAgent));
-                                                                      //객체값으로 이걸 넘겨주는 이유는 BoardAddCommand에서 
-                                                             //BoardAgent클래스 이용하기 위해
+                                                                               //객체값으로 이걸 넘겨주는 이유는 BoardAddCommand에서 
+                                                                      //BoardAgent클래스 이용하기 위해
 
     while (true) {
       String command = prompt();

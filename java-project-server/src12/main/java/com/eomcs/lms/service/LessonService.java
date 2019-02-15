@@ -1,4 +1,3 @@
-// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.service;
 
 import com.eomcs.lms.dao.LessonDao;
@@ -55,14 +54,14 @@ public class LessonService extends AbstractService<Lesson> {
     out.flush();
     int no = in.readInt();
 
-    Lesson l = lessonDao.findByNo(no);
-    if (l == null) { 
+    Lesson obj = lessonDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(l);
+    out.writeObject(obj);
   }
 
   private void update() throws Exception {
@@ -74,7 +73,7 @@ public class LessonService extends AbstractService<Lesson> {
       out.writeUTF("FAIL");
       return;
     }
-
+    
     out.writeUTF("OK");
   }
 
@@ -87,8 +86,8 @@ public class LessonService extends AbstractService<Lesson> {
       out.writeUTF("FAIL");    
       return;
     }
-
-    out.writeUTF("OK");    
+    
+    out.writeUTF("OK");
   }
 
 }

@@ -19,9 +19,9 @@ public class LessonDao extends AbstractDao<Lesson> {
   }
 
   public Lesson findByNo(int no) {
-    for (Lesson l : list) {
-      if (l.getNo() == no) {
-        return l;
+    for (Lesson obj : list) {
+      if (obj.getNo() == no) {
+        return obj;
       }
     }
     return null;
@@ -29,8 +29,8 @@ public class LessonDao extends AbstractDao<Lesson> {
 
   public int update(Lesson lesson) {
     int index = 0;
-    for (Lesson l : list) {
-      if (l.getNo() == lesson.getNo()) {
+    for (Lesson obj : list) {
+      if (obj.getNo() == lesson.getNo()) {
         list.set(index, lesson);
         return 1;
       }
@@ -41,8 +41,8 @@ public class LessonDao extends AbstractDao<Lesson> {
 
   public int delete(int no) {
     int index = 0;
-    for (Lesson l : list) {
-      if (l.getNo() == no) {
+    for (Lesson obj : list) {
+      if (obj.getNo() == no) {
         list.remove(index);
         return 1;
       }

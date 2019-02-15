@@ -55,14 +55,14 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
     int no = in.readInt();
 
-    Board b = boardDao.findByNo(no);
-    if (b == null) { 
+    Board obj = boardDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(b);
+    out.writeObject(obj);
   }
 
   private void update() throws Exception {

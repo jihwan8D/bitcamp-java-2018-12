@@ -7,7 +7,6 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberService implements Service {
 
-  // MemberService가 작업을 수행할 때 사용할 객체(의존 객체; dependency)
   MemberDao memberDao;
   
   public MemberService(MemberDao memberDao) {
@@ -57,14 +56,14 @@ public class MemberService implements Service {
     out.flush();
     int no = in.readInt();
 
-    Member b = memberDao.findByNo(no);
-    if (b == null) { 
+    Member obj = memberDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(b);
+    out.writeObject(obj);
   }
 
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
