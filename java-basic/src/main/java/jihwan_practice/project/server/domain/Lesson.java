@@ -13,11 +13,18 @@ public class Lesson implements Cloneable, Serializable {
   private int totalHours;
   private int dayHours;
   
+  public Lesson() { }
+  
+  public Lesson(int no, String title) {
+    this.no = no;
+    this.title = title;
+  }
+  
+
   @Override
   public Lesson clone() throws CloneNotSupportedException {
     return (Lesson) super.clone();
   }
-  
   @Override
   public String toString() {
     return "Lesson [no=" + no + ", title=" + title + ", contents=" + contents + ", startDate="
