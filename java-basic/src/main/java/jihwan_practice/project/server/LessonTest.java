@@ -14,15 +14,15 @@ public class LessonTest {
     this.in = in;
   }
   public void test() throws Exception {
-    add(new Lesson(1, "JAVA Programming"));
-    add(new Lesson(2, "C Programming"));
-    list();
-    
-    update(new Lesson(1, "C++ Programming"));
-    add(new Lesson(3, "Python Programming"));
-
-    detail(2);
-    delete(3);
+//    add(new Lesson(1, "JAVA Programming"));
+//    add(new Lesson(2, "C Programming"));
+//    list();
+//    
+//    update(new Lesson(1, "C++ Programming"));
+//    add(new Lesson(3, "Python Programming"));
+//
+//    detail(2);
+//    delete(3);
 
     list();
   }

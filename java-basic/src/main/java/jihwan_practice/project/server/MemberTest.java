@@ -14,15 +14,15 @@ public class MemberTest {
     this.in = in;
   }
   public void test() throws Exception {
-    add(new Member(1, "홍길동"));
-    add(new Member(2, "임꺽정"));
-    list();
-
-    update(new Member(1, "xxxxxxxx홍길동xxxxxx"));
-    add(new Member(3, "게시글 3"));
-
-    detail(2);
-    delete(3);
+//    add(new Member(1, "홍길동"));
+//    add(new Member(2, "임꺽정"));
+//    list();
+//
+//    update(new Member(1, "xxxxxxxx홍길동xxxxxx"));
+//    add(new Member(3, "게시글 3"));
+//
+//    detail(2);
+//    delete(3);
 
     list();
   }

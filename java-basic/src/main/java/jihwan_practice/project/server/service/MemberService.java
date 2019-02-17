@@ -1,5 +1,9 @@
 package jihwan_practice.project.server.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -10,12 +14,40 @@ public class MemberService {
   public ObjectOutputStream out;
   public ArrayList<Member> members = new ArrayList<>();
   String request;
+  String fileName;
 
-  public MemberService(ObjectInputStream in, ObjectOutputStream out) {
+  public void inOut(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
     this.out = out;
   }
+
+  @SuppressWarnings("unchecked")
+  public void loadDate(String fileName) {
+    this.fileName = fileName;
+
+    try(ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream(this.fileName)))) {
+
+      members = (ArrayList<Member>) in.readObject();
+
+    } catch (Exception e) {
+      throw new RuntimeException("회원 데이터 파일 로딩 오류!", e);
+    }
+  }
   
+  public void saveDate( ) throws Exception {
+    try(ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream(this.fileName)))) {
+      
+      out.writeObject(members);
+      
+    } catch (Exception e) {
+      throw new Exception("회원 데이터의 파일 저장 오류!", e);
+    }
+  }
+
   public void command(String request) throws Exception {
     switch (request) {
       case "/member/add":

@@ -14,15 +14,14 @@ public class BoardTest {
     this.in = in;
   }
   public void test() throws Exception {
-    add(new Board(1, "게시글 1"));
-    add(new Board(2, "게시글 2"));
-    list();
-
-    update(new Board(1, "수정된 게시물 1111"));
-    add(new Board(3, "게시글 3"));
-
-    detail(2);
-    delete(3);
+//    add(new Board(1, "게시글 1"));
+//    add(new Board(2, "게시글 2"));
+//    list();
+//
+//    update(new Board(1, "수정된 게시물 1111"));
+//    add(new Board(3, "게시글 3"));
+//
+//    detail(2);
 
     list();
   }

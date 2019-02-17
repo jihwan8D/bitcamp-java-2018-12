@@ -1,5 +1,9 @@
 package jihwan_practice.project.server.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -10,11 +14,40 @@ public class BoardService {
   public ObjectOutputStream out;
   public ArrayList<Board> boards = new ArrayList<>();
   String request;
+  String fileName;
 
-public BoardService(ObjectInputStream in, ObjectOutputStream out) {
-  this.in = in;
-  this.out = out;
-}
+  public void inOut(ObjectInputStream in, ObjectOutputStream out) {
+    this.in = in;
+    this.out = out;
+  }
+
+  @SuppressWarnings("unchecked")
+  public void loadData(String fileName) {
+    this.fileName = fileName;
+
+    try(ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream(this.fileName)))) {
+
+      boards = (ArrayList<Board>) in.readObject();
+
+    } catch (Exception e) {
+      throw new RuntimeException("게시판 데이터 파일 로딩 오류!", e);
+    }
+  }
+
+  public void saveDate() throws Exception {
+    try(ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream(this.fileName)))) {
+
+      out.writeObject(boards);
+
+    } catch (Exception e) {
+      throw new Exception("게시판 데이터의 파일 저장 오류!", e);
+    }
+  }
+
   public void command(String request) throws Exception {
     switch (request) {
       case "/board/add":

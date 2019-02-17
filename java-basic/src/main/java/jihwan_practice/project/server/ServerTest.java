@@ -22,11 +22,11 @@ public class ServerTest {
       ServerTest.out = out;
       
       new LessonTest(out, in).test();
-//      System.out.println("----------------------------------");
-//      new MemberTest(out, in).test();
-//      System.out.println("----------------------------------");
-//      new BoardTest(out, in).test();
-      
+      System.out.println("----------------------------------");
+      new MemberTest(out, in).test();
+      System.out.println("----------------------------------");
+      new BoardTest(out, in).test();
+      System.out.println("----------------------------------");
       quit();
 
     } catch(Exception e) {
