@@ -1,4 +1,4 @@
-package jihwan_practice.project.server;
+package jihwan_practice.project.server.service;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import jihwan_practice.project.server.domain.Member;
 
 public class MemberService {
-  ObjectOutputStream out;
-  ObjectInputStream in;
+  public ObjectInputStream in;
+  public ObjectOutputStream out;
+  public ArrayList<Member> members = new ArrayList<>();
   String request;
-  ArrayList<Member> members = new ArrayList<>();
 
-
+  public MemberService(ObjectInputStream in, ObjectOutputStream out) {
+    this.in = in;
+    this.out = out;
+  }
+  
   public void command(String request) throws Exception {
     switch (request) {
       case "/member/add":

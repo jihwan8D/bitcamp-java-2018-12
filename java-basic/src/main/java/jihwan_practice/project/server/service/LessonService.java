@@ -1,32 +1,36 @@
-package jihwan_practice.project.server;
+package jihwan_practice.project.server.service;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import jihwan_practice.project.server.domain.Board;
+import jihwan_practice.project.server.domain.Lesson;
 
-public class BoardService {
-  ObjectOutputStream out;
-  ObjectInputStream in;
+public class LessonService {
+  public ObjectInputStream in;
+  public ObjectOutputStream out;
+  public ArrayList<Lesson> lessons = new ArrayList<>();
   String request;
-  ArrayList<Board> boards = new ArrayList<>();
 
-
+  public LessonService(ObjectInputStream in, ObjectOutputStream out) {
+    this.in = in;
+    this.out = out;
+  }
+  
   public void command(String request) throws Exception {
     switch (request) {
-      case "/board/add":
+      case "/lesson/add":
         add();
         break;
-      case "/board/list":
+      case "/lesson/list":
         list();
         break;
-      case "/board/update":
+      case "/lesson/update":
         update();
         break;
-      case "/board/delete":
+      case "/lesson/delete":
         delete();
         break;
-      case "/board/detail":
+      case "/lesson/detail":
         detail();
         break;
       default:
@@ -41,22 +45,22 @@ public class BoardService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    boards.add((Board)in.readObject());
+    lessons.add((Lesson)in.readObject());
   }
 
   private void list() throws Exception {
     out.writeUTF("OK");
-    out.writeUnshared(boards);
+    out.writeUnshared(lessons);
   }
 
   private void update() throws Exception {
     int index = 0;
 
-    Board board = (Board)in.readObject();
+    Lesson lesson = (Lesson)in.readObject();
 
-    for(Board b : boards) {
-      if (b.getNo() == board.getNo()) {
-        boards.set(index, board);
+    for(Lesson b : lessons) {
+      if (b.getNo() == lesson.getNo()) {
+        lessons.set(index, lesson);
         out.writeUTF("수정완료");
         return;
       }
@@ -69,9 +73,9 @@ public class BoardService {
     int num = in.readInt();
     int index = 0;
 
-    for (Board b : boards) {
+    for (Lesson b : lessons) {
       if (b.getNo() == num) {
-        boards.remove(index);
+        lessons.remove(index);
         out.writeUTF("해당 번호의 게시물 삭제 완료");
         return;
       }
@@ -83,7 +87,7 @@ public class BoardService {
   private void detail() throws Exception {
     int num = in.readInt();
 
-    for (Board b : boards) {
+    for (Lesson b : lessons) {
       if (b.getNo() == num) {
         out.writeUTF("OK");
         out.writeObject(b);

@@ -4,6 +4,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import jihwan_practice.project.server.service.BoardService;
+import jihwan_practice.project.server.service.LessonService;
+import jihwan_practice.project.server.service.MemberService;
 
 public class ServerApp {
 
@@ -11,9 +14,6 @@ public class ServerApp {
   static ObjectOutputStream out;
 
   public static void main(String[] args) {
-    BoardService boardService = new BoardService();
-    LessonService lessonService = new LessonService();
-    MemberService memberService = new MemberService();
 
 
     try (ServerSocket ss = new ServerSocket(8888)){
@@ -27,17 +27,13 @@ public class ServerApp {
 
           ServerApp.out = out;
           ServerApp.in = in;
+          BoardService boardService = new BoardService(in, out);
+          LessonService lessonService = new LessonService(in, out);
+          MemberService memberService = new MemberService(in, out);
 
           lessonService.lessons.clear();
           memberService.members.clear();
           boardService.boards.clear();
-
-          lessonService.out = out;
-          lessonService.in = in;
-          memberService.out = out;
-          memberService.in = in;
-          boardService.out = out;
-          boardService.in = in;
 
           while (true) {
             String request = in.readUTF();
