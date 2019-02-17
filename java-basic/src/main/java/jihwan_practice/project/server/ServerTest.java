@@ -26,8 +26,16 @@ public class ServerTest {
       System.out.println(in.readUTF());
       add(new Board(1, "게시글 1"));
       add(new Board(2, "게시글 2"));
+      list();
+
+      update(new Board(1, "수정된 게시물 1111"));
+      add(new Board(3, "게시글 3"));
+
+      detail(2);
+      delete(3);
 
       list();
+
 
       quit();
 
@@ -54,9 +62,43 @@ public class ServerTest {
   public static void list() throws Exception {
     out.writeUTF("list");
     out.flush();
-    List<Board> list = (List<Board>) in.readObject();
-    for(Board l : list) {
-      System.out.println(l);
+    String state = in.readUTF();
+
+    if(state.equals("OK")) {
+      @SuppressWarnings("unchecked")
+      List<Board> boards = (List<Board>) in.readObject();
+      for(Board l : boards) {
+        System.out.println(l);
+      }
+
+    } else
+      System.out.println("조회 실패");
+  }
+
+  public static void update(Board board) throws Exception {
+    out.writeUTF("update");
+    out.writeObject(board);
+    out.flush();
+    System.out.println(in.readUTF());
+  }
+
+  private static void delete(int num) throws Exception {
+    out.writeUTF("delete");
+    out.writeInt(num);
+    out.flush();
+    System.out.println(in.readUTF());
+  }
+
+  private static void detail(int num) throws Exception {
+    out.writeUTF("detail");
+    out.writeInt(num);
+    out.flush();
+    
+    String status = in.readUTF();
+    if(!status.equals("OK")) {
+      System.out.println("해당 게시물 찾지 못함");
+    } else {
+      System.out.println((Board)in.readObject());
     }
   }
 
