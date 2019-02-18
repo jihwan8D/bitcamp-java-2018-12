@@ -35,21 +35,21 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonDaoProxy lessonAgent = new LessonDaoProxy("localhost", 8888, "/lesson");
+    LessonDaoProxy lessonAgent = new LessonDaoProxy("192.168.0.31", 8888, "/lesson");
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
 
-    MemberDaoProxy memberAgent = new MemberDaoProxy("localhost", 8888, "/member");
+    MemberDaoProxy memberAgent = new MemberDaoProxy("192.168.0.31", 8888, "/member");
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
 
-    BoardDaoProxy boardAgent = new BoardDaoProxy("localhost", 8888, "/board");
+    BoardDaoProxy boardAgent = new BoardDaoProxy("192.168.0.31", 8888, "/board");
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardAgent));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));
