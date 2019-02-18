@@ -1,13 +1,13 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.MemberAgent;
+import com.eomcs.lms.proxy.MemberProxy;
 
 public class MemberDeleteCommand implements Command {
   
   Scanner keyboard;
-  MemberAgent memberAgent;
+  MemberProxy memberAgent;
   
-  public MemberDeleteCommand(Scanner keyboard, MemberAgent memberAgent) {
+  public MemberDeleteCommand(Scanner keyboard, MemberProxy memberAgent) {
     this.keyboard = keyboard;
     this.memberAgent = memberAgent;
   }

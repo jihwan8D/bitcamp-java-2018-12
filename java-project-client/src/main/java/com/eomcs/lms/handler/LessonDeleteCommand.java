@@ -1,13 +1,13 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
+import com.eomcs.lms.proxy.LessonProxy;
 
 public class LessonDeleteCommand implements Command {
 
   Scanner keyboard;
-  LessonAgent lessonAgent;
+  LessonProxy lessonAgent;
   
-  public LessonDeleteCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonDeleteCommand(Scanner keyboard, LessonProxy lessonAgent) {
     this.keyboard = keyboard;
     this.lessonAgent = lessonAgent;
   }

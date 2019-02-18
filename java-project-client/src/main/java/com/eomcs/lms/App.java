@@ -5,9 +5,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.agent.BoardAgent;
-import com.eomcs.lms.agent.LessonAgent;
-import com.eomcs.lms.agent.MemberAgent;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -24,6 +21,9 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.proxy.BoardDaoProxy;
+import com.eomcs.lms.proxy.LessonProxy;
+import com.eomcs.lms.proxy.MemberProxy;
 
 public class App {
 
@@ -35,21 +35,21 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonAgent lessonAgent = new LessonAgent("localhost", 8888, "/lesson");
+    LessonProxy lessonAgent = new LessonProxy("localhost", 8888, "/lesson");
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
 
-    MemberAgent memberAgent = new MemberAgent("localhost", 8888, "/member");
+    MemberProxy memberAgent = new MemberProxy("localhost", 8888, "/member");
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
 
-    BoardAgent boardAgent = new BoardAgent("localhost", 8888, "/board");
+    BoardDaoProxy boardAgent = new BoardDaoProxy("localhost", 8888, "/board");
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardAgent));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));

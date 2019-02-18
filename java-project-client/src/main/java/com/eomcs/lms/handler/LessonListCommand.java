@@ -2,15 +2,15 @@ package com.eomcs.lms.handler;
 
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.proxy.LessonProxy;
 
 public class LessonListCommand implements Command {
   
   Scanner keyboard;
-  LessonAgent lessonAgent;
+  LessonProxy lessonAgent;
   
-  public LessonListCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonListCommand(Scanner keyboard, LessonProxy lessonAgent) {
     this.keyboard = keyboard;
     this.lessonAgent = lessonAgent;
   }
@@ -18,7 +18,7 @@ public class LessonListCommand implements Command {
   @Override
   public void execute() {
     try {
-      List<Lesson> lessons = lessonAgent.list();
+      List<Lesson> lessons = lessonAgent.findAll();
       for (Lesson lesson : lessons) {
         System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
             lesson.getNo(), lesson.getTitle(), 

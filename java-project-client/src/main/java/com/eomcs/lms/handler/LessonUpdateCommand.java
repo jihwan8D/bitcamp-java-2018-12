@@ -1,17 +1,17 @@
 package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.proxy.LessonProxy;
 
 public class LessonUpdateCommand implements Command {
 
   Scanner keyboard;
-  LessonAgent lessonAgent;
+  LessonProxy lessonfroxy;
   
-  public LessonUpdateCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonUpdateCommand(Scanner keyboard, LessonProxy lessonAgent) {
     this.keyboard = keyboard;
-    this.lessonAgent = lessonAgent;
+    this.lessonfroxy = lessonAgent;
   }
 
   @Override
@@ -20,7 +20,7 @@ public class LessonUpdateCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Lesson lesson = lessonAgent.get(no);
+      Lesson lesson = lessonfroxy.findByNo(no);
     
       Lesson temp = lesson.clone();
       
@@ -49,7 +49,7 @@ public class LessonUpdateCommand implements Command {
       if ((input = keyboard.nextLine()).length() > 0)
         temp.setDayHours(Integer.parseInt(input));
       
-      lessonAgent.update(temp);
+      lessonfroxy.update(temp);
       System.out.println("변경했습니다.");
       
     } catch (Exception e) {
