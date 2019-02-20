@@ -7,6 +7,8 @@ import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
+//서버쪽에 있는 MemberDaoImpl 객체를 대행할 클라이언트측 대행자 클래스 정의 
+//
 public class MemberDaoProxy implements MemberDao {
 
   String serverAddr;
@@ -25,7 +27,7 @@ public class MemberDaoProxy implements MemberDao {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/list"); 
+      out.writeUTF("/member/list"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -46,7 +48,7 @@ public class MemberDaoProxy implements MemberDao {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/add"); 
+      out.writeUTF("/member/add"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -68,7 +70,7 @@ public class MemberDaoProxy implements MemberDao {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/detail");
+      out.writeUTF("/member/detail");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -92,7 +94,7 @@ public class MemberDaoProxy implements MemberDao {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/update");
+      out.writeUTF("/member/update");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
@@ -103,6 +105,7 @@ public class MemberDaoProxy implements MemberDao {
       String status = in.readUTF();
       if (!status.equals("OK")) 
         throw new Exception("서버의 데이터 데이터 변경 실패!");
+      
       return 1;
       
     } catch (Exception e) {
@@ -115,7 +118,7 @@ public class MemberDaoProxy implements MemberDao {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/delete");
+      out.writeUTF("/member/delete");
       out.flush();
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");

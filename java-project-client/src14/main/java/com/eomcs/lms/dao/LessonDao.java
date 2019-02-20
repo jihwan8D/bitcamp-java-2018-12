@@ -1,4 +1,4 @@
-// 데이터 처리 관련 코드를 별도의 클래스로 분리
+// 프록시 패턴 적용 - LessonDao에서 인터페이스를 추출한다.
 package com.eomcs.lms.dao;
 
 import java.util.List;

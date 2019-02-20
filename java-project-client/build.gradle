@@ -27,7 +27,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-}
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    }
 
 // Define the main class for the application
 mainClassName = 'bitcamp.lms.App'

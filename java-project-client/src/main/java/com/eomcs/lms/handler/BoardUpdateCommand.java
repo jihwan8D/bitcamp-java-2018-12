@@ -1,14 +1,14 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.proxy.BoardDaoProxy;
 
 public class BoardUpdateCommand implements Command {
   
   Scanner keyboard;
-  BoardDaoProxy boardDao;
+  BoardDao boardDao;
   
-  public BoardUpdateCommand(Scanner keyboard, BoardDaoProxy boardDao) {
+  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
   }
@@ -19,17 +19,17 @@ public class BoardUpdateCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Board board = boardDao.findByNo(no);
+//      Board board = boardDao.findByNo(no);
     
       // 기존 값 복제
-      Board temp = board.clone();
+//      Board temp = board.clone();
       
       System.out.printf("내용? ");
       String input = keyboard.nextLine();
-      if (input.length() > 0) 
-        temp.setContents(input);
+//      if (input.length() > 0) 
+//        temp.setContents(input);
       
-      boardDao.update(temp);
+      boardDao.update(no, input);
       
       System.out.println("변경했습니다.");
       
