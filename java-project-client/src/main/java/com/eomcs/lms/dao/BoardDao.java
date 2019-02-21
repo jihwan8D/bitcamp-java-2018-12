@@ -6,9 +6,9 @@ import com.eomcs.lms.domain.Board;
 
 public interface BoardDao {
   void insert(Board board);
-  void findAll();
-  void findByNo(int no);
-  int update(int no, String input);
+  List<Board> findAll();
+  Board findByNo(int no);
+  int update(Board board);
   int delete(int no);
 }
 
