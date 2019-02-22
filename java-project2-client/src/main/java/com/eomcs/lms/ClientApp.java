@@ -42,14 +42,18 @@ public class ClientApp {
       } 
       
       int index = input.indexOf("/"); // 예) localhost:8888/board/list
+                             // 슬레시(/)가 나오기 전까지 카운트를 하여 index에 넣는다. (index에 14가 들어감)
       
       // 사용자가 입력한 문자열에 host 주소와 port 번호를 분리한다.
       String[] values = input.substring(0, index).split(":");
+                                           // 0에서 index까지 만큼만 남겨라     
+                                            // 그리고 : 를 기준으로 짤라서 배열(values)에 넣어라
       String host = values[0];
       int port = 8888;
       if (values.length > 1) {
         port = Integer.parseInt(values[1]);
-      }
+      }         // ip 주소를 넣으면 if문 실행이 안된다.
+                // ex) 192.168.0.50/board/add
       
       // 사용자가 입력한 문자열에서 명령어를 분리한다.
       String command = input.substring(index);
