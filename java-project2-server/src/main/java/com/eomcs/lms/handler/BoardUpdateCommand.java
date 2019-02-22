@@ -1,39 +1,29 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardUpdateCommand implements Command {
-  
-  Scanner keyboard;
+public class BoardUpdateCommand extends AbstractCommand {
+
   BoardDao boardDao;
-  
-  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
-    this.keyboard = keyboard;
+
+  public BoardUpdateCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
-  
+
   @Override
-  public void execute() {
+  public void execute(Response response) throws Exception {
 
-    try {
-      Board board = new Board();
+    Board board = new Board();
 
-      System.out.print("번호? ");
-      board.setNo(Integer.parseInt(keyboard.nextLine()));
-      
-      System.out.printf("내용? ");
-      board.setContents(keyboard.nextLine());
-      
-      if (boardDao.update(board) == 0) {
-        System.out.println("해당 번호의 게시물이 없습니다.");
-        return;
-      }
-      
-      System.out.println("변경했습니다.");
-      
-    } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+    board.setNo(response.requestInt("번호?"));
+
+    board.setContents(response.requestString("내용"));
+
+    if (boardDao.update(board) == 0) {
+      response.println("해당 번호의 게시물이 없습니다.");
+      return;
     }
+
+    response.println("변경했습니다.");
   }
 }

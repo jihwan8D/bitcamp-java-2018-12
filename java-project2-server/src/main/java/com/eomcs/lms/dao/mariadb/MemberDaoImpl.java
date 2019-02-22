@@ -20,8 +20,7 @@ public class MemberDaoImpl implements MemberDao {
   
   public List<Member> findAll() {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select member_id, name, email, tel from lms_member"
-            + " order by name asc")) {
+        "select member_id, name, email, tel from lms_member")) {
 
       try (ResultSet rs = stmt.executeQuery()) {
 
