@@ -17,13 +17,13 @@ public class Test06 {
       try (Statement stmt = con.createStatement()) {
         
         // Statement 구현체를 이용하여 SQL문을 서버에 전달한다.
-        // executeUpdate() : insert, update, delete 등 DDL, DMS 문법을 전달한다.
+        // executeUpdate() : insert, update, delete 등 DDL, DML 문법을 전달한다.
         // executeQuery() : select 문법을 전달한다.
         // execute() : 모든 SQL문을 전달한다.
         // executeBatch() : 여러 개의 SQL을 전달한다.
         // 
         int count = stmt.executeUpdate("insert into x_board(title,contents)"
-            + " values('제목10','내용')");
+            + " values('제목1','내용')");
         
         // executeUpdate()의 리턴 값은 SQL을 실행한 후 입력, 변경, 삭제된 
         // row(=record)의 개수이다.
