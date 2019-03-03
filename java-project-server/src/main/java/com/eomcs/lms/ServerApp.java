@@ -1,160 +1,125 @@
-// 16 단계 : 스레드 풀 적용하기
+// 12단계: Service 클래스에서 데이터 처리 코드를 별도의 클래스(DAO)로 분리
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import com.eomcs.lms.dao.BoardDaoImpl;
-import com.eomcs.lms.dao.LessonDaoImpl;
-import com.eomcs.lms.dao.MemberDaoImpl;
-import com.eomcs.lms.service.BoardDaoSkel;
-import com.eomcs.lms.service.LessonSkel;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.service.BoardService;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.MemberService;
-import com.eomcs.lms.service.Service;
 
-// 풀링(pooling) 기법
-// => 자주 사용하는 인스턴스는 미리 생성하여 목록으로 보관하고 있다가 
-//    필요할 때 빌려 쓰고, 사용 후 반납하는 방식으로 인스턴스를 관리한다.
-// => 기존에 생성된 인스턴스를 재사용하기 때문에 가비지가 줄어 들어 메모리를 보다 효율적으로 사용할 수 있다.
-// => 기존의 객체를 재사용하기 때문에 인스턴스 생성에 시간이 많이 소요되는 경우에
-//    실행 시간을 줄일 수 있다.
-// => "Fllyweight 디자인 패턴"의 응용이다.
-//
-// 스레드 풀
-// => 한 번 생성한 스레드는 실행 후 버리지 않고 재사용한다.
-// => 스레드 목록 관리에 풀링 기법을 적용하였다.
 public class ServerApp {
 
-  static BoardDaoImpl boardDao = null;
-  static MemberDaoImpl memberDao = null;
-  static LessonDaoImpl lessonDao = null;
-
-  static HashMap<String, Service> serviceMap;
-  static Set<String> servicekeySet;
-
-  // 스레드 풀
-  static ExecutorService executorService = Executors.newCachedThreadPool();
+  static ObjectInputStream in;
+  static ObjectOutputStream out;
   
-  public static void main(String[] args) {
+  static BoardDao boardDao = null; 
+  static MemberDao memberDao = null;
+  static LessonDao lessonDao = null;
 
+  public static void main(String[] args) {
+    
     try {
-      boardDao = new BoardDaoImpl("board.bin");
+      boardDao = new BoardDao("board.bin");
       boardDao.loadData();
     } catch (Exception e) {
       System.out.println("게시물 데이터 로딩 중 오류 발생!");
     }
-
+    
     try {
-      memberDao = new MemberDaoImpl("member.bin");
+      memberDao = new MemberDao("member.bin");
       memberDao.loadData();
     } catch (Exception e) {
-      System.out.println("게시물 데이터 로딩 중 오류 발생!");
+      System.out.println("회원 데이터 로딩 중 오류 발생!");
     }
-
+    
     try {
-      lessonDao = new LessonDaoImpl("lesson.bin");
+      lessonDao = new LessonDao("lesson.bin");
       lessonDao.loadData();
     } catch (Exception e) {
-      System.out.println("게시물 데이터 로딩 중 오류 발생!");
+      System.out.println("수업 데이터 로딩 중 오류 발생!");
     }
-
-    serviceMap = new HashMap<>();
-    serviceMap.put("/board/", new BoardDaoSkel(boardDao));
-    serviceMap.put("/member/", new MemberService(memberDao));
-    serviceMap.put("/lesson/", new LessonSkel(lessonDao));
-    //LessonService lessonService = new LessonService(lessonDao);
-
-    servicekeySet = serviceMap.keySet();
-
+    
+    BoardService boardService = new BoardService(boardDao); 
+    MemberService memberService = new MemberService(memberDao);
+    LessonService lessonService = new LessonService(lessonDao);
+    
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
-
+      
       while (true) {
-        
-        // 독립적으로 해야할 일을 스레드 풀에 맡긴다.
-        // => 스레드풀은 현재 놀고 있는 스레드를 꺼내서
-        //    파라미터로 넘겨 받은 RequestHandler의 run()을 호출하게 만든다.
-        // => 만약 스레드 풀에 놀고 있는 스레드가 없다면
-        //    새로 스레드를 생성하여 일을 맡긴다.
-        // => 물론 스레드의 작업이 끝났으면 스레드는 다시 풀에 반납된다.
-        //
-        executorService.submit(new RequestHandler(serverSocket.accept()));
-        
-      } // while
-
+        try (Socket socket = serverSocket.accept();
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+          
+          boardService.init(in, out);
+          memberService.init(in, out);
+          lessonService.init(in, out);
+          
+          System.out.println("클라이언트와 연결되었음.");
+          ServerApp.in = in;
+          ServerApp.out = out;
+          
+          loop: while (true) {
+              String request = in.readUTF();
+              System.out.println(request);
+              
+              if (request.startsWith("/member/")) {
+                memberService.execute(request);
+                
+              } else if (request.startsWith("/lesson/")) {
+                lessonService.execute(request);
+                
+              } else if (request.startsWith("/board/")) {
+                boardService.execute(request);
+                
+              } else if (request.equals("quit")) {
+                quit();
+                break loop;
+                
+              } else {
+                out.writeUTF("FAIL");
+              }
+              out.flush();
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        System.out.println("클라이언트와의 연결을 끊었음.");
+      }
+      
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
-
-  static class RequestHandler implements Runnable {
-
-    static int count = 0;
-    
-    Socket socket;
-    String name;
-    
-    public RequestHandler(Socket socket) {
-      this.socket = socket;
-      this.name = "핸들러-" + count++;
-      System.out.printf("[%s : %s] 핸들러가 생성됨\n", 
-          Thread.currentThread().getName(),this.name);
-    }
-
-    public String getName() {
-      return this.name;
+  
+  static void quit() throws Exception {
+    try {
+      boardDao.saveData();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      //e.printStackTrace();
     }
     
-    // 독립적으로 수행할 코드를 run() 메서드에 작성한다.
-    @Override
-    public void run() {
-      
-      try (Socket socket = this.socket;
-          ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-          ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
-
-        System.out.printf("[%s : %s] 클라이언트와 연결되었음.\n",  
-            Thread.currentThread().getName(),this.name);
-
-        String request = in.readUTF();
-        System.out.printf("[%s : %s] %s\n",  
-            Thread.currentThread().getName(), this.getName(), request);
-
-        Service service = getService(request);
-       
-        if (service == null) {
-          out.writeUTF("FAIL");
-          
-        } else {
-          service.execute(request, in, out);
-        }
-        out.flush();
-
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      
-      // 아직 스레드가 스레드풀에 반납되지 않았을 때 클라이언트가 서버와 연결된다면?
-      // => 스레드풀은 새 스레드 객체를 생성하여 일을 맡길 것이다.
-      try {Thread.currentThread().sleep(8000);} catch (Exception e) {}
-      
-      System.out.printf("[%s :%s] 클라이언트와 연결 끊었음.\n",
-          Thread.currentThread().getName(),this.name);
+    try {
+      memberDao.saveData();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      //e.printStackTrace();
     }
-  }
-
-  static Service getService(String request) {
-    for (String key : servicekeySet) {
-      if (request.startsWith(key)) {
-        return serviceMap.get(key);
-      }
+    
+    try {
+      lessonDao.saveData();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      //e.printStackTrace();
     }
-    return null;
+    out.writeUTF("종료함!");
+    out.flush();
   }
 }
 

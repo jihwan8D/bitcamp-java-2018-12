@@ -1,24 +1,24 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
+import com.eomcs.lms.dao.BoardDao;
 
 public class BoardDeleteCommand implements Command {
   
   Scanner keyboard;
+  BoardDao boardDao;
   
-  public BoardDeleteCommand(Scanner keyboard) {
+  public BoardDeleteCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
+    this.boardDao = boardDao;
   }
 
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      BoardAgent.delete(no, in, out);
+      boardDao.delete(no);
       System.out.println("삭제했습니다.");
       
     } catch (Exception e) {

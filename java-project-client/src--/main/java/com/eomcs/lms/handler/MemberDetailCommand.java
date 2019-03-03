@@ -1,25 +1,25 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import com.eomcs.lms.agent.MemberAgent;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberDetailCommand implements Command {
   
   Scanner keyboard;
+  MemberDao memberDao;
   
-  public MemberDetailCommand(Scanner keyboard) {
+  public MemberDetailCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
+    this.memberDao = memberDao;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Member member = MemberAgent.get(no, in, out);
+      Member member = memberDao.findByNo(no);
       System.out.printf("이름: %s\n", member.getName());
       System.out.printf("이메일: %s\n", member.getEmail());
       System.out.printf("암호: %s\n", member.getPassword());

@@ -1,25 +1,25 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 public class BoardDetailCommand implements Command {
   
   Scanner keyboard;
+  BoardDao boardDao;
   
-  public BoardDetailCommand(Scanner keyboard) {
+  public BoardDetailCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
+    this.boardDao = boardDao;
   }
 
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
-
+    
     try {
-      Board board = BoardAgent.get(no, in, out);
+      Board board = boardDao.findByNo(no);
       System.out.printf("내용: %s\n", board.getContents());
       System.out.printf("작성일: %s\n", board.getCreatedDate());
 
