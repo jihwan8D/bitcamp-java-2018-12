@@ -16,7 +16,7 @@ public abstract class AbstractCommand implements Command {
     // 클라이언트 요청을 처리한 후 커넥션을 자동으로 닫도록 
     // try-with-resources 블록에 Connection 레퍼런스를 선언한다.
     //
-    try (Connection con = ConnectionFactory.create()){
+    try (Connection con = ConnectionFactory.create()){  // 자동으로 con.close(); 를 하기위에 try-with-resources로 처리하였다.
       execute(new Response(in, out));
       // 현재 스레드에 보관된 Connection 객체를 꺼낸다.
       // 그리고 그 커넥션 객체를 통해 수행했던 모든 데이터 변경 작업을 commit 한다.
