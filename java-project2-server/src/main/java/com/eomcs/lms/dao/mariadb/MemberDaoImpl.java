@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.DataSource;
 
 public class MemberDaoImpl implements MemberDao {
-
-  // 외부에서 커넥션 객체를 주입 받는다.
-  Connection con;
-
-  public MemberDaoImpl(Connection con) {
-    this.con = con;
+  // DataSource 의존 객체 선언
+  DataSource dataSource;
+  
+  public MemberDaoImpl(DataSource dataSource) {
+    this.dataSource = dataSource;
   }
   
   public List<Member> findAll() {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id, name, email, tel from lms_member"
             + " order by name asc")) {
@@ -44,6 +46,8 @@ public class MemberDaoImpl implements MemberDao {
   
   @Override
   public List<Member> findByKeyword(String keyword) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id, name, email, tel from lms_member"
         + " where name like concat('%', ?, '%')"
@@ -75,6 +79,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public void insert(Member member) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into lms_member(name,email,pwd,tel,photo)"
             + " values(?,?,password(?),?,?)")) {
@@ -92,6 +98,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public Member findByNo(int no) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id, name, email, cdt, tel, photo"
             + " from lms_member"
@@ -121,6 +129,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public int update(Member member) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "update lms_member set"
             + " name = ?,"
@@ -146,6 +156,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public int delete(int no) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "delete from lms_member where member_id = ?")) {
 

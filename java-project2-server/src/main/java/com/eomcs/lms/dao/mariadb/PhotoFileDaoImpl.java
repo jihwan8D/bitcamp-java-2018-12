@@ -7,18 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.util.DataSource;
 
 public class PhotoFileDaoImpl implements PhotoFileDao {
 
-  // 외부에서 커넥션 객체를 주입 받는다.
-  Connection con;
-
-  public PhotoFileDaoImpl(Connection con) {
-    this.con = con;
+  // DataSource 의존 객체 선언
+  DataSource dataSource;
+  
+  public PhotoFileDaoImpl(DataSource dataSource) {
+    this.dataSource = dataSource;
   }
-
+  
   @Override
   public List<PhotoFile> findByPhotoBoardNo(int photoBoardNo) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select photo_file_id, photo_id, file_path"
         + " from lms_photo_file"
@@ -47,6 +50,8 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
 
   @Override
   public void insert(PhotoFile photoFile) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into lms_photo_file(file_path,photo_id) values(?,?)")) {
 
@@ -61,6 +66,8 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
 
   @Override
   public int deleteByPhotoBoardNo(int photoBoardNo) {
+    Connection con = dataSource.getConnection();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "delete from lms_photo_file where photo_id = ?")) {
 
