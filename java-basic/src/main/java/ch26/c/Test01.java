@@ -29,7 +29,7 @@ public class Test01 {
       new SqlSessionFactoryBuilder().build(inputStream);
     
     SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+                                            // 스페이스 네임.select아이디
     List<Board> list = sqlSession.selectList("board.select1");
     for (Board b : list) {
       System.out.printf("%d, %s, %s, %s, %d\n", 
