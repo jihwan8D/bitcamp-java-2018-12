@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<!-- 컬럼의 이름과 자바 인스턴스의 프로퍼티 이름을 연결하기 
+ 다음은 ch26.d.Board2 클래스의 프로퍼티 이름과
+ x_board 테이블의 컬럼 이름을 연결하는 설정이다.
+ 
+ type 속성 : 자바 클래스 전체 이름 또는 별명
+ id 속성 : SQL 문을 설정할 때 사용할 식별자
+ -->
+  <resultMap type="board2" id="board2Map">
+    <!-- PK 컬럼을 지정할 때는 id 엘리먼트를 사용하고,
+    일반 컬럼을 지정할 때는 result 엘리먼트를 사용하라! -->
+    <id column="board_id" property="no"/>
+    <!-- 
+    <result column="title" property="title"/>
+    <result column="contents" property="contents"/>
+     -->
+    <result column="created_date" property="createdDate"/>
+    <result column="view_count" property="viewCount"/>
+  </resultMap>
+
+<!-- 
+mybatis 설정 파일에서 클래스 이름에 대해 별명이 지정되어 있으면, 
+SQL 매퍼 파일에서는 그 별명을 사용할 수 있다.
+별명은 대소문자를 구분하지 않는다.
+그러나 주로 소문자를 사용한다.
+-->
+  <select id="select1" resultType="BOARD">
+    select * from x_board
+  </select>
+  
+  <select id="select2" resultType="board">
+    select * from x_board where board_id = 2
+  </select>
+  
+  <select id="select3" resultType="board2">
+    select * from x_board where board_id = 2
+  </select>
+ 
+  <select id="select4" resultType="board2">
+    select
+      board_id as no, /* 컬럼명이 프로퍼티명과 다르면 별명으로 프로퍼티명을 지정한다.*/ 
+      title,
+      contents,
+      created_date as createdDate, /* 컬럼명이 프로퍼티명과 다르면 별명으로 프로퍼티명을 지정한다.*/
+      view_count as viewCount  /* 컬럼명이 프로퍼티명과 다르면 별명으로 프로퍼티명을 지정한다.*/
+    from 
+      x_board 
+    where 
+      board_id = 2
+  </select>
+    
+    <select id="select5" resultMap="board2Map">
+    select * from x_board where board_id = 2
+  </select>
+</mapper>
+
+
+
+
+
