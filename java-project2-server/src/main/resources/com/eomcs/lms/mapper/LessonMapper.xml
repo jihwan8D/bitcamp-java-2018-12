@@ -45,25 +45,24 @@
   </select>
   
   <insert id="insert" parameterType="lesson">
-   insert into lms_lesson(
-    titl,
-    conts,
-    sdt,
-    edt,
-    tot_hr,
-    day_hr
-    )
-   values(
-    #{title},
-    #{contents},
-    #{startDate},
-    #{endDate},
-    #{totalHours},
-    #{dayHours})
+    insert into lms_lesson(
+      titl, 
+      conts, 
+      sdt, 
+      edt, 
+      tot_hr, 
+      day_hr)
+    values(
+      #{title}, 
+      #{contents}, 
+      #{startDate}, 
+      #{endDate}, 
+      #{totalHours}, 
+      #{dayHours})
   </insert>
   
   <update id="update" parameterType="lesson">
-    update lms_lesson 
+    update lms_lesson
     <set>
       <if test="title != null">titl = #{title},</if>
       <if test="contents != null">conts = #{contents},</if>
@@ -76,7 +75,8 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from lms_lesson where lesson_id = #{value}
+    delete from lms_lesson 
+    where lesson_id = #{value}
   </delete>
 </mapper>
 
