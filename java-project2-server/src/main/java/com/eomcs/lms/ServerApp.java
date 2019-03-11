@@ -1,17 +1,12 @@
-// 13단계: Mybatis 퍼시스턴스 프레임워크 적용하기
-// => 자바 소스 코드에서 SQL을 분리하여 별도의 파일에서 관리한다.
-// => JDBC 코드를 캡슐화하여 DB 프로그래밍을 간결하게 한다.
+// 15단계: Mybatis 의 동적 SQL(dynamic sql) 적용하기
+// => 하나의 SQL 문으로 여러 요청을 처리할 수 있도록 mybatis는 동적 SQL 문법을 제공한다.
 // 
 // 작업:
-// 1) Mybatis 설정 파일 준비
-//    - src/main/resources/com/eomcs/lms/conf/mybatis-config.xml 생성
-//    - src/main/resources/com/eomcs/lms/conf/jdbc.properties 생성
-// 2) LessonDao에 Mybatis 적용
-//    - src/main/resources/com/eomcs/lms/mapper/LessonMapper.xml 생성
-//    - LessonDaoImpl 클래스 변경
-//    - ApplicationInitializer 클래스 변경
-// 
-// 
+// 1) SQL 매퍼 파일 변경
+//    => BoardMapper.xml, LessonMapper.xml, MemberMapper.xml, PhotoBoardMapper.xml
+//       PhotoFileMapper.xml
+//    => <sql> 태그 사용 : select 문에 공통으로 들어가는 컬럼 목록을 별도로 분리하여 관리한다.
+//    => <bind> 태그 사용 : 파라미터 값을 가지고 SQL을 생성할 때 사용한다.
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
