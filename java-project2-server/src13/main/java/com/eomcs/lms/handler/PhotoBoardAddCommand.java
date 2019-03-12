@@ -47,20 +47,6 @@ public class PhotoBoardAddCommand extends AbstractCommand {
     }
     
     response.println("저장하였습니다.");
-    
-    // 트랜잭션 종료
-    // => 여기서 commit을 수행하는 대신에 이 메서드를 호출한 
-    //    execute(BufferedReader,PrintWriter) 메서드에서 commit을 수행하면 된다. 
-    //ApplicationInitializer.con.commit();
-    
-    // commit() 호출하지 않아도 목록데이터를 조회할 때 입력된 내용이 출력된다.
-    // 엥, commit()을 안해도 된다는 것인가?
-    // => commit() 하지 않아도 같은 커넥션에 대해 목록을 조회하면 
-    //    임시 DB에 보관된 내용까지 함께 조회하기 때문에 
-    //    겉으로 봐서는 데이터 변경(insert,update,delete)이 완료된 것처럼 보여진다.
-    // => 하지만 커넥션을 끊고 다시 커넥션을 연결한 후 데이터를 조회해보면
-    //    commit() 하지 않아서 임시 DB에 보관되었던 데이터를 조회할 때 출력되지 않는다.
-    //    즉 commit()하지 않은 데이터는 커넥션을 끊을 때 자동 제거된다.
   }
 }
 

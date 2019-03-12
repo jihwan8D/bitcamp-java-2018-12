@@ -20,8 +20,8 @@ public class TransactionManager {
     SqlSession sqlSession = sqlSessionFactoryProxy.openSession();
     sqlSession.commit();
     
-    // commit을 수행한 후
-    // SqlSessionFactoryProxy를 통해 스레드에 보관했던 SqlSession 객체를 close() 한다.
+    // commit을 수행한 수
+    // SqlSesionFactoryProxy를 통해 스레드에 보관했던 SqlSession 객체를 close() 한다.
     sqlSessionFactoryProxy.releaseForTransaction();
   }
   
