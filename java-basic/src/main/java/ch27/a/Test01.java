@@ -7,7 +7,7 @@ import java.lang.reflect.Proxy;
 
 public class Test01 {
 
-  public static void main(String[] args) throws ClassNotFoundException {
+  public static void main(String[] args) {
     // java.lang.reflect.Proxy
     // => 인터페이스 구현체를 만드는 역할을 한다.
     // 
@@ -29,7 +29,6 @@ public class Test01 {
     // 클래스 정보를 얻는 방법 예: 
     /*
     String s = "hello"; 
-                                //class 변수에는 클래스 정보를 가리키는 주소가 들어있다
     Class<?> c1 = String.class; // 클래스의 static 변수인 class의 값을 사용할 수 있다.
     Class<?> c2 = s.getClass(); // 인스턴스로 알아낼 수 있다.
     Class<?> c3 = Class.forName("java.lang.String"); // 클래스 정보를 리턴하는 도구를 이용.
@@ -39,25 +38,24 @@ public class Test01 {
     // => java.lang.reflect.InvocationHandler 인터페이스에 따라 동작하는 객체
     // => 즉 InvocationHandler 구현체
     // 
-
+    
     class MyHandler implements InvocationHandler {
-
       @Override
       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // newProxyInstance()가 생성한 객체에 대해 메서드를 호출할 때마다 이 메서드가 호출된다.
         int a = (int) args[0]; // auto-unboxing => ((Integer)args[0]).intValue();
         int b = (int) args[1]; // auto-unboxing => ((Integer)args[1]).intValue();
-        
+
         switch (method.getName()) {
           case "plus":
             return a + b;
           case "minus":
             return a - b;
         }
-        return 0; // Integer.valueOf(0); // Auto Boxing
+        return 0;
       }
     }
-    
+
     // Calculator 인터페이스를 구현한 클래스를 만들고 그 인스턴스를 생성하여 리턴한다.
     Calculator c1 = (Calculator) Proxy.newProxyInstance(
         Calculator.class.getClassLoader(), 
@@ -67,4 +65,11 @@ public class Test01 {
     System.out.println(c1.plus(10, 20));
     System.out.println(c1.minus(10, 20));
   }
+
 }
+
+
+
+
+
+
