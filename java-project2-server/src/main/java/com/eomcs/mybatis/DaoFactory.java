@@ -19,7 +19,7 @@ public class DaoFactory {
   public <T> T create(Class<T> type) {
     return (T) Proxy.newProxyInstance(
         type.getClassLoader(), 
-        new Class[] {type}, 
+        new Class[] {type}, // 인터페이스를 여러개 넣을 수 있어서
         invocationHandler);
   }
   

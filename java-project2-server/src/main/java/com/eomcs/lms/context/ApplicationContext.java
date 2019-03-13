@@ -3,6 +3,7 @@ package com.eomcs.lms.context;
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,6 +61,11 @@ public class ApplicationContext {
 
     beanContainer.put(name, bean);
   }
+  
+  // 저장소에 보관된 인스턴스를 꺼낸다.
+  public Object getBean(String name) {
+    return beanContainer.get(name);
+  }
 
   private void findClasses(File dir, String packageName) throws Exception {
     // 디렉토리를 뒤져서 클래스 파일(.class)이나 하위 디렉토리 목록을 알아낸다.
@@ -77,19 +83,20 @@ public class ApplicationContext {
         return false;
       }
     });
-
     for(File f : files) {
       if (f.isFile()) {
+//        System.out.println(f);
         // 클래스 파일일 경우,
         // => 파라미터로 받은 패키지 명과 파일 이름을 합쳐서 클래스 이름을 만든다.
         //    예) com.eomcs.lms(패키지명) + . + ServerApp(파일명) = com.eomcs.lms.ServerApp
         String filename = f.getName();                              // 0번째 글자부터 . 전까지만 남기고 리턴
+//        System.out.println(filename);
         String className = packageName + "." + filename.substring(0, filename.indexOf('.'));
         // Helper.class => Helper
-        //System.out.println(className);
+//        System.out.println(className);
         // => 클래스 이름으로 클래스 파일(.class)을 로딩한다.
         Class<?> clazz = Class.forName(className);     // 앞에 class, interface가 붙어서 나옴
-        //System.out.println(clazz);
+//        System.out.println(clazz);
         // => 클래스 정보를 분석하여 중첩 클래스이거나 인터페이스, Enum이면 무시한다.
         if (clazz.isLocalClass() || clazz.isInterface() || clazz.isEnum()) 
           continue;
@@ -119,12 +126,15 @@ public class ApplicationContext {
       List<Class<?>> interfaces = getAllInterfaces(clazz);
 
       for (Class<?> i : interfaces) {
-        if (i == Command.class) {
+        if (i == Command.class) {     // xxxCommand인 파일들을 걸러내려고 하는 코드
           // Command 인터페이스의 구현체인 경우 해당 클래스의 인스턴스를 생성한다.
           Object obj = createInstance(clazz); // 인스턴스를 만들어서 리턴함
           if (obj != null) { // 제대로 생성했으면 beanContainer에 저장한다.
-            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 클래스명을 사용한다.
-            addBean(obj.getClass().getName(), obj);
+            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 name 필드 값으로 한다.
+            Method getName = clazz.getMethod("getName");
+            addBean(
+                (String) getName.invoke(obj), // getName()을 호출하여 리턴 값을 키로 사용한다.
+                  obj);
           }
           break;
         }
@@ -143,7 +153,7 @@ public class ApplicationContext {
     }
     return list;
   }
-
+////////////////////////////////////////////////////////////////////
   private Object createInstance(Class<?> clazz) throws Exception {
     // 파라미터로 주어진 클래스 정보를 가지고 인스턴스를 생성한다.
     // => 기본 생성자를 알아낸다.

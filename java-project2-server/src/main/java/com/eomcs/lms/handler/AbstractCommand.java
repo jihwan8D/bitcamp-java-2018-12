@@ -9,6 +9,16 @@ import java.io.PrintWriter;
 // 
 public abstract class AbstractCommand implements Command {
   
+  protected String name;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public String getName() {
+    return name;
+  }
+  
   @Override
   public void execute(BufferedReader in, PrintWriter out) {
     try {
