@@ -1,8 +1,9 @@
-// 17단계: Mybatis의 SqlSession을 이용하여 DAO 구현체 자동 생성하기
-// => SqlSession에는 DAO 인터페이스 구현체를 자동으로 생성해주는 메서드가 있다.
+// 18단계: Command 구현체를 자동 생성하는 IoC 컨테이너 도입하기
+// => ApplicationInitializer의 Command 객체 생성 작업을 ApplicationContext에 위임한다.
 //
 // 작업:
-// 1) Command에 직접 DAO를 주입하는 대신에 SqlSessionFactory를 주입한다.
+// 1) ApplicationContext 정의
+//      
 
 package com.eomcs.lms;
 import java.io.BufferedReader;
