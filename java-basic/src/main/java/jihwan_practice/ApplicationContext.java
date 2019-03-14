@@ -1,4 +1,4 @@
-package com.eomcs.lms.context;
+package jihwan_practice;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -41,8 +41,8 @@ public class ApplicationContext {
     // => 또한 중첩 클래스도 제외한다.
     findClasses(packageDir, packageName);
 
-    // 3) Component 애노테이션이 붙은 클래스만 찾아서 인스턴스를 생성한다.
-    prepareComponent();
+    // 3) Command 인터페이스를 구현한 클래스만 찾아서 인스턴스를 생성한다.
+    prepareCommand();
 
     // 저장소에 보관된 객체의 이름과 클래스명을 출력한다.
     System.out.println("-------------------------------------------");
@@ -61,7 +61,7 @@ public class ApplicationContext {
 
     beanContainer.put(name, bean);
   }
-
+  
   // 저장소에 보관된 인스턴스를 꺼낸다.
   public Object getBean(String name) {
     return beanContainer.get(name);
@@ -85,18 +85,18 @@ public class ApplicationContext {
     });
     for(File f : files) {
       if (f.isFile()) {
-        //        System.out.println(f);
+//        System.out.println(f);
         // 클래스 파일일 경우,
         // => 파라미터로 받은 패키지 명과 파일 이름을 합쳐서 클래스 이름을 만든다.
         //    예) com.eomcs.lms(패키지명) + . + ServerApp(파일명) = com.eomcs.lms.ServerApp
         String filename = f.getName();                              // 0번째 글자부터 . 전까지만 남기고 리턴
-        //        System.out.println(filename);
+//        System.out.println(filename);
         String className = packageName + "." + filename.substring(0, filename.indexOf('.'));
         // Helper.class => Helper
-        //        System.out.println(className);
+//        System.out.println(className);
         // => 클래스 이름으로 클래스 파일(.class)을 로딩한다.
         Class<?> clazz = Class.forName(className);     // 앞에 class, interface가 붙어서 나옴
-        //        System.out.println(clazz);
+//        System.out.println(clazz);
         // => 클래스 정보를 분석하여 중첩 클래스이거나 인터페이스, Enum이면 무시한다.
         if (clazz.isLocalClass() || clazz.isInterface() || clazz.isEnum()) 
           continue;
@@ -120,82 +120,94 @@ public class ApplicationContext {
     }
   }
 
-  private void prepareComponent() throws Exception {
+  private void prepareCommand() throws Exception {
     for (Class<?> clazz : classes) {
-      // 클래스에서 Component 애노테이션 정보를 추출한다.
-      Component compAnno = clazz.getAnnotation(Component.class);
+      // 클래스가 또는 조상 클래스가 구현한 인터페이스의 목록을 알아낸다.
+      List<Class<?>> interfaces = getAllInterfaces(clazz);
 
-      if (compAnno == null)
-        continue;
-      
-      // Component 애노테이션이 붙은 클래스의 인스턴스를 생성한다.
-      Object obj = createInstance(clazz);
-      
-      if (obj != null) { // 제대로 생성했으면 beanContainer에 저장한다.
-        // 빈컨테이너에 객체를 저장할 때 key 값은 Component 애노테이션의 value() 값으로 한다.
-        // 만약 value 가 빈 문자열이라면 클래스 이름을 사용한다.
-        // => 클래스에서 getName() 메서드를 알아낸다.
-        addBean(
-            compAnno.value().length() > 0 ? compAnno.value() : clazz.getName(),
-            obj);
+      for (Class<?> i : interfaces) {
+        if (i == Command.class) {     // xxxCommand인 파일들을 걸러내려고 하는 코드
+          // Command 인터페이스의 구현체인 경우 해당 클래스의 인스턴스를 생성한다.
+          Object obj = createInstance(clazz); // 인스턴스를 만들어서 리턴함
+          if (obj != null) { // 제대로 생성했으면 beanContainer에 저장한다.
+            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 name 필드 값으로 한다.
+            Method getName = clazz.getMethod("getName");
+            addBean(
+                (String) getName.invoke(obj), // getName()을 호출하여 리턴 값을 키로 사용한다.
+                  obj);
+          }
+          break;
+        }
       }
     }
   }
 
+  private List<Class<?>> getAllInterfaces(Class<?> clazz) {
+    ArrayList<Class<?>> list = new ArrayList<>();
+
+    while (clazz != Object.class) {
+      Class<?>[] interfaces = clazz.getInterfaces(); // 참조중인 인터페이스 모두 담음
+      for (Class<?> i : interfaces)
+        list.add(i);
+      clazz = clazz.getSuperclass();
+    }
+    return list;
+  }
+////////////////////////////////////////////////////////////////////
   private Object createInstance(Class<?> clazz) throws Exception {
-  // 파라미터로 주어진 클래스 정보를 가지고 인스턴스를 생성한다.
-  // => 기본 생성자를 알아낸다.
-  try { 
-    Constructor<?> defaultConstructor = clazz.getConstructor();
-    return defaultConstructor.newInstance();
-  } catch (Exception e) {
-    // 기본 생성자를 못 찾으면 예외 발생한다. 
-    // 그냥 무시하고 다른 생성자를 찾아 인스턴스를 생성한다.
-  }
-
-  // => 기본 생성자가 없다면, 다른 생성자 목록을 얻는다.
-  Constructor<?>[] constructors = clazz.getConstructors();
-  for (Constructor<?> c : constructors) {
-    // => 생성자를 호출하려면 먼저 어떤 타입의 파라미터가 필요한지 알아야 한다.
-    Class<?>[] paramTypes = c.getParameterTypes();
-
-    // => 생성자가 요구하는 타입의 파라미터 값이 저장소에 있는지 찾아 본다.
-    Object[] paramValues = getParameterValues(paramTypes);
-    if (paramValues != null) { // 생성자가 요구하는 모든 파라미터 값을 찾았다면 
-      // 생성자를 통해 인스턴스를 생성하여 리턴한다.
-      return c.newInstance(paramValues);
+    // 파라미터로 주어진 클래스 정보를 가지고 인스턴스를 생성한다.
+    // => 기본 생성자를 알아낸다.
+    try { 
+      Constructor<?> defaultConstructor = clazz.getConstructor();
+      return defaultConstructor.newInstance();
+    } catch (Exception e) {
+      // 기본 생성자를 못 찾으면 예외 발생한다. 
+      // 그냥 무시하고 다른 생성자를 찾아 인스턴스를 생성한다.
     }
-  }
-  return null;
-}
-
-private Object[] getParameterValues(Class<?>[] paramTypes) {
-  // 파라미터 타입에에 해당하는 객체를 빈컨테이너에서 찾아 배열을 만들어 리턴한다.
-  ArrayList<Object> values = new ArrayList<>();
-
-  for (Class<?> type : paramTypes) {
-    Object value = findBean(type);
-    if (value != null) {
-      values.add(value);
+    
+    // => 기본 생성자가 없다면, 다른 생성자 목록을 얻는다.
+    Constructor<?>[] constructors = clazz.getConstructors();
+    for (Constructor<?> c : constructors) {
+      // => 생성자를 호출하려면 먼저 어떤 타입의 파라미터가 필요한지 알아야 한다.
+      Class<?>[] paramTypes = c.getParameterTypes();
+      
+      // => 생성자가 요구하는 타입의 파라미터 값이 저장소에 있는지 찾아 본다.
+      Object[] paramValues = getParameterValues(paramTypes);
+      if (paramValues != null) { // 생성자가 요구하는 모든 파라미터 값을 찾았다면 
+        // 생성자를 통해 인스턴스를 생성하여 리턴한다.
+        return c.newInstance(paramValues);
+      }
     }
-  }
-
-  if (values.size() == paramTypes.length)
-    // 파라미터의 타입 목록에 지정된 객체를 모두 찾았으면 배열로 리턴한다.
-    return values.toArray();
-  else // 못 찾았으면 null을 리턴한다.
     return null;
-}
-
-private Object findBean(Class<?> type) {
-  // 빈 컨테이너에서 특정 타입의 인스턴스를 찾기
-  // => 먼저 빈 컨테이너에서 인스턴스 목록을 꺼낸다.
-  Collection<Object> beans = beanContainer.values();
-  for (Object bean : beans) {
-    if (type.isInstance(bean))
-      return bean;
   }
-  return null;
-}
+
+  private Object[] getParameterValues(Class<?>[] paramTypes) {
+    // 파라미터 타입에에 해당하는 객체를 빈컨테이너에서 찾아 배열을 만들어 리턴한다.
+    ArrayList<Object> values = new ArrayList<>();
+
+    for (Class<?> type : paramTypes) {
+      Object value = findBean(type);
+      if (value != null) {
+        values.add(value);
+      }
+    }
+
+    if (values.size() == paramTypes.length)
+      // 파라미터의 타입 목록에 지정된 객체를 모두 찾았으면 배열로 리턴한다.
+      return values.toArray();
+    else // 못 찾았으면 null을 리턴한다.
+      return null;
+  }
+
+  private Object findBean(Class<?> type) {
+    // 빈 컨테이너에서 특정 타입의 인스턴스를 찾기
+    // => 먼저 빈 컨테이너에서 인스턴스 목록을 꺼낸다.
+    Collection<Object> beans = beanContainer.values();
+    for (Object bean : beans) {
+      if (type.isInstance(bean))
+        return bean;
+    }
+    return null;
+  }
 }
 

@@ -1,14 +1,15 @@
 package com.eomcs.lms.handler;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
+@Component("/member/update")
 public class MemberUpdateCommand extends AbstractCommand {
 
   MemberDao memberDao;
 
   public MemberUpdateCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
-    this.name = "/member/update";
   }
 
   @Override

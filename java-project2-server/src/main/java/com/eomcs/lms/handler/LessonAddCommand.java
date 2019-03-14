@@ -1,14 +1,15 @@
 package com.eomcs.lms.handler;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
+@Component("/lesson/add")
 public class LessonAddCommand extends AbstractCommand {
 
   LessonDao lessonDao;
   
   public LessonAddCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
-    this.name = "/lesson/add";
   }
   
 

@@ -1,15 +1,16 @@
 package com.eomcs.lms.handler;
 import java.util.List;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
+@Component("/board/list")
 public class BoardListCommand extends AbstractCommand {
 
   BoardDao boardDao;
   
   public BoardListCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/list";
   }
 
   @Override

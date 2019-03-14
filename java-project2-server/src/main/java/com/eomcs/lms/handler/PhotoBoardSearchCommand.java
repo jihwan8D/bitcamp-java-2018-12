@@ -1,16 +1,17 @@
 package com.eomcs.lms.handler;
 import java.util.HashMap;
 import java.util.List;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 
+@Component("/photoboard/search")
 public class PhotoBoardSearchCommand extends AbstractCommand {
 
   PhotoBoardDao photoBoardDao;
   
   public PhotoBoardSearchCommand(PhotoBoardDao photoBoardDao) {
     this.photoBoardDao = photoBoardDao;
-    this.name = "/photoboard/search";
   }
 
   @Override

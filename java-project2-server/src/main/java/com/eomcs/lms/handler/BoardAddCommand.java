@@ -1,14 +1,15 @@
 package com.eomcs.lms.handler;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
+@Component("/board/add")
 public class BoardAddCommand extends AbstractCommand {
   
   BoardDao boardDao; // 서버의 BoardDaoImpl 객체를 대행하는 프록시 객체이다.
   
   public BoardAddCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/add";
   }
   
   @Override

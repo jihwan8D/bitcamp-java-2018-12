@@ -1,15 +1,16 @@
 package com.eomcs.lms.handler;
 import java.util.List;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
+@Component("/member/search")
 public class MemberSearchCommand extends AbstractCommand {
   
   MemberDao memberDao;
   
   public MemberSearchCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
-    this.name = "/member/search";
   }
   
   @Override

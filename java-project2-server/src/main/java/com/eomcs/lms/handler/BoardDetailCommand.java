@@ -1,14 +1,15 @@
 package com.eomcs.lms.handler;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
+@Component("/board/detail")
 public class BoardDetailCommand extends AbstractCommand {
   
   BoardDao boardDao;
   
   public BoardDetailCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/detail";
   }
 
   @Override

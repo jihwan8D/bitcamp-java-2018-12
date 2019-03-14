@@ -1,10 +1,12 @@
 package com.eomcs.lms.handler;
 import java.util.List;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 
+@Component("/photoboard/detail")
 public class PhotoBoardDetailCommand extends AbstractCommand {
   
   PhotoBoardDao photoBoardDao;
@@ -15,7 +17,6 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
       PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
-    this.name = "/photoboard/detail";
   }
 
   @Override

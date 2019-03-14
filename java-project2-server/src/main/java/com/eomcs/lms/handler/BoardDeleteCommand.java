@@ -1,13 +1,14 @@
 package com.eomcs.lms.handler;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.BoardDao;
 
+@Component("/board/delete")
 public class BoardDeleteCommand extends AbstractCommand {
   
   BoardDao boardDao;
   
   public BoardDeleteCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/delete";
   }
 
   @Override

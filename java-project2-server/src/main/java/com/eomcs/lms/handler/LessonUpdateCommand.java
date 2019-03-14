@@ -1,15 +1,16 @@
 package com.eomcs.lms.handler;
 import java.sql.Date;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
+@Component("/lesson/update")
 public class LessonUpdateCommand extends AbstractCommand {
 
   LessonDao lessonDao;
   
   public LessonUpdateCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
-    this.name = "/lesson/update";
   }
   
 

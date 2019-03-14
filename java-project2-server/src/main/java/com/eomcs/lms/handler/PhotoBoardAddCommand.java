@@ -1,11 +1,13 @@
 package com.eomcs.lms.handler;
 import java.util.ArrayList;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.mybatis.TransactionManager;
 
+@Component("/photoboard/add")
 public class PhotoBoardAddCommand extends AbstractCommand {
   
   TransactionManager txManager;
@@ -19,7 +21,6 @@ public class PhotoBoardAddCommand extends AbstractCommand {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
     this.txManager = txManager;
-    this.name = "/photoboard/add";
   }
   
   @Override
