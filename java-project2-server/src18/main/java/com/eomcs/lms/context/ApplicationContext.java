@@ -7,12 +7,13 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.ibatis.io.Resources;
-import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
+import com.eomcs.lms.handler.Command;
 
-// 객체를 자동 생성하는 역할을 수행한다.
+// Command 객체를 자동 생성하는 역할을 수행한다.
 public class ApplicationContext {
   
   // 인스턴스를 생성할 클래스 정보
@@ -39,11 +40,8 @@ public class ApplicationContext {
     // => 또한 중첩 클래스도 제외한다.
     findClasses(packageDir, packageName);
     
-    // 3) Component 애노테이션이 붙은 클래스만 찾아서 인스턴스를 생성한다.
-    prepareComponent();
-    
-    // 4) 인스턴스 생성을 완료한 후 작업을 수행
-    postProcess();
+    // 3) Command 인터페이스를 구현한 클래스만 찾아서 인스턴스를 생성한다.
+    prepareCommand();
     
     // 저장소에 보관된 객체의 이름과 클래스명을 출력한다.
     System.out.println("-------------------------------");
@@ -115,26 +113,40 @@ public class ApplicationContext {
     }
   }
   
-  private void prepareComponent() throws Exception {
+  private void prepareCommand() throws Exception {
     for (Class<?> clazz : classes) {
-      // 클래스에서 Component 애노테이션 정보를 추출한다.
-      Component compAnno = clazz.getAnnotation(Component.class);
+      // 클래스 또는 조상 클래스가 구현한 인터페이스의 목록을 알아낸다.
+      List<Class<?>> interfaces = getAllInterfaces(clazz);
       
-      if (compAnno == null) 
-        continue;
-      
-      // Component 애노테이션이 붙은 클래스에 대해 인스턴스를 생성한다.
-      Object obj = createInstance(clazz);
-      
-      if (obj != null) { // 제대로 생성했으면 빈컨테이너에 저장한다.
-        // 빈컨테이너에 객체를 저장할 때 key 값은 Component 애노테이션의 value() 값으로 한다.
-        // 만약 value 가 빈 문자열이라면 클래스 이름을 사용한다.
-        // => 클래스에서 getName() 메서드를 알아낸다.
-        addBean(
-            compAnno.value().length() > 0 ? compAnno.value() : clazz.getName(),
-            obj);
+      for (Class<?> i : interfaces) {
+        if (i == Command.class) {
+          // Command 인터페이스의 구현체인 경우 해당 클래스의 인스턴스를 생성한다.
+          Object obj = createInstance(clazz);
+          if (obj != null) { // 제대로 생성했으면 빈컨테이너에 저장한다.
+            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 name 필드 값으로 한다.
+            // => 클래스에서 getName() 메서드를 알아낸다.
+            Method getName = clazz.getMethod("getName");
+            addBean(
+                (String) getName.invoke(obj), // getName()을 호출하여 리턴 값을 키로 사용한다.
+                obj);
+          }
+          break;
+        }
       }
     }
+  }
+  
+  private List<Class<?>> getAllInterfaces(Class<?> clazz) {
+    ArrayList<Class<?>> list = new ArrayList<>();
+    
+    while (clazz != Object.class) {
+      Class<?>[] interfaces = clazz.getInterfaces();
+      for (Class<?> i : interfaces) 
+        list.add(i);
+      clazz = clazz.getSuperclass();
+    }
+    
+    return list;
   }
   
   private Object createInstance(Class<?> clazz) throws Exception {
@@ -191,37 +203,6 @@ public class ApplicationContext {
         return bean;
     }
     return null;
-  }
-  
-  // bean 생성을 완료한 후 작업 수행
-  public void postProcess() {
-    // RequestMappingHandler 정보를 관리할 객체 생성
-    RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-    
-    // 빈컨테이너에서 객체를 모두 꺼낸다. 
-    Collection<Object> beans = beanContainer.values();
-    
-    for (Object bean : beans) {
-      // 각 객체에 대해 @RequestMapping 메서드를 찾는다.
-      Method[] methods = bean.getClass().getMethods();
-      for (Method m : methods) {
-        //System.out.println(m.getName());
-        RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
-        if (requestMapping == null) 
-          continue;
-        
-        // RequestMapping이 붙은 메서드를 찾았으면 그 정보를 RequestMappingHandler에 담는다.
-        RequestMappingHandler handler = new RequestMappingHandler(bean, m);
-        
-        // 그리고 이 요청 핸들러(RequestMapping 애노테이션이 붙은 메서드)를 저장한다.
-        handlerMapping.add(requestMapping.value(), handler);
-        //System.out.println("==> " + requestMapping.value());
-      }
-    }
-    
-    // ServerApp에서 꺼낼 수 있도록 RequestMappingHandlerMapping 객체를 
-    // 빈 컨테이너에 저장해 둔다.
-    beanContainer.put("handlerMapping", handlerMapping);
   }
 }
 
