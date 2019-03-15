@@ -12,6 +12,12 @@
 //    => 객체를 생성하여 리턴하는 메서드에 Bean 애노테이션을 붙인다.
 // 4) ApplicationContext 변경
 //    => 생성자의 파라미터로 받은 클래스에 대해 설정 작업을 수행한다.
+// 5) ComponentScan 애노테이션 정의
+//    => IoC 컨테이너가 객체를 자동 생성할 때 뒤질 패키지 이름을 설정한다.
+// 6) AppConfig 변경
+//    => ComponentScan 애노테이션을 추가한다.
+// 7) ApplicationContext 변경
+//    => 생성자에서 ComponentScan 애노테이션을 처리한다.
 //
 package com.eomcs.lms;
 import java.io.BufferedReader;
