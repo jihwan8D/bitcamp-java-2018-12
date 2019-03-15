@@ -1,24 +1,23 @@
-// 23단계: Spring IoC 컨테이너와 Mybatis 연동하기
-// => Mybatis 관련 객체를 Spring IoC 컨테이너가 자동으로 관리하도록 연동한다.
+// 21단계: 자바 설정 방식을 이용하여 IoC 컨테이너를 설정하기
+// => IoC 컨테이너에게 필요한 것들을 자바 코드로 설정한다. 
 // 
-// 작업
-// 1) Spring IoC 컨테이너와 연동할 때 사용할 Mybatis 라이브러리 가져오기
-//    => mvnrepository.com 에서 mybatis spring 으로 검색한다.
-//    => 프로젝트의 build.gradle 파일에 spring 의존 라이브러리 정보를 추가한다.
-//    => '$ gradle eclipse'를 실행하여 의존 라이브러리를 다운로드 받고 
-//       이클립스 설정 파일을 갱신한다.
-//    => 이클립스 IDE에서 프로젝트를 refresh 한다.
-// 2) 의존 라이브러리 준비
-//    => DataSource 구현체인 apache의 commons-dbcp2 라이브러리 추가
-//    => Spring의 jdbc 관련 spring-jdbc 라이브러리 추가.
-//       트랜잭션 관련 라이브러리도 자동으로 추가된다.
+// 작업1 - 팩토리 메서드를 통해 객체 생성하기 
+// 1) AppConfig 정의
+//    => IoC 컨테이너가 보관할 객체를 생성하는 메서드 정의
+//    => IoC 컨테이너가 자동으로 생성하지 않는 객체를 메서드에서 리턴한다.
+// 2) Bean 애노테이션 정의 
+//    => IoC 컨테이너가 보관해야 하는 객체를 만들어 주는 메서드를 표시할 때 사용한다.
+//    => IoC 컨테이너는 이 애노테이션이 붙은 메서드를 호출하여 그 리턴 값을 보관할 것이다.
 // 3) AppConfig 변경
-//    => mybatis 관련 객체를 생성한다.
-//    => mybatis-config.xml 삭제한다.
-//    => SqlSessionFactoryProxy, SqlSessionProxy, TransactionManager 삭제한다.
-//    => DaoFactory 삭제한다.
-// 4) LessonCommand, PhotoBoardCommand 변경
-//    => Spring 프레임워크에서 제공해주는 트랜잭션 관리자로 교체한다.
+//    => 객체를 생성하여 리턴하는 메서드에 Bean 애노테이션을 붙인다.
+// 4) ApplicationContext 변경
+//    => 생성자의 파라미터로 받은 클래스에 대해 설정 작업을 수행한다.
+// 5) ComponentScan 애노테이션 정의
+//    => IoC 컨테이너가 객체를 자동 생성할 때 뒤질 패키지 이름을 설정한다.
+// 6) AppConfig 변경
+//    => ComponentScan 애노테이션을 추가한다.
+// 7) ApplicationContext 변경
+//    => 생성자에서 ComponentScan 애노테이션을 처리한다.
 //
 package com.eomcs.lms;
 import java.io.BufferedReader;
@@ -28,7 +27,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.springframework.context.ApplicationContext;
+import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
@@ -43,7 +42,7 @@ public class ServerApp {
   HashMap<String,Object> context = new HashMap<>();
 
   // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
-  ApplicationContext iocContainer;
+  ApplicationContext beanContainer;
   
   // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
   RequestMappingHandlerMapping handlerMapping;
@@ -63,13 +62,12 @@ public class ServerApp {
       }
 
       // ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다.
-      iocContainer = (ApplicationContext) context.get("applicationContext");
+      beanContainer = (ApplicationContext) context.get("applicationContext");
       
-      // ApplicationInitializer 옵저버(관찰자, 보고 받는자)에서 준비한
-      // RequestMappingHandlerMapping 객체를 꺼낸다.
+      // 빈 컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다.
       // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어 있다.
       handlerMapping = 
-          (RequestMappingHandlerMapping) context.get("handlerMapping");
+          (RequestMappingHandlerMapping) beanContainer.getBean("handlerMapping");
       
       System.out.println("서버 실행 중...");
       

@@ -1,6 +1,6 @@
 package com.eomcs.lms.handler;
 
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.context.RequestMapping;
 
 @Component
