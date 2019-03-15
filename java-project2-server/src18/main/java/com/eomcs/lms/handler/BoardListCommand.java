@@ -31,6 +31,7 @@ public class BoardListCommand extends AbstractCommand {
       }
       */
     }
+    System.out.println();
   }
 
 }

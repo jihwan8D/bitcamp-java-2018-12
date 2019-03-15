@@ -12,5 +12,4 @@ public @interface MyAnnotation7 {
   String name();
   int age();
   boolean working() default true;
-
 }

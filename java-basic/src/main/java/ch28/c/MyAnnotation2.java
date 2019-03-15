@@ -5,7 +5,7 @@ import java.lang.annotation.Target;
 
 // 애노테이션 사용 범위
 // 
-@Target(ElementType.FIELD)
+@Target(ElementType.FIELD) // 필드 선언에 붙일 수 있다.
 public @interface MyAnnotation2 {
 
 }

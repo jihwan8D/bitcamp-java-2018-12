@@ -119,7 +119,7 @@ public class ApplicationContext {
         continue;
       
       // Component 애노테이션이 붙은 클래스에 대해 인스턴스를 생성한다.
-      Object obj = createInstance(clazz);
+      Object obj = createInstance(clazz); //xxxCommand객체 만들어서 obj에 값을 담음
       
       if (obj != null) { // 제대로 생성했으면 빈컨테이너에 저장한다.
         // 빈컨테이너에 객체를 저장할 때 key 값은 Component 애노테이션의 value() 값으로 한다.
