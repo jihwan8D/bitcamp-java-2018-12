@@ -26,7 +26,7 @@ public class ApplicationContext {
     
     // 1) 설정 정보를 갖고 있는 클래스의 인스턴스를 생성한다.
     Constructor<?> c = configClass.getConstructor();
-    Object config = c.newInstance(); // AppConfig 객체가 담겨있다.
+    Object config = c.newInstance();
     
     // 2) Bean 애노테이션이 붙은 메서드를 모두 찾는다.
     ArrayList<Method> factoryMethods = new ArrayList<>();
@@ -34,12 +34,12 @@ public class ApplicationContext {
     Method[] methods = configClass.getMethods();
     for (Method m : methods) {
       if (m.getAnnotation(Bean.class) != null) 
-        factoryMethods.add(m);  // Bean 애노테이션이 붙은 메서드를 factoryMethods에 담는 과정
-    }    
+        factoryMethods.add(m);
+    }
     
     // 3) 팩토리 메서드를 호출하여 그 리턴 값을 빈 컨테이너에 보관한다.
     while (factoryMethods.size() > 0) {
-      Method m = factoryMethods.get(0); // 메서드 목록에서 메서드를 꺼내  // AppConfig 의 첫번째 메서드를 m에 담는다.
+      Method m = factoryMethods.get(0); // 메서드 목록에서 메서드를 꺼내
       callFactoryMethod(config, m, factoryMethods, ""); // 호출한다.
       factoryMethods.remove(m); // 호출에 성공하든 실패하든 목록에서 제거한다.
     }
