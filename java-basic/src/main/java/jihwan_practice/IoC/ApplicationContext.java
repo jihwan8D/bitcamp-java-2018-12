@@ -1,4 +1,4 @@
-package jihwan_practice;
+package jihwan_practice.IoC;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.ibatis.io.Resources;
-import com.eomcs.lms.handler.Command;
 
 // Command 객체를 자동 생성하는 역할을 수행한다.
 public class ApplicationContext {
