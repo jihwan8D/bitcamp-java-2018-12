@@ -54,7 +54,7 @@ public class Test01 {
     //    file://
     ApplicationContext iocContainer2 = 
         new FileSystemXmlApplicationContext(
-            "file:///Users/eomjinyoung/git/bitcamp-java-2018-12/java-basic/bin/main/ch29/a/application-context.xml");
+            "file:///home/bitcamp/git/bitcamp-java-2018-12/java-basic/src/main/java/ch29/a/application-context.xml");
     
     // 3) 자바 클래스 파일의 애노테이션으로부터 설정 정보를 추출한다.
     // => 생성자에 설정 정보를 갖고 있는 클래스의 타입 정보를 넘긴다. 
