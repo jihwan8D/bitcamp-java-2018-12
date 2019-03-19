@@ -22,7 +22,7 @@
   -->
   
   <bean id="c1" class="ch29.h.Car5"/>
-   
+
   <bean id="bb1" class="ch29.h.BlackBox">
     <property name="maker" value="비트오토"/>
     <property name="model" value="오호라박스"/>

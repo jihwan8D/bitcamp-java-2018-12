@@ -1,7 +1,6 @@
 // BeanPostProcessor - <context:annotation-config/> 태그의 의미와 사용법
 package ch29.h;
 
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
