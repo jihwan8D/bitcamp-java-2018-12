@@ -30,6 +30,7 @@ public class BoardCommand {
   public void add(Response response) throws Exception {
     Board board = new Board();
     board.setContents(response.requestString("내용?"));
+  
     boardService.add(board);
     
     response.println("저장하였습니다.");
