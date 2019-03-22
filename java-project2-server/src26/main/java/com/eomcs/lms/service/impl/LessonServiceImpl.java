@@ -3,6 +3,8 @@ package com.eomcs.lms.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
@@ -53,6 +55,7 @@ public class LessonServiceImpl implements LessonService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED)
   public int delete(int no) {
     HashMap<String,Object> params = new HashMap<>();
     params.put("lessonNo", no);

@@ -3,6 +3,8 @@ package com.eomcs.lms.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -48,6 +50,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED)
   public int add(PhotoBoard board) {
     int count = boardDao.insert(board);
 
@@ -81,6 +84,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED)
   public int update(PhotoBoard board) {
     // PhotoBoard 객체에 제목이 들어 있다는 것은 사용가 변경했다는 의미다.
     if (board.getTitle() != null) {
@@ -97,6 +101,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED)
   public int delete(int no) {
     // 데이터를 지울 때는 자식 테이블의 데이터부터 지워야 한다.
     fileDao.deleteByPhotoBoardNo(no);

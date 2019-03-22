@@ -1,22 +1,19 @@
-// 27단계: XML 설정으로 트랜잭션 다루기
-// => 애노테이션을 사용할 경우 각 서비스 클래스의 메서드에 대해 애노테이션을 붙여야 한다.
-// => XML 설정을 사용하면 pointcut 규칙으로 트랜잭션을 적용할 메서드를 간단히 지정할 수 있다.
-//    그래서 실무에서 많이 사용한다.
+// 26단계: 애노테이션으로 트랜잭션 다루기
+// => @Transactional 애노테이션을 이용하여 트랜잭션을 사용할 수 있다.
 // 
 // 작업
-// 1) 트랜잭션을 설정하는 XML 파일을 준비한다.
-//    => tx-context.xml
-// 2) 기존에 서비스 클래스에 붙인 @Transactional 애노테이션을 모두 제거한다.
+// 1) @Transactional 애노테이션을 처리할 객체를 스프링 IoC 컨테이너 설정에 등록한다.
+//    => Java config 클래스에 @EnableTransactionManagement 애노테이션을 붙인다.
+// 2) 트랜잭션을 적용할 서비스 클래스의 메서드에 @Transactional을 붙인다.
+//    => 왜? DAO에 메서드에 안 붙이고 서비스 클래스의 메서드에 붙이는가?
+//       - DAO 메서드들은 업무에 따라 단독으로 실행될 때가 있고,
+//         다른 DB 작업과 묶여서 실행될 때가 있기 때문이다.
+//       - 예를 들어 PhotoBoardDao의 delete() 메서드를 보라.
+//         이 메서드는 단독으로 실행할 수도 있지만,
+//         보통 PhotoFileDao의 delete()과 묶여서 실행될 때가 있다.
+//       - 즉 DAO의 메서드는 업무에 따라 다른 DAO의 데이터 변경 메서드와 묶일 수 있기 때문이다.
 //    => LessonServiceImpl의 delete(),
-//       PhotoBoardServiceImpl의 add(), update(), delete() 에 붙인 애노테이션을 제거한다. 
-// 3) AOP 라이브러리 추가한다.
-//    => PlatformTransactionManager 를 사용하여 트랜잭션을 다룰 때는 
-//       개발자가 해당 메서드에 직접 코드를 삽입하기 때문에 AOP 기술을 사용할 일이 없다.
-//    => @Transcational 애노테이션을 사용하여 트랜잭션을 다룰 때도 
-//       Spring IoC 컨테이너에서 Proxy 생성 기술을 사용하기 때문에 AOP 기술을 사용할 일이 없다.
-//    => 그러나 XML에서 advice를 이용하여 트랜잭션을 다룰 때는
-//       AOP 라이브러리를 사용하기 때문에 프로젝트에 추가해야 한다.
-//    => aspectjweaver 라이브러리를 추가하라.
+//       PhotoBoardServiceImpl의 add(), update(), delete() 에 @Transactional을 붙인다. 
 //
 package com.eomcs.lms;
 import java.io.BufferedReader;
