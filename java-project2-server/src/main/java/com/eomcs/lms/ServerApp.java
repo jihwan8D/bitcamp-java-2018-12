@@ -91,8 +91,6 @@ public class ServerApp implements Servlet {
     // 이 클래스의 인스턴스가 생성된 후 톰캣이 제일 처음으로 호출하는 메서드
     // => 보통 이 클래스가 작업하는데 필요한 객체를 준비한다.
 
-    this.config = config;
-
     logger.info("Spring IoC 컨테이너 준비");
     iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
     printBeans();
