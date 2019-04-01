@@ -6,7 +6,7 @@
   version="4.0" metadata-complete="false">
 
   <description>
-    수업 관리 웹 애플리케이션 
+    수업 관리 웹 애플리케이션
   </description>
 
   <display-name>java-web-project</display-name>
@@ -16,6 +16,7 @@
     <welcome-file>index.htm</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>  
+  
 </web-app>
 
 

@@ -19,11 +19,11 @@ public class LessonAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
-    out.println("<html>");
+    out.println("<htm>");
     out.println("<head><title>새 수업</title></head>");
     out.println("<body>");
     out.println("<h1>새 수업</h1>");
@@ -68,11 +68,8 @@ public class LessonAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
-    
-    LessonService lessonService = 
-        InitServlet.iocContainer.getBean(LessonService.class);
-    
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
+
     Lesson lesson = new Lesson();
     lesson.setTitle(request.getParameter("title"));
     lesson.setContents(request.getParameter("contents"));
@@ -82,10 +79,9 @@ public class LessonAddServlet extends HttpServlet {
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
     lessonService.add(lesson);
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head>"
         + "<title>수업 등록</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
@@ -94,6 +90,7 @@ public class LessonAddServlet extends HttpServlet {
     out.println("<p>저장하였습니다.</p>");
     out.println("</body></html>");
   }
+
 
 
 }

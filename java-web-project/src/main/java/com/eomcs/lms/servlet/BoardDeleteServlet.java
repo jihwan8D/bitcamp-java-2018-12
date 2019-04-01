@@ -14,17 +14,18 @@ import com.eomcs.lms.service.BoardService;
 public class BoardDeleteServlet extends HttpServlet {
   
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(
+      HttpServletRequest request, 
+      HttpServletResponse response)
       throws ServletException, IOException {
     
-    BoardService boardService = 
-        InitServlet.iocContainer.getBean(BoardService.class);
-    
+    BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
+
     int no = Integer.parseInt(request.getParameter("no"));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-
+    
     out.println("<html><head>"
         + "<title>게시물 삭제</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
@@ -39,7 +40,8 @@ public class BoardDeleteServlet extends HttpServlet {
     
     out.println("</body></html>");
   }
-  
+
+
 }
 
 

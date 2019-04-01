@@ -13,22 +13,22 @@ import com.eomcs.lms.service.BoardService;
 @SuppressWarnings("serial")
 @WebServlet("/board/update")
 public class BoardUpdateServlet extends HttpServlet {
-  
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
+  @Override
+  protected void doPost(
+      HttpServletRequest request, 
+      HttpServletResponse response)
+      throws ServletException, IOException {
     
-    BoardService boardService = 
-        InitServlet.iocContainer.getBean(BoardService.class);
-    
+    BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
+
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setContents(request.getParameter("contents"));
     
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+    
     out.println("<html><head>"
         + "<title>게시물 변경</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
@@ -43,7 +43,9 @@ public class BoardUpdateServlet extends HttpServlet {
     
     out.println("</body></html>");
   }
+ 
 }
+
 
 
 

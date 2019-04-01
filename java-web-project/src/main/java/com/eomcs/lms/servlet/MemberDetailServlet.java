@@ -13,28 +13,27 @@ import com.eomcs.lms.service.MemberService;
 @SuppressWarnings("serial")
 @WebServlet("/member/detail")
 public class MemberDetailServlet extends HttpServlet {
-  
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MemberService memberService = 
-        InitServlet.iocContainer.getBean(MemberService.class);
-    
+    request.setCharacterEncoding("UTF-8");
+    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+
     int no = Integer.parseInt(request.getParameter("no"));
 
     Member member = memberService.get(no);
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 조회</title></head>");
     out.println("<body><h1>회원 조회</h1>");
-    
+
     if (member == null) {
       out.println("<p>해당 번호의 회원이 없습니다.</p>");
     } else {
-      out.println("<form action='update' method='post'>");
+      out.println("<form action='update' method='post' enctype='multipart/form-data'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -54,11 +53,22 @@ public class MemberDetailServlet extends HttpServlet {
       out.println("  <th>암호</th>");
       out.println("  <td><input type='password' name='password'></td>");
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>사진</th>");
-      out.printf("  <td><input type='text' name='photo' value='%s'></td>\n",
+      
+      out.println("  <td>");
+      if (member.getPhoto() == null) {
+        out.printf("<img src='../images/default.jpg' style='height:80px'>",
+            member.getPhoto());
+      } else {
+        out.printf("<img src='../upload/member/%s' style='height:80px'>",
           member.getPhoto());
+      }
+      out.println("<input type='file' name='photo'></td>\n");
+      
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>전화</th>");
       out.printf("  <td><input type='text' name='tel' value='%s'></td>\n",
@@ -79,5 +89,4 @@ public class MemberDetailServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
-  
 }

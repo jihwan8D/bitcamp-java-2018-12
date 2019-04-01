@@ -112,7 +112,8 @@
   <update id="update" parameterType="photoBoard">
     update lms_photo 
     set 
-      titl = #{title} 
+      titl = #{title},
+      lesson_id = #{lessonNo}
     where 
       photo_id = #{no}
   </update>

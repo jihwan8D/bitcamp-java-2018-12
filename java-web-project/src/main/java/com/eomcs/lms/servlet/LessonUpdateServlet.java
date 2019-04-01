@@ -20,8 +20,7 @@ public class LessonUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LessonService lessonService = 
-        InitServlet.iocContainer.getBean(LessonService.class);
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
 
     Lesson lesson = new Lesson();
     lesson.setNo(Integer.parseInt(request.getParameter("no")));
@@ -34,6 +33,7 @@ public class LessonUpdateServlet extends HttpServlet {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
     out.println("<html><head>"
         + "<title>수업 변경</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
@@ -48,4 +48,6 @@ public class LessonUpdateServlet extends HttpServlet {
 
     out.println("</body></html>");
   }
+
 }
+

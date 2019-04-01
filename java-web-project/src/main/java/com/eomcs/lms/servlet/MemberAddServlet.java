@@ -1,31 +1,35 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @SuppressWarnings("serial")
 @WebServlet("/member/add")
 public class MemberAddServlet extends HttpServlet {
-
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-
+    
     out.println("<html>");
     out.println("<head><title>새 회원</title></head>");
     out.println("<body>");
     out.println("<h1>새 회원</h1>");
-    out.println("<form action='add' method='post'>");
+    out.println("<form action='add' method='post' enctype='multipart/form-data'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("  <th>이름</th>");
@@ -41,7 +45,7 @@ public class MemberAddServlet extends HttpServlet {
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>사진</th>");
-    out.println("  <td><input type='text' name='photo'></td>");
+    out.println("  <td><input type='file' name='photo'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>전화</th>");
@@ -57,26 +61,32 @@ public class MemberAddServlet extends HttpServlet {
     out.println("</html>");
   }
   
+  
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
+    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
     
-    MemberService memberService = 
-        InitServlet.iocContainer.getBean(MemberService.class);
-
     Member member = new Member();
     member.setName(request.getParameter("name"));
     member.setEmail(request.getParameter("email"));
     member.setPassword(request.getParameter("password"));
-    member.setPhoto(request.getParameter("photo"));
     member.setTel(request.getParameter("tel"));
+    
+    Part photo = request.getPart("photo");
+    if (photo.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      String uploadDir = this.getServletContext().getRealPath(
+          "/upload/member");
+      photo.write(uploadDir + "/" + filename);
+      member.setPhoto(filename);
+    }
 
     memberService.add(member);
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head>"
         + "<title>회원 등록</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
@@ -85,5 +95,6 @@ public class MemberAddServlet extends HttpServlet {
     out.println("<p>저장하였습니다.</p>");
     out.println("</body></html>");
   }
+  
 
 }

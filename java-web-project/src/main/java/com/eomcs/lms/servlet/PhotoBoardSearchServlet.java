@@ -15,14 +15,14 @@ import com.eomcs.lms.service.PhotoBoardService;
 @WebServlet("/photoboard/search")
 public class PhotoBoardSearchServlet extends HttpServlet {
 
-
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(
+      HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
 
     PhotoBoardService photoBoardService = 
         InitServlet.iocContainer.getBean(PhotoBoardService.class);
-    
+
     int lessonNo = 0;
     try {
       lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
@@ -38,7 +38,7 @@ public class PhotoBoardSearchServlet extends HttpServlet {
     }
 
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>사진 검색</title></head>");

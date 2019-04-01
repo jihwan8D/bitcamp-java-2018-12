@@ -19,15 +19,12 @@ public class LessonListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
-    LessonService lessonService = 
-        InitServlet.iocContainer.getBean(LessonService.class);
-    
+
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
     List<Lesson> lessons = lessonService.list();
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head><title>수업 목록</title></head>");
     out.println("<body><h1>수업 목록</h1>");
     out.println("<p><a href='add'>새 수업</a></p>");
@@ -46,5 +43,6 @@ public class LessonListServlet extends HttpServlet {
     }
     out.println("</table>");
     out.println("</body></html>");
+
   }
 }
