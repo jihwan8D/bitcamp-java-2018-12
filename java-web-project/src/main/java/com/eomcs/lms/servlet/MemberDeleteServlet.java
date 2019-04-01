@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.service.MemberService;
 
 @SuppressWarnings("serial")
@@ -18,7 +18,7 @@ public class MemberDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     MemberService memberService = 
-        ServerApp.iocContainer.getBean(MemberService.class);
+        InitServlet.iocContainer.getBean(MemberService.class);
     int no = Integer.parseInt(request.getParameter("no"));
 
     response.setContentType("text/html;charset=UTF-8");

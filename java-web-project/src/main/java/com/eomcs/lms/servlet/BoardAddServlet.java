@@ -1,16 +1,12 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
-import com.eomcs.lms.context.RequestMapping;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -19,9 +15,10 @@ import com.eomcs.lms.service.BoardService;
 public class BoardAddServlet extends HttpServlet {
   
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) // Get요청이 들어오면 호출돼서 실행된다.
+  protected void doGet(
+      HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
@@ -44,19 +41,21 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
-
+  
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(
+      HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
     request.setCharacterEncoding("UTF-8");
     
+    // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
+    BoardService boardService = 
+        InitServlet.iocContainer.getBean(BoardService.class);
+    
     Board board = new Board();
     board.setContents(request.getParameter("contents")
         + ":" + request.getRemoteAddr());
-    
-    BoardService boardService = 
-        ServerApp.iocContainer.getBean(BoardService.class);
     
     boardService.add(board);
     
@@ -71,7 +70,6 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</body></html>");
     
   }
-  
 }
 
 

@@ -2,19 +2,12 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
-import com.eomcs.lms.ServerApp;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.service.LessonService;
 
 @SuppressWarnings("serial")
@@ -26,7 +19,7 @@ public class LessonDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     LessonService lessonService = 
-        ServerApp.iocContainer.getBean(LessonService.class);
+        InitServlet.iocContainer.getBean(LessonService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));
 
