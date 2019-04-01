@@ -50,7 +50,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
         continue;
       
-      String filename = UUID.randomUUID().toString(); // 파일이름 랜덤으로 저장되게 하는 코드
+      String filename = UUID.randomUUID().toString();
       photo.write(uploadDir + "/" + filename);
       
       PhotoFile file = new PhotoFile();
