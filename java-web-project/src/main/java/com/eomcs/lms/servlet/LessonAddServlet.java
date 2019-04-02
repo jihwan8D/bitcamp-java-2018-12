@@ -80,15 +80,7 @@ public class LessonAddServlet extends HttpServlet {
 
     lessonService.add(lesson);
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>"
-        + "<title>수업 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>수업 등록</h1>");
-    out.println("<p>저장하였습니다.</p>");
-    out.println("</body></html>");
+    response.sendRedirect("list");
   }
 
 

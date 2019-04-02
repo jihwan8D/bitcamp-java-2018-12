@@ -125,6 +125,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
     }
     board.setFiles(files);
 
+    
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head>" + "<title>사진 등록</title>"
@@ -139,7 +141,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
     } else {
       photoBoardService.add(board);
-      out.println("<p>저장하였습니다.</p>");
+      response.sendRedirect("list");
+      return;
     }
     out.println("</body></html>");
   }

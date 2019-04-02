@@ -22,7 +22,7 @@ public class BoardServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
-    out.println("<html>");
+    out.println("<htm>");
     out.println("<head><title>게시물 관리</title></head>");
     out.println("<body>");
     
