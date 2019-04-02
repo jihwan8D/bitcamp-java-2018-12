@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ex08/s3")
+@WebServlet("/ex8/s3")
 @SuppressWarnings("serial")
 public class Servlet03 extends HttpServlet {
   
