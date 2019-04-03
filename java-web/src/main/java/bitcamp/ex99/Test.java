@@ -18,17 +18,14 @@ public class Test extends HttpServlet {
       throws ServletException, IOException {
     
     ServletContext sc = this.getServletContext();
-    sc.setAttribute("k1", "choi");
+    sc.setAttribute("xx", "choi");
     
     HttpSession session = req.getSession();
-    session.setAttribute("k2", "ji");
+    session.setAttribute("yy", "ji");
     
-    req.setAttribute("k3", "hwan");
-  
-    resp.setContentType("text/plain;charset=UTF-8");
-    PrintWriter out = resp.getWriter();
+    req.setAttribute("zz", "hwan");
     
-    out.println("보관소에 값을 넣었습니다. - /ex99/tt");
+    
   
   }
 }
