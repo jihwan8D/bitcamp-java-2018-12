@@ -1,3 +1,4 @@
+// 세션(session)의 타임아웃 설정 테스트
 package bitcamp.ex11;
 
 import java.io.IOException;
@@ -14,17 +15,22 @@ import javax.servlet.http.HttpSession;
 public class Servlet22 extends HttpServlet {
   
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(
+      HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
+
+    // setMaxInactiveInterval() 메서드로 지정된 시간 동안 
+    // 서버에 아무런 요청을 하지 않으면 해당 세션은 무효화 된다.
+    // 무효화된 세션은 사용할 수 없기 때문에 
+    // getSession()은 새 세션을 만들어 리턴한다.
+    //
     HttpSession session = request.getSession();
     
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
     out.printf("v1=%s\n", session.getAttribute("v1"));
-    
   }
-  
 }
+
 

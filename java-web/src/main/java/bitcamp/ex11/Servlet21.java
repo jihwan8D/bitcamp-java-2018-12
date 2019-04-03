@@ -1,3 +1,4 @@
+// 세션(session)의 타임아웃 설정
 package bitcamp.ex11;
 
 import java.io.IOException;
@@ -14,20 +15,22 @@ import javax.servlet.http.HttpSession;
 public class Servlet21 extends HttpServlet {
   
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(
+      HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
+    
     HttpSession session = request.getSession();
     
-    session.setMaxInactiveInterval(10);  
-//  => 다시 실행하면 10초카운트가 초기화하고 1초부터 다시 시작. 은행과 비슷하다.    
+    // 세션의 유효 시간(초)을 설정한다.
+    session.setMaxInactiveInterval(10);
+//  => 다시 실행하면 10초카운트가 초기화하고 1초부터 다시 시작. 은행과 비슷하다.   
+    
     session.setAttribute("v1", "aaa");
     
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("/ex11/s21 실행함!");
-    
   }
-  
 }
+
 
