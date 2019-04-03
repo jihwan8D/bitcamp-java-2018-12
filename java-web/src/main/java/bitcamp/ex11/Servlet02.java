@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/ex11/s1")
+@WebServlet("/ex11/s2")
 @SuppressWarnings("serial")
-public class Servlet01 extends HttpServlet {
+public class Servlet02 extends HttpServlet {
   
   @Override
   protected void service(
@@ -20,8 +20,17 @@ public class Servlet01 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex11/s1
+    // => http://localhost:8080/java-web/ex11/s2
     //
+    // 세션 아이디 보내기
+    // => 서버로부터 세션 아이디 쿠키를 받은 웹 브라우저는 해당 서버에 요청할 때마다
+    //    세션 아이디 쿠키를 보낸다.
+    // => HTTP 요청 프로토콜
+    
+    
+/*
+ 
+*/
     
     // 세션
     // => 클라이언트를 식별하는 기술이다.
@@ -65,7 +74,11 @@ public class Servlet01 extends HttpServlet {
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
-    out.println("/ex11/s1 - 세션을 생성하였습니다!");
+    // => 웹 브라우저를 종료하면 이전에 /ex11/s1 을 실행했을 때
+    //    서버로부터 받은 세션 아이디 쿠키가 삭제된다.
+    // => 그런 후에 웹 브라우저에서 이 서블릿을 요청하면
+    //    getSession()
+    out.printf("v1 = %s\n", session.getAttribute("v1"));
   }
 }
 

@@ -32,7 +32,19 @@
       name asc
   </select>
   
-  <select id="findByNo" resultMap="memberMap" parameterType="int">
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+    select 
+      <include refid="default-columns"/>, 
+      cdt, 
+      photo
+    from 
+      lms_member
+    where 
+      email = #{email}
+      and pwd = password(#{password})
+  </select>
+  
+    <select id="findByNo" resultMap="memberMap" parameterType="int">
     select 
       <include refid="default-columns"/>, 
       cdt, 
