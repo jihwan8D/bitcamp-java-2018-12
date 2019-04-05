@@ -24,46 +24,8 @@ public class MemberAddServlet extends HttpServlet {
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
     
-    out.println("<html>");
-    out.println("<head><title>새 회원</title></head>");
-    out.println("<body>");
-    
-    // 헤더를 출력한다.
-    request.getRequestDispatcher("/header").include(request, response);
-    
-    out.println("<h1>새 회원</h1>");
-    out.println("<form action='add' method='post' enctype='multipart/form-data'>");
-    out.println("<table border='1'>");
-    out.println("<tr>");
-    out.println("  <th>이름</th>");
-    out.println("  <td><input type='text' name='name'></td>");
-    out.println("</tr>");
-    out.println("<tr>");
-    out.println("  <th>이메일</th>");
-    out.println("  <td><input type='email' name='email'></td>");
-    out.println("</tr>");
-    out.println("<tr>");
-    out.println("  <th>암호</th>");
-    out.println("  <td><input type='password' name='password'></td>");
-    out.println("</tr>");
-    out.println("<tr>");
-    out.println("  <th>사진</th>");
-    out.println("  <td><input type='file' name='photo'></td>");
-    out.println("</tr>");
-    out.println("<tr>");
-    out.println("  <th>전화</th>");
-    out.println("  <td><input type='text' name='tel'></td>");
-    out.println("</tr>");
-    out.println("</table>");
-    out.println("<p>");
-    out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='list'>목록</a>");
-    out.println("</p>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
+    request.getRequestDispatcher("/member/form.jsp").include(request, response);
   }
   
   
