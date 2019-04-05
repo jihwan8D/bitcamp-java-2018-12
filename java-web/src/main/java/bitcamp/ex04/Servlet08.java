@@ -15,9 +15,6 @@ import javax.servlet.http.Part;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
-// 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
-// => web.xml에 설정할 수도 있고, 다음과 같이 애노테이션으로 설정할 수도 있다.
-//
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/ex04/s8")
 public class Servlet08 extends GenericServlet {
@@ -37,10 +34,9 @@ public class Servlet08 extends GenericServlet {
     // 테스트
     // - http://localhost:8080/java-web/ex04/test08.html 실행
     //
-
+    
     req.setCharacterEncoding("UTF-8");
     
-    // 파라미터로 받은 ServletRequest를 원래의 타입으로 변환하라.
     HttpServletRequest httpReq = (HttpServletRequest) req;
     
     res.setContentType("text/html;charset=UTF-8");
@@ -64,9 +60,19 @@ public class Servlet08 extends GenericServlet {
     
     // 원본 사진을 가지고 특정 크기의 썸네일 이미지를 만들기
     // 1) 썸네일 이미지를 생성해주는 자바 라이브러리 추가
+    //    => mvnrepository.com에서 thumbnailator 라이브러리 검색
+    //    => build.gradle 에 추가
+    //    => '$ gradle eclipse' 실행
+    //    => eclise IDE에서 프로젝트 리프래시
+    
+    // 2) 썸네일 이미지 만들기
+    //    => 원본 이미지 파일이 저장된 경로를 알려주고 
+    //       어떤 썸네일 이미지를 만들어야 하는지 설정한다.
     Thumbnails.of(this.uploadDir + "/" + filename)
-      .size(50, 50)
-      .outputFormat("jpg").toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+      .size(20, 20)
+      .outputFormat("jpg")
+      .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+
     
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/thumbnail.%s.jpg'><br>\n", filename);
