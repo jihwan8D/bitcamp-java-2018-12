@@ -6,6 +6,7 @@
 <title>새 글</title>
 </head>
 <body>
+
 <jsp:include page="/header.jsp"/>
 
   <h1>새 글(JSP)</h1>
@@ -23,4 +24,3 @@
   </form>
 </body>
 </html>
-

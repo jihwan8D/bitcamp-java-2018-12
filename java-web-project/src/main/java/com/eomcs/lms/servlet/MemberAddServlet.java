@@ -1,6 +1,5 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,20 +21,15 @@ public class MemberAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     response.setContentType("text/html;charset=UTF-8");
-    
     request.getRequestDispatcher("/member/form.jsp").include(request, response);
   }
-  
   
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
     
     Member member = new Member();
@@ -57,6 +51,5 @@ public class MemberAddServlet extends HttpServlet {
     
     response.sendRedirect("list");
   }
-  
 
 }

@@ -23,8 +23,7 @@ public class MemberUpdateServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
 
     Member member = new Member();
@@ -33,12 +32,11 @@ public class MemberUpdateServlet extends HttpServlet {
     member.setEmail(request.getParameter("email"));
     member.setPassword(request.getParameter("password"));
     member.setTel(request.getParameter("tel"));
-
     Part photo = request.getPart("photo");
+
     if (photo.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      String uploadDir = this.getServletContext().getRealPath(
-          "/upload/member");
+      String uploadDir = this.getServletContext().getRealPath("/upload/member");
       photo.write(uploadDir + "/" + filename);
       member.setPhoto(filename);
     }
@@ -47,13 +45,10 @@ public class MemberUpdateServlet extends HttpServlet {
       response.sendRedirect("list");
       return;
     }
-    
-    // 오류 내용 출력하는 JSP로 포워딩한다.
-    request.setAttribute("error.title", "회원정보 변경");
+    request.setAttribute("error.title", "회원 변경");
     request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
     
     request.getRequestDispatcher("/error.jsp").forward(request, response);
-
   }
 
 

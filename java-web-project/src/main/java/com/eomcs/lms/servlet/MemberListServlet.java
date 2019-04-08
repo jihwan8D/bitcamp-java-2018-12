@@ -1,7 +1,6 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +20,18 @@ public class MemberListServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
 
     List<Member> members = memberService.list(null);
 
     request.setAttribute("list", members);
-
+    
     response.setContentType("text/html;charset=UTF-8");
-
-    RequestDispatcher rd = request.getRequestDispatcher("/member/list.jsp");
-    rd.include(request, response);
+    
+    request.getRequestDispatcher("/member/list.jsp").include(request, response);
+    
   }
+
+
 }

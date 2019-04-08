@@ -8,13 +8,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>사진 목록</title>
+<title>사진 검색</title>
 </head>
 <body>
   <jsp:include page="/header.jsp" />
-  <h1>사진 목록(JSP)</h1>
+  <h1>사진 검색</h1>
   <p>
     <a href='add'>새 사진</a>
+  </p>
+  <p>
+    <a href='../'>시스템 목록</a>
   </p>
   <table border='1'>
     <tr>
@@ -24,7 +27,7 @@
       <th>조회수</th>
       <th>수업</th>
     </tr>
- 
+
     <%for (PhotoBoard board : boards) {%>
     <tr>
       <td><%=board.getNo() %></td>
@@ -35,13 +38,6 @@
     </tr>
     <%} %>
   </table>
-
-  <form action='search'>
-    수업번호: <input type='text' name='lessonNo'> 검색어: 
-    <input type='text' name='keyword'>
-    <button type='submit'>검색</button>
-  </form>
-
 </body>
 </html>
 

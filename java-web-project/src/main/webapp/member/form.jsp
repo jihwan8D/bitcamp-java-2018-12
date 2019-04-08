@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>새 회원</title>
 </head>
 <body>
+
   <jsp:include page="/header.jsp" />
 
   <h1>새 회원(JSP)</h1>
@@ -40,3 +40,8 @@
   </form>
 </body>
 </html>
+
+
+
+
+

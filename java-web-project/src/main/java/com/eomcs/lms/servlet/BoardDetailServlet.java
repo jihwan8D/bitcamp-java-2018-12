@@ -35,6 +35,7 @@ public class BoardDetailServlet extends HttpServlet {
     
     response.setContentType("text/html;charset=UTF-8");
     
+    // JSP의 실행을 포함시킨다.
     request.getRequestDispatcher("/board/detail.jsp").include(request, response);
   }
 

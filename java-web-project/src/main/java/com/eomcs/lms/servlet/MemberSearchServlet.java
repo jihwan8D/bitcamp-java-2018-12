@@ -1,8 +1,6 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,19 +20,20 @@ public class MemberSearchServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
     
     String keyword = request.getParameter("keyword");
-    List<Member> members = memberService.list(keyword);
     
-    request.setAttribute("list", members);
+    List<Member> members = memberService.list(keyword);
 
     response.setContentType("text/html;charset=UTF-8");
+    
+    request.setAttribute("member", members);
+    
+    request.getRequestDispatcher("/member/search.jsp").include(request, response);
+    
 
-    RequestDispatcher rd = request.getRequestDispatcher("/member/list.jsp");
-    rd.include(request, response);
   }
   
 }
