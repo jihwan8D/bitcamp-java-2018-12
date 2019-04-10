@@ -11,14 +11,14 @@ import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
 @Controller
-public class LoginController {
+public class AuthController {
 
   static final String REFERER_URL = "refererUrl";
 
   @Autowired MemberService memberService;
 
   @RequestMapping("/auth/login")
-  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     if (request.getMethod().equals("GET")) {
       HttpSession session = request.getSession();
@@ -63,6 +63,12 @@ public class LoginController {
     } else {
       return "redirect:" + refererUrl;
     }
+  }
+  
+  @RequestMapping("/auth/logout")
+  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    request.getSession().invalidate();
+    return "redirect:" + request.getServletContext().getContextPath();
   }
 }
 
