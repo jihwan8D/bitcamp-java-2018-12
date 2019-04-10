@@ -1,4 +1,4 @@
-package com.eomcs.lms.servlet;
+
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -7,42 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.service.LessonService;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/detail")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet("/lesson/detail")
+public class LessonDetailServlet extends HttpServlet {
 
   @Override
-  protected void doGet(
-      HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
-    // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
+
     ServletContext sc = this.getServletContext();
     ApplicationContext iocContainer = 
         (ApplicationContext) sc.getAttribute("iocContainer");
-    BoardService boardService = 
-        iocContainer.getBean(BoardService.class);
-    
+    LessonService lessonService = iocContainer.getBean(LessonService.class);
+
     int no = Integer.parseInt(request.getParameter("no"));
-    
-    Board board = boardService.get(no);
-    request.setAttribute("board", board);
+
+    Lesson lesson = lessonService.get(no);
+    request.setAttribute("lesson", lesson);
     
     // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
-    request.setAttribute("viewUrl", "/board/detail.jsp");
-  }
+    request.setAttribute("viewUrl", "/lesson/detail.jsp");
+  }  
 
 }
-
-
-
-
-
-
-
-
-
-
