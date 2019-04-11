@@ -8,8 +8,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.context.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -31,14 +31,8 @@ public class PhotoBoardController {
   }
   
   @RequestMapping("/photoboard/add")
-  public String add(
-      @RequestParam("title") String title,
-      @RequestParam("lessonNo") int lessonNo,
+  public String add(PhotoBoard board,
       @RequestParam("photo") Part[] photos) throws Exception {
-
-    PhotoBoard board = new PhotoBoard();
-    board.setTitle(title);
-    board.setLessonNo(lessonNo);
 
     ArrayList<PhotoFile> files = new ArrayList<>();
     
@@ -121,16 +115,8 @@ public class PhotoBoardController {
   }
   
   @RequestMapping("/photoboard/update")
-  public String update(
-      @RequestParam("no") int no,
-      @RequestParam("title") String title,
-      @RequestParam("lessonNo") int lessonNo,
+  public String update(PhotoBoard board,
       @RequestParam("photo") Part[] photos) throws Exception {
-
-    PhotoBoard board = new PhotoBoard();
-    board.setNo(no);
-    board.setTitle(title);
-    board.setLessonNo(lessonNo);
 
     ArrayList<PhotoFile> files = new ArrayList<>();
     String uploadDir = servletContext.getRealPath("/upload/photoboard");

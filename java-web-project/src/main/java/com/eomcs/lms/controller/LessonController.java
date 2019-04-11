@@ -1,12 +1,11 @@
 package com.eomcs.lms.controller;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.context.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
@@ -21,24 +20,8 @@ public class LessonController {
   }
   
   @RequestMapping("/lesson/add")
-  public String add(
-      @RequestParam("title") String title,
-      @RequestParam("contents") String contents,
-      @RequestParam("startDate") Date startDate,
-      @RequestParam("endDate") Date endDate,
-      @RequestParam("totalHours") int totalHours,
-      @RequestParam("dayHours") int dayHours) throws Exception {
-    
-    Lesson lesson = new Lesson();
-    lesson.setTitle(title);
-    lesson.setContents(contents);
-    lesson.setStartDate(startDate);
-    lesson.setEndDate(endDate);
-    lesson.setTotalHours(totalHours);
-    lesson.setDayHours(dayHours);
-
+  public String add(Lesson lesson) throws Exception {
     lessonService.add(lesson);
-
     return "redirect:list";
   }
   
@@ -70,25 +53,7 @@ public class LessonController {
   }
   
   @RequestMapping("/lesson/update")
-  public String update(
-      @RequestParam("no") int no,
-      @RequestParam("title") String title,
-      @RequestParam("contents") String contents,
-      @RequestParam("startDate") Date startDate,
-      @RequestParam("endDate") Date endDate,
-      @RequestParam("totalHours") int totalHours,
-      @RequestParam("dayHours") int dayHours) throws Exception {
-
-    Lesson lesson = new Lesson();
-    lesson.setNo(no);
-    lesson.setTitle(title);
-    lesson.setContents(contents);
-    lesson.setStartDate(startDate);
-    lesson.setEndDate(endDate);
-    lesson.setTotalHours(totalHours);
-    lesson.setDayHours(dayHours);
-
-
+  public String update(Lesson lesson) throws Exception {
     if (lessonService.update(lesson) == 0)
       throw new Exception("해당 번호의 수업이 없습니다.");
     
