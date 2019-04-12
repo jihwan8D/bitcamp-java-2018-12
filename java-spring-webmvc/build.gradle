@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'eclipse-wtp' // 웹 툴 플러그인
+    id 'eclipse-wtp'
     id 'war'
 }
 

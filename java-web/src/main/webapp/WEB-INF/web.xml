@@ -154,6 +154,17 @@
   </servlet-mapping>
   
   
+  
+   <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>bitcamp.HelloServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/lib/hello</url-pattern>
+  </servlet-mapping>  
+  
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
