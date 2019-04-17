@@ -4,7 +4,7 @@
 
 
 ## 주 액터(Primay Acto)
-회원, 스터디장, 관리자
+회원
 
 ## 보조 액터(Secondary Actor)
 
