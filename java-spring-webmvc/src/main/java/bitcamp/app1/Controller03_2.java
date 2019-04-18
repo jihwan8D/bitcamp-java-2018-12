@@ -26,7 +26,7 @@ public class Controller03_2 {
     return "handler1";
   }
   
-  @GetMapping(headers="age") // name 이라는 헤더를 포함 할 때 이 메서드가 호출된다.
+  @GetMapping(headers="age") // age 이라는 헤더를 포함 할 때 이 메서드가 호출된다.
   @ResponseBody 
   public String handler2() {
     return "handler2";

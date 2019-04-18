@@ -12,7 +12,7 @@ public class Controller03_1 {
 
   // 테스트 방법:
   // => http://localhost:8080/java-spring-webmvc/app1/c03_1?name=kim
-  @GetMapping(params="name") 
+  @GetMapping(params="name") // 웹 브라우저의 파라미터가 name이 있으면 이 메서드가 실행된다.
   @ResponseBody 
   public String handler1() {
     return "handler1";
