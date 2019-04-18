@@ -28,3 +28,5 @@
 
 ### 예외 흐름(Exception Flows)
 
+### 스터디 가입
+![스터디 가입](./images/uc-studyJoin&Ask.png)

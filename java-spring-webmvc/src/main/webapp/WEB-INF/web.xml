@@ -23,26 +23,15 @@
        => contextConfigLocation 초기화 파라미터 값은 
           XML 파일의 경로 대신 자바 클래스 이름을 지정한다.-->
   <servlet>
-    <servlet-name>app5</servlet-name>
+    <servlet-name>app1</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextClass</param-name>
-      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
-    </init-param>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>bitcamp.AppConfig</param-value>
-    </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>app5</servlet-name>
-    <url-pattern>/app5/*</url-pattern>
+    <servlet-name>app1</servlet-name>
+    <url-pattern>/app1/*</url-pattern>
   </servlet-mapping>
-  
-  <!-- 예2) WebApplicationInitializer 구현체를 이용하여 DispatcherServlet 설정하기
-       => bitcamp.WebApplicationInitializerImpl1 클래스 참조하라! -->
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -51,18 +40,3 @@
   </welcome-file-list>
 
 </web-app>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

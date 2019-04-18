@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
   
-  <context:component-scan base-package="bitcamp"/>
+  <context:component-scan base-package="bitcamp.app1"/>
   
 </beans>
 
