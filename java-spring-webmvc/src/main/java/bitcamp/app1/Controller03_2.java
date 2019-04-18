@@ -20,19 +20,19 @@ public class Controller03_2 {
   //    그 헤더를 처리하는 메서드를 정의할 때 사용한다.
   // => 보통 Open API를 개발하는 서비스 회사에서 많이 사용한다.
   
-  @GetMapping(headers="name") 
+  @GetMapping(headers="name") // name 이라는 헤더를 포함 할 때 이 메서드가 호출된다.
   @ResponseBody 
   public String handler1() {
     return "handler1";
   }
   
-  @GetMapping(headers="age") 
+  @GetMapping(headers="age") // name 이라는 헤더를 포함 할 때 이 메서드가 호출된다.
   @ResponseBody 
   public String handler2() {
     return "handler2";
   }
   
-  @GetMapping(headers={"age","name"}) 
+  @GetMapping(headers={"age","name"}) // name과 age라는 헤더를 포함 할 때 이 메서드가 호출된다. 
   @ResponseBody 
   public String handler3() {
     return "handler3";
