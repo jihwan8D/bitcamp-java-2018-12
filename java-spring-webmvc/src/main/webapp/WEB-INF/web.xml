@@ -26,6 +26,21 @@
     <!--  /app/* => app1으로 들어오는 모든걸 처리하겠다. -->
   </servlet-mapping>
  
+ 
+  <servlet>
+    <servlet-name>app2</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    <multipart-config>
+      <max-file-size>5000000</max-file-size>
+    </multipart-config>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>app2</servlet-name>
+    <url-pattern>/app2/*</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -33,8 +48,6 @@
   </welcome-file-list>
 
 </web-app>
-
-
 
 
 
