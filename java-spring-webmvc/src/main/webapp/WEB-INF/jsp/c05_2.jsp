@@ -7,6 +7,6 @@
 <title>jsp</title>
 </head>
 <body>
-<h1>jspjpsjpsjspjspsjpsjspjspjspzzzzzzzzzzzzzzzzzzzzz</h1>
+<h1>/WEB-INF/jsp/c05_2.jsp</h1>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>jsp</title>
 </head>
 <body>
 <h1>/WEB-INF/jsp2/c01_1/h1.jsp</h1>
