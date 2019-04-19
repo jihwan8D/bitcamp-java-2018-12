@@ -7,8 +7,14 @@ public class Car {
   protected String maker;
   protected boolean auto;
   protected int capacity;
-  protected String createdDate;
-  protected  Engine engine;
+  protected Date createdDate;
+  protected Engine engine;
+  
+  @Override
+  public String toString() {
+    return "Car [model=" + model + ", maker=" + maker + ", auto=" + auto + ", capacity=" + capacity
+        + ", createdDate=" + createdDate + ", engine=" + engine + "]";
+  }
   public String getModel() {
     return model;
   }
@@ -27,17 +33,17 @@ public class Car {
   public void setAuto(boolean auto) {
     this.auto = auto;
   }
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
   public int getCapacity() {
     return capacity;
   }
   public void setCapacity(int capacity) {
     this.capacity = capacity;
-  }
-  public String getCreatedDate() {
-    return createdDate;
-  }
-  public void setCreatedDate(String createdDate) {
-    this.createdDate = createdDate;
   }
   public Engine getEngine() {
     return engine;
@@ -45,12 +51,6 @@ public class Car {
   public void setEngine(Engine engine) {
     this.engine = engine;
   }
-  @Override
-  public String toString() {
-    return "Car [model=" + model + ", maker=" + maker + ", auto=" + auto + ", capacity=" + capacity
-        + ", createdDate=" + createdDate + ", engine=" + engine + "]";
-  }
-  
   
   
 }
