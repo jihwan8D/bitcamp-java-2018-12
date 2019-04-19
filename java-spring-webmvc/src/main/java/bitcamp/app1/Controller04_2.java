@@ -51,7 +51,7 @@ public class Controller04_2 {
                    // 따라서 파라미터 값이 없으면 null을 받는다.
       
       @RequestParam(value="name3",required=false) String name3, 
-                    // required 프로퍼티를 false로 설정하면 선택 항목으로 인지한다.
+                    // required 프로퍼티를 false로 설정하면 선택 항목으로 인지한다.(파라미터값이 있어도 없어도 된다.)
       
       @RequestParam(value="name4",defaultValue="ohora") String name4
                     // 기본 값을 지정하면 파라미터 값이 없어도 된다.
