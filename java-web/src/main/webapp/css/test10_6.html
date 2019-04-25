@@ -13,6 +13,7 @@
     font-size: medium;
     border: 1px solid black;
     margin: 10px;
+    position: relative;
   }
 
   address {
@@ -37,8 +38,11 @@
     width: 180px;
     border: 1px solid red;
     position: absolute;
-    left: 10px;
-    top: 10px;
+
+    /* body를 기준으로 왼쪽, 위 10px을 띔 
+    (body에 position: relative; 가 있기때매)*/
+    left: 0px; 
+    top: 0px; 
   }
 
   #menu ul > li {
@@ -52,14 +56,19 @@
   #content {
     font-family: 바탕체, 궁서체, AppleMyungjo, serif;
     border: 1px solid red;
-    margin-left: 190px;
-    min-height: 430px;
+    margin-left: 181px;
+    padding: 10px;
+    min-height: 495px; 
   }
 
   #footer {
     font-size: 80%; /* = 0.8em */
-    clear: left; /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
-                    그 아래로 위치하도록 이동시킨다.*/
+    
+    /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
+    그 아래로 위치하도록 이동시킨다.
+    단 왼쪽에 있는 것이 float 객체일 때!
+    */
+    clear: left;  /* clear는 float이랑 한 쌍이다.*/
     text-align: center;
     border: 1px solid red;
   }
@@ -116,7 +125,6 @@
     <li>빅데이터 프로페셔널 과정</li>
   </ul>
   비트캠프는 우수한 개발자를 양성합니다.
-  .<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>
   </div>
 
   <div id="footer">
