@@ -22,21 +22,21 @@
       <div class="form-group row">
         <label for="contents" class="col-sm-2 col-form-label">수업</label>
         <div class="col-sm-8">
-          <textarea class="form-control" id="title" name='title' cols='10'>${lesson.title}</textarea>
+          <textarea class="form-control" id="title" name='title' cols='10'></textarea>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="contents" class="col-sm-2 col-form-label">내용</label>
         <div class="col-sm-8">
-          <textarea class="form-control" id="contents" name='contents' rows='5' cols='50'>${lesson.contents}</textarea>
+          <textarea class="form-control" id="contents" name='contents' rows='5' cols='50'></textarea>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="createdDate" class="col-sm-2 col-form-label">시작일</label>
         <div class="col-sm-4">
-          <input type="date" class="form-control-plaintext" id="startDate" name='endDate'>
+          <input type="date" class="form-control-plaintext" id="startDate" name='startDate'>
         </div>
       </div>
 
@@ -61,13 +61,12 @@
         </div>
       </div>
 
-  <div class="form-group row">
-    <div class="col-sm-10">
-      <button class="btn btn-primary">등록</button>
-      <a class="btn btn-primary" href='.'>목록</a> 
-    </div>
-  </div>
-      <!-- --------------------------------------------------------------------------------------------- -->
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button class="btn btn-primary">등록</button>
+          <a class="btn btn-primary" href='.'>목록</a>
+        </div>
+      </div>
     </form>
   </div>
   <jsp:include page="../javascript.jsp" />
