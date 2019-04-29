@@ -10,12 +10,12 @@
 "use strict"
 
 // 자바스크립트는 생성자 문법이 따로 없기 때문에 
-// 일반 용도의 함수와 생성자 용도이 함수를 구분하기 위해 
+// 일반 용도의 함수와 생성자 용도의 함수를 구분하기 위해 
 // 생성자 함수는 보통 대문자로 이름을 시작한다. 
 function Score(name, kor, eng, math) {
-	// 생성자로 호출되는 경우, 상위 생성자를 먼저 호출한다.
-	// this.Object(); 
-	
+  // 생성자로 호출되는 경우, 상위 생성자를 먼저 호출한다.
+  // this.Object(); 
+  
     this.name = name;
     this.kor = kor;
     this.eng = eng;
@@ -42,7 +42,7 @@ scores[2].kor = 100;
 
 for (var score of scores) {
     console.log(score.name, score.kor, score.eng, score.math, 
-    		score.sum(), score.aver());
+        score.sum(), score.aver());
 }
 
 console.log(scores[0]);

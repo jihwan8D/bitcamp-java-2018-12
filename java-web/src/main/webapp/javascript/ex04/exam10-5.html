@@ -15,7 +15,7 @@ function createScore(name, kor, eng, math) {
         "name": name,
         'kor': kor,
         'eng': eng,
-        'math': math,
+        math: math,
         sum() { 
             return this.kor + this.eng + this.math
         },
@@ -35,7 +35,7 @@ scores[2].kor = 100;
 
 for (var score of scores) {
     console.log(score.name, score.kor, score.eng, score.math, 
-    		score.sum(), score.aver());
+        score.sum(), score.aver());
 }
 </script>
 </body>
