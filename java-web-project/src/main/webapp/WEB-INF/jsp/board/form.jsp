@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>새 게시물</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
+  <title>게시글 등록</title>
+  <jsp:include page="../commonCss.jsp"/>
 </head>
 <body>
 
@@ -18,7 +17,7 @@
     <label for="contents" class="col-sm-2 col-form-label">내용</label>
     <div class="col-sm-8">
       <textarea class="form-control" id="contents" 
-                name='contents' rows='5'></textarea>
+                name='contents' rows='5'>${board.contents}</textarea>
     </div>
   </div>
   <div class="form-group row">

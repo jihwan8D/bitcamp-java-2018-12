@@ -4,10 +4,12 @@
 <html>
 <head>
   <title>로그인</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!-- <link rel="stylesheet" href="${contextRootPath}/node_modules/bootstrap/dist/css/bootstrap.min.css"> --> 
+   <!-- <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"> 위와 같은 위는 절대 경로로 지정함--> 
+  <jsp:include page="../commonCss.jsp"/>
 </head>
 <body>
-
+<!-- 서버에서 실행하는 경로 (파일경로)-->
 <jsp:include page="../header.jsp"/>
 
 <div class="container">
