@@ -597,4 +597,83 @@
     - @RequestHeader 처리
     - VO 파라미터 처리
 - Sprint WebMVC 프레임워크 적용
-    
+    - 웹 프로젝트 14단계 과제 수행
+
+## 71일(2019-4-12) 
+- Spring WebMVC 프레임워크 사용법 
+    - 프로젝트 생성(java-spring-webmvc)
+    - 스프링 Web MVC 설정하기
+
+## 72일(2019-4-15)
+- 프로젝트 발표
+    - UI 프로토타입 2차 발표
+- Use-case 모델링
+    - Actor 식별법
+    - Use-case 식별법
+    - Use-case 명세서 작성법
+
+## 73일(2019-4-16)
+- git 기본 사용법
+    - add, commit, push 등 다루기
+
+## 74일(2019-4-17)
+- git 고급 사용법
+    - branch 다루기
+
+## 75일(2019-4-18)
+- Spring WebMVC 프레임워크 사용법 II
+
+## 76일(2019-4-19)
+- Spring WebMVC 프레임워크 사용법 III
+
+## 77일(2019-4-22)
+- Spring WebMVC 프레임워크 사용법 IV
+
+## 78일(2019-4-23)
+- 웹 프로젝트 15단계 과제 수행 : XML로 설정하기
+    - web 패키지 추가
+        - 페이지 컨트롤러와 웹 관련 클래스들을 이 패키지로 옮긴다.
+    - Spring WebMVC XML 설정하기
+        - /WEB-INF/app-servlet.xml 파일 생성
+    - JSP 파일 옮기기 및 수정
+        - /WEB-INF/jsp/ 폴더로 JSP 파일을 옮긴다.
+        - header.jsp 경로 수정
+    - ContextLoaderListener의 IoC 컨테이너 설정하기
+        - /WEB-INF/application-context*.xml 파일 생성
+    - 페이지 컨트롤러 수정
+        - Spring Web MVC 관련 애노테이션을 적용한다.
+- 웹 프로젝트 16단계 과제 수행 : Java config 로 설정하기
+
+## 79일(2019-4-24)
+- CSS 사용법
+
+## 80일(2019-4-25)
+- CSS 사용법 II
+- 웹 프로젝트 17단계 과제 수행 : Bootstrap CSS 적용하기
+
+## 81일(2019-4-26)
+- JavaScript 사용법 I
+    - script 태그 사용법
+    - 자바 훑어보기
+    - 자바 변수와 제어문
+    - 자바 함수
+
+## 82일(2019-4-29)
+- JavaScript 사용법 II
+    - 객체 다루기
+    - DOM API 다루기
+    - Event 다루기
+
+## 83일(2019-4-30)
+- JavaScript 사용법 III
+    - AJAX 와 JSON
+- NPM 패키지 매니저 사용법
+
+## 84일(2019-5-1)
+- Spring WebMVC에서 JSON 다루기
+    - @RestController 사용법
+    - JSON 요청 파라미터 값 ==> 핸들러의 아규먼트 타입
+    - 핸들러의 리턴 값 ==> JSON 형식의 문자열
+- 웹 프로젝트 18단계 과제 수행 : NPM으로 CSS, 자바스크립트 라이브러리 관리하기
+- 웹 프로젝트 19단계 과제 수행 : 프론트엔드와 백엔드 분리하기
+
