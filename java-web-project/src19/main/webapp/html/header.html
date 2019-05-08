@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/java-web-project/html/index.html">수업관리시스템</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/html/auth/login.html">로그인</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/app/auth/logout">로그아웃</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/html/board/index.html">게시판</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/html/member/index.html">회원관리</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/html/lesson/index.html">수업관리</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/java-web-project/html/photoboard/index.html">수업사진관리</a></li>
+    </ul>
+    
+    <div id="bit-not-login-state" class="bit-invisible">
+      <a id="login-menu" class="btn btn-success btn-sm" 
+         href='/java-web-project/html/auth/login.html'>로그인</a>
+    </div>
+      
+    <div id="bit-login-state" class="bit-invisible">
+      <img id="login-userphoto" src='/java-web-project/images/default.jpg'>
+      <span id="login-username">user1</span>
+      <a id="logout-menu" class="btn btn-dark btn-sm" href='#'>로그아웃</a> 
+    </div>
+    
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="검색">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+    </form>
+  </div>
+</nav>
