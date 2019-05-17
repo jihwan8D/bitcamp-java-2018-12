@@ -165,6 +165,20 @@
     <url-pattern>/lib/hello</url-pattern>
   </servlet-mapping>  
   
+  <!-- /webapp/fileupload/*.html 예제에서 사용할 파일 업로드를 처리하는 JSP -->
+    <servlet>
+    <servlet-name>upload.jsp</servlet-name> <!-- jsp-file과 이름이 같지만 상용자 맘대로 지정 가능(okok로도 가능) -->
+    <jsp-file>/fileupload/upload.jsp</jsp-file>
+    <!-- 멀티파트 데이터를 처리하려면 다음 태그를 선언해야 한다. -->
+    <multipart-config>
+      <max-file-size>100000000</max-file-size>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>upload.jsp</servlet-name>
+    <url-pattern>/fileupload/upload.jsp</url-pattern>
+  </servlet-mapping>  
+  
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
