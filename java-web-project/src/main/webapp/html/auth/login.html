@@ -33,6 +33,11 @@
   </div>
   <button type="button" id="login-btn" class="btn btn-primary">로그인</button>
 </form>
+
+<br>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
 </div><!-- .container -->
 
 <script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
@@ -40,6 +45,7 @@
 <script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../header.js"></script>
 <script src="login.js"></script>
+
 </body>
 </html>
 

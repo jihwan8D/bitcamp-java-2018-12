@@ -6,7 +6,10 @@ package ch01; // 이 소스 파일에 작성하는 모든 클래스는 ch01 패�
 
 public class Test02 {
     public static void main(String[] args) {
+      System.out.println(1213);
         System.out.println("Hello!");
+        
+        String num = "111111";
     }
 }
 
